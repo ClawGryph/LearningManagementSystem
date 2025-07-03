@@ -38,7 +38,7 @@
             <button>Sign in</button>
         </div>
         <div>
-            <h2>Create Accoune</h2>
+            <h2>Create Account</h2>
             <form action="" method="POST">
                 <input type="text" id="firstName" name="firstname" placeholder="First Name" required>
                 <input type="text" id="lastName" name="lastName" placeholder="Last Name" required>
