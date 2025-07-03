@@ -21,12 +21,6 @@
                 <button type="submit">Sign in</button>
             </form>
         </div>
-        <div>
-            <h2>New here?</h2>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Iste delectus corrupti eum dolorum eligendi reiciendis alias sunt necessitatibus, id, non dolorem vel nihil perferendis? Mollitia cumque neque ab vitae impedit!
-            Numquam laboriosam libero officiis natus ex aspernatur, eum nam magnam minus cumque perspiciatis ea a ipsum placeat autem tempore praesentium ullam id. Id iste explicabo veritatis nemo aliquid corrupti recusandae?</p>
-            <button>Sign up</button>
-        </div>
     </div>
 </body>
 </html>
