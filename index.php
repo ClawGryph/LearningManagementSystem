@@ -9,7 +9,7 @@
     <div>
         <h2>Cebu Technological University</h2>
         <h3>Learning Management System</h3>
-        <!-- ICON !-->
+        <img src="./images/CTU-logo.png" alt="CTU Logo">
     </div>
     <form action="" method="POST">
         <h4>Choose your role</h4>
