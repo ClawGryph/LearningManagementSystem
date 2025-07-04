@@ -3,7 +3,7 @@
  --secondary-color: #f06543;
  --accent-color: #f09d51;
  --heading-color: #313638;
- --background-color: #e5e5e5;
+ --background-color: #d9d9d9;
  --border-color: #343a40;
  --box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
 }
@@ -57,3 +57,116 @@ h4{
         font-size: 2.4rem;
     }
 }
+
+/* MAIN */
+.container{
+    min-height: 100vh;
+    background-image: url(../images/CTU-background.jpg);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-color: var(--border-color);
+    background-blend-mode: multiply;
+}
+.wrapper{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.role-card{
+    background-color: var(--background-color);
+    padding: 3rem;
+    border-radius: 16px;
+    box-shadow: var(--box-shadow);
+    max-width: 500px;
+    width: 90%;
+}
+.card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 25px;
+}
+.card-header h2,h3{
+    margin: 0;
+    padding: 0;
+}
+.card-header h2{
+    font-size: 2.5rem;
+}
+.card-header h3{
+    font-size: 2rem;
+}
+.card-header .logo{
+    width: 100px;
+    height: 100px;
+    object-fit: contain;
+}
+.card-body{
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+.card-body label{
+    font-size: 1.8rem;
+    color: var(--heading-color);
+}
+.card-body select{
+    padding: 12px;
+    font-size: 16px;
+    border-radius: 12px;
+    border: none;
+    box-shadow: var(--box-shadow);
+    outline: none;
+}
+.card-body button{
+    width: 40%;
+    padding: 10px;
+    background-color: var(--secondary-color);
+    color: var(--primary-color);
+    font-size: 16px;
+    text-transform: uppercase;
+    border: none;
+    border-radius: 40px;
+    cursor: pointer;
+    box-shadow: var(--box-shadow);
+    margin: 0 auto;
+    transition: background-color 0.3s ease;
+}
+.card-body button:hover{
+    background-color: #c62828;
+}
+@media (max-width: 600px) {
+  .role-card {
+    padding: 2rem;
+  }
+
+  .card-header {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 1rem;
+  }
+
+  .card-header h2 {
+    font-size: 2rem;
+  }
+
+  .card-header h3 {
+    font-size: 1.5rem;
+  }
+
+  .card-header .logo {
+    width: 80px;
+    height: 80px;
+  }
+
+  .card-body label {
+    font-size: 1.2rem;
+  }
+
+  .card-body button {
+    width: 100%;
+  }
+}
+
