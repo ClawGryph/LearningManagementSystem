@@ -25,7 +25,7 @@
                     <option value="instructor">Instructor</option>
                     <option value="student">Student</option>
                 </select>
-                <button type="submit">Confirm</button>
+                <button type="submit" class="btn-drk-bg">Confirm</button>
             </form>
         </div>
     </main>

@@ -4,51 +4,84 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Signin/Signup</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+    <link rel="stylesheet" href="./css/normalize.css">
+    <link rel="stylesheet" href="./css/styles.css">
 </head>
 <body>
-    <!-- SIGN IN !-->
-    <div>
-        <div>
-            <h2>Cebu Technological University</h2>
-            <h3>Learning Management System</h3>
-            <!-- ICON !-->
+    <main class="container">
+        <div class="wrapper">
+            <div class="signin-signup-container">
+                <div class="signin-signup-body">
+                    <div class="signin-body">
+                        <div class="card-header">
+                            <div>
+                                <h2>Cebu Technological University</h2>
+                                <h3>Learning Management System</h3>
+                            </div>
+                            <img src="./images/CTU-logo.png" class="logo" alt="CTU Logo">
+                        </div>
+                        <form action="" method="POST" class="signin-form form-body">
+                            <h2 class="title">Sign in to your account</h2>
+                            <div class="input-field">
+                                <i class="fa-regular fa-envelope"></i>
+                                <input type="email" id="e-mail" name="e-mail" placeholder="E-mail" required>
+                            </div>
+                            <div class="input-field">
+                                <i class="fa-solid fa-lock"></i>
+                                <input type="password" id="password" name="password" placeholder="Password" required>
+                            </div>
+                            
+                            <button type="submit" class="btn-drk-bg">Sign in</button>
+                            <p class="account-text">Don't have an account? <a href="#" id="signup-btn2">Sign up</a></p>
+                        </form>
+                    </div>
+                    <form action="" method="POST" class="signup-form form-body">
+                        <h2 class="title">Create Account</h2>
+                        <div class="input-field">
+                            <i class="fa-regular fa-user"></i>
+                            <input type="text" id="firstName" name="firstname" placeholder="First Name" required>
+                        </div>
+                        <div class="input-field">
+                            <i class="fa-regular fa-user"></i>
+                            <input type="text" id="lastName" name="lastName" placeholder="Last Name" required>
+                        </div>
+                        <div class="input-field">
+                            <i class="fa-regular fa-envelope"></i>
+                            <input type="email" id="email" name="email" placeholder="E-mail" required>
+                        </div>
+                        <div class="input-field">
+                            <i class="fa-solid fa-lock"></i>
+                            <input type="password" id="password" name="password" placeholder="Password" required>
+                        </div>
+                        <div class="input-field">
+                            <i class="fa-solid fa-lock"></i>
+                            <input type="password" id="confirmPass" name="confirmPass" placeholder="Re-enter Password" required>
+                        </div>
+                            
+                        <button type="submit" class="btn-drk-bg">Sign up</button>
+                        <p class="account-text">Already have an account? <a href="#" id="signin-btn2">Sign in</a></p>
+                    </form>
+                </div>
+                <div class="panels-container">
+                    <div class="panel left-panel">
+                        <div class="content">
+                            <h3>Welcome Back!</h3>
+                            <p>To keep connected with us Sign in with your personal information</p>
+                            <button class="btn-light-bg" id="signin-btn">Sign in</button>
+                        </div>
+                    </div>
+                    <div class="panel right-panel">
+                        <div class="content">
+                            <h3>New here?</h3>
+                            <p>Sign up to gain access to our learning materials, resources, and more.</p>
+                            <button class="btn-light-bg" id="signup-btn">Sign up</button>
+                        </div>
+                    </div> 
+                </div>
+            </div>
         </div>
-        <div>
-            <h4>Sign in to your account</h4>
-            <form action="" method="POST">
-                <input type="email" id="e-mail" name="e-mail" placeholder="E-mail" required>
-                <input type="password" id="password" name="password" placeholder="Password" required>
-
-                <button type="submit">Sign in</button>
-            </form>
-        </div>
-        <div>
-            <h2>New here?</h2>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Iste delectus corrupti eum dolorum eligendi reiciendis alias sunt necessitatibus, id, non dolorem vel nihil perferendis? Mollitia cumque neque ab vitae impedit!
-            Numquam laboriosam libero officiis natus ex aspernatur, eum nam magnam minus cumque perspiciatis ea a ipsum placeat autem tempore praesentium ullam id. Id iste explicabo veritatis nemo aliquid corrupti recusandae?</p>
-            <button>Sign up</button>
-        </div>
-    </div>
-
-    <!-- SIGN UP !-->
-    <div>
-        <div>
-            <h2>Welcome Back!</h2>
-            <p>To keep connected with us Sign in with your personal information</p>
-            <button>Sign in</button>
-        </div>
-        <div>
-            <h2>Create Account</h2>
-            <form action="" method="POST">
-                <input type="text" id="firstName" name="firstname" placeholder="First Name" required>
-                <input type="text" id="lastName" name="lastName" placeholder="Last Name" required>
-                <input type="email" id="email" name="email" placeholder="E-mail" required>
-                <input type="password" id="password" name="password" placeholder="Password" required>
-                <input type="password" id="confirmPass" name="confirmPass" placeholder="Re-enter Password" required>
-
-                <button type="submit">Sign up</button>
-            </form>
-        </div>
-    </div>
+    </main>
+    <script src="./js/flipPages.js"></script>
 </body>
 </html>
