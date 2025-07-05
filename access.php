@@ -21,6 +21,7 @@
                             </div>
                             <img src="./images/CTU-logo.png" class="logo" alt="CTU Logo">
                         </div>
+                        <!-- SIGN IN !-->
                         <form action="" method="POST" class="signin-form form-body">
                             <h2 class="title">Sign in to your account</h2>
                             <div class="input-field">
@@ -30,21 +31,24 @@
                             <div class="input-field">
                                 <i class="fa-solid fa-lock"></i>
                                 <input type="password" id="password" name="password" placeholder="Password" required>
+                                <i class="fa-regular fa-eye toggle-password" toggle="#password"></i>
                             </div>
                             
                             <button type="submit" class="btn-drk-bg">Sign in</button>
                             <p class="account-text">Don't have an account? <a href="#" id="signup-btn2">Sign up</a></p>
                         </form>
                     </div>
-                    <form action="" method="POST" class="signup-form form-body">
+                    <!-- SIGN UP !-->
+                    <form action="./action/signup.php" method="POST" class="signup-form form-body" id="signup">
                         <h2 class="title">Create Account</h2>
+                        <span class="error-message"></span>
                         <div class="input-field">
                             <i class="fa-regular fa-user"></i>
-                            <input type="text" id="firstName" name="firstname" placeholder="First Name" required>
+                            <input type="text" id="firstName" name="firstname" placeholder="First Name" required maxlength="20">
                         </div>
                         <div class="input-field">
                             <i class="fa-regular fa-user"></i>
-                            <input type="text" id="lastName" name="lastName" placeholder="Last Name" required>
+                            <input type="text" id="lastName" name="lastName" placeholder="Last Name" required maxlength="20">
                         </div>
                         <div class="input-field">
                             <i class="fa-regular fa-envelope"></i>
@@ -52,11 +56,13 @@
                         </div>
                         <div class="input-field">
                             <i class="fa-solid fa-lock"></i>
-                            <input type="password" id="password" name="password" placeholder="Password" required>
+                            <input type="password" id="signup-password" name="password" placeholder="Password" required>
+                            <i class="fa-regular fa-eye toggle-password" toggle="#signup-password"></i>
                         </div>
                         <div class="input-field">
                             <i class="fa-solid fa-lock"></i>
                             <input type="password" id="confirmPass" name="confirmPass" placeholder="Re-enter Password" required>
+                            <i class="fa-regular fa-eye toggle-password" toggle="#confirmPass"></i>
                         </div>
                             
                         <button type="submit" class="btn-drk-bg">Sign up</button>
@@ -83,5 +89,7 @@
         </div>
     </main>
     <script src="./js/flipPages.js"></script>
+    <script src="./js/toggle.js"></script>
+    <script src="./js/passwordValidation.js"></script>
 </body>
 </html>
