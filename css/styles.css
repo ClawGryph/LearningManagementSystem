@@ -253,13 +253,15 @@ form.signup-form{
     transition: 0.5s ease-in-out;
     transition-delay: 0.5s;
 }
-.form-body .title{
+.form-body .title,
+.admin-form .title{
     color: var(--secondary-color);
     font-size: 20px;
     font-weight: 600;
     margin-bottom: 30px;
 }
-.form-body .input-field{
+.form-body .input-field,
+.admin-form .input-field{
     background: var(--background-color);
     border-bottom: 1px solid var(--border-color);
     width: 80%;
@@ -268,11 +270,13 @@ form.signup-form{
     display: flex;
     align-items: center;
 }
-.form-body .input-field i{
+.form-body .input-field i,
+.admin-form .input-field i{
     flex: 1;
     text-align: center;
 }
-.form-body .input-field input{
+.form-body .input-field input,
+.admin-form .input-field input{
     width: 100%;
     border: none;
     outline: none;
@@ -385,4 +389,12 @@ form.signup-form{
     .signin-form{
         width: 100%;
     }
+}
+
+/* ADMIN SIGNIN */
+.admin-form{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
 }
