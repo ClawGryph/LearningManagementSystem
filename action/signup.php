@@ -8,7 +8,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $email = trim($_POST['email']);
     $password = $_POST['signup-password'];
     $confirmPass = $_POST['confirmPass'];
-    $role = $_SESSION['selected_role'] ?? null; // ✅ Get role from session
+    $role = strtolower(trim($_SESSION['selected_role'] ?? null));
 
     // Validation
     if (!$role) {

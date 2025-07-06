@@ -1,3 +1,9 @@
+<?php
+session_start();
+$signinError = $_SESSION['signin_error'] ?? '';
+unset($_SESSION['signin_error']); // Clear it after displaying
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -22,11 +28,12 @@
                             <img src="./images/CTU-logo.png" class="logo" alt="CTU Logo">
                         </div>
                         <!-- SIGN IN !-->
-                        <form action="" method="POST" class="signin-form form-body">
+                        <form action="./action/signin.php" method="POST" class="signin-form form-body">
                             <h2 class="title">Sign in to your account</h2>
+                            <span class="signin-error-message"><?= htmlspecialchars($signinError) ?></span>
                             <div class="input-field">
                                 <i class="fa-regular fa-envelope"></i>
-                                <input type="email" id="e-mail" name="e-mail" placeholder="E-mail" required>
+                                <input type="email" id="e-mail" name="eMail" placeholder="E-mail" required>
                             </div>
                             <div class="input-field">
                                 <i class="fa-solid fa-lock"></i>
@@ -56,7 +63,7 @@
                         </div>
                         <div class="input-field">
                             <i class="fa-solid fa-lock"></i>
-                            <input type="password" id="signup-password" name="password" placeholder="Password" required>
+                            <input type="password" id="signup-password" name="signup-password" placeholder="Password" required>
                             <i class="fa-regular fa-eye toggle-password" toggle="#signup-password"></i>
                         </div>
                         <div class="input-field">
