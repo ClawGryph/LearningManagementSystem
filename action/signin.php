@@ -20,7 +20,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     if ($user = $result->fetch_assoc()) {
         if (password_verify($password, $user['password'])) {
-            echo "DEBUG: Password matches<br>";
+            // Set session variables
             $_SESSION['user_id'] = $user['id'];
             $_SESSION['role'] = $user['role'];
 
@@ -41,7 +41,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 
     $_SESSION['signin_error'] = "Incorrect email or password.";
-    header("Location: ../access.php");
+    if($role === 'admin') {
+        header("Location: ../adminAccess.php");
+    } else {
+        header("Location: ../access.php");
+    }
     exit;
 }
 ?>
