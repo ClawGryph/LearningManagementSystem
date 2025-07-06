@@ -42,6 +42,7 @@ unset($_SESSION['signin_error']); // Clear it after displaying
                             </div>
                             
                             <button type="submit" class="btn-drk-bg">Sign in</button>
+                            <p class="forgot-pass"><a href="forgotPasswordPage.php">Forgot password?</a></p>
                             <p class="account-text">Don't have an account? <a href="#" id="signup-btn2">Sign up</a></p>
                         </form>
                     </div>
