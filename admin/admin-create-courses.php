@@ -24,7 +24,10 @@
 
         <!-- SECOND PAGE !-->
         <div>
-            <h2>Create New Course</h2>
+            <div>
+                <i class="fa-solid fa-circle-arrow-left"></i>
+                <h2>Create New Course</h2>
+            </div>
             <form action="" method="POST">
                 <div>
                     <i class="fa-solid fa-book"></i>
