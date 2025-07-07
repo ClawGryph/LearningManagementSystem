@@ -27,13 +27,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             // Redirect
             switch ($user['role']) {
                 case 'admin':
-                    header("Location: ../admin/admin-dashboard.php");
+                    header("Location: ../admin/admin-landingpage.php");
                     break;
                 case 'instructor':
-                    header("Location: ../instructor/instructor-dashboard.php");
+                    header("Location: ../instructor/instructor-landingpage.php");
                     break;
                 case 'student':
-                    header("Location: ../student/student-dashboard.php");
+                    header("Location: ../student/student-landingpage.php");
                     break;
             }
             exit;
