@@ -4,7 +4,7 @@
  --accent-color: #f09d51;
  --heading-color: #313638;
  --background-color: #d9d9d9;
- --border-color: #d0ddea89;
+ --border-color: #727980;
  --box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
 }
 *, *::after, *::before{
@@ -65,7 +65,7 @@ h4{
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
-    background-color: var(--border-color);
+    background-color:#34383d;
     background-blend-mode: multiply;
 }
 .wrapper{
@@ -568,7 +568,7 @@ form.signup-form{
 .sidebar.close .nav-links li .sub-menu .sub-menu-header{
     font-size: 18px;
     color: var(--background-color);
-    border-bottom: 1px solid var(--border-color);
+    border-bottom: 1px solid #d0ddea89;
     opacity: 1;
     display: block;
 }
