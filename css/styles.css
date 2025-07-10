@@ -655,7 +655,7 @@ form.signup-form{
 .home-section .home-content{
     height: 60px;
     display: flex;
-    align-items: center;
+    flex-direction: column;
 }
 .home-section .home-content i,
 .home-section .home-content .menu-text{
@@ -669,4 +669,18 @@ form.signup-form{
 .home-section .home-content .menu-text{
     font-size: 20px;
     font-weight: 600;
+}
+
+/* CONTENT CONTAINER */
+.home-section .home-content .content-container{
+    display: flex;
+    flex-direction: column;
+    border: 1px solid red;
+}
+.home-section .home-content .first-page{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    height: 100%;
 }

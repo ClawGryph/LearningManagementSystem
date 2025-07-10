@@ -1,3 +1,24 @@
+<?php
+session_start();
+include '../db.php';
+
+$userId = $_SESSION['user_id'] ?? null;
+$userFullName = '';
+$userRole = '';
+
+if ($userId) {
+    $stmt = $conn->prepare("SELECT firstName, lastName, role FROM users WHERE userID = ?");
+    $stmt->bind_param("i", $userId);
+    $stmt->execute();
+    $stmt->bind_result($firstName, $lastName, $role);
+    if ($stmt->fetch()) {
+        $userFullName = htmlspecialchars($firstName . ' ' . $lastName);
+        $userRole = htmlspecialchars(ucfirst($role));
+    }
+    $stmt->close();
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -30,21 +51,21 @@
                 </ul>
             </li>
             <li>
-                <a href="#" data-content="admin-lm-lists">
+                <a href="#" data-content="admin-lm-lists.php">
                     <i class="fa-solid fa-book-open"></i>
                     <span class="link_name">Learning Materials Lists</span>
                 </a>
                 <ul class="sub-menu blank">
-                    <li><a href="#" data-content="admin-lm-lists" class="link_name">Learning Materials Lists</a></li>
+                    <li><a href="#" data-content="admin-lm-lists.php" class="link_name">Learning Materials Lists</a></li>
                 </ul>
             </li>
             <li>
-                <a href="#" data-content="admin-notification">
+                <a href="#" data-content="admin-notification.php">
                     <i class="fa-solid fa-bell"></i>
                     <span class="link_name">Notification</span>
                 </a>
                 <ul class="sub-menu blank">
-                    <li><a href="#" data-content="admin-notification" class="link_name">Notification</a></li> 
+                    <li><a href="#" data-content="admin-notification.php" class="link_name">Notification</a></li> 
                 </ul>
             </li>
             <li>
@@ -53,20 +74,18 @@
                         <img src="../images/profile.png" alt="empty profile image">
                     </div>
                     <div class="name-job">
-                        <div class="profile_name">Admin</div>
-                        <div class="job">Administrator</div>
+                        <div class="profile_name"><?= $userFullName ?: 'User' ?></div>
+                        <div class="job"><?= $userRole ?: 'Role' ?></div>
                     </div>
                     <a href="../index.php"><i class="fa-solid fa-right-from-bracket"></i></a>
                 </div>
             </li>
         </ul>
     </nav>
-    <main class="home-section">
-        <div class="home-content">
-            <i class="fa-solid fa-bars"></i>
-            <span class="menu-text">Drop Down Sidebar</span>
-        </div>
+    <main class="home-section" id="main-content">
+        
     </main>
+    <script src="../js/loadContents.js"></script>
     <script src="../js/linkView.js"></script>
 </body>
 </html>

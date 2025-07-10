@@ -1,10 +1,13 @@
-<div>
+<div class="home-content">
     <div>
+        <i class="fa-solid fa-bars"></i>
+        <span class="menu-text">Drop Down Sidebar</span>
+    </div>
+    <div class="content-container">
         <!-- FIRST PAGE -->
-        <div>
+        <div class="first-page">
             <div>
                 <h2>Welcome, Admin</h2>
-                <button type="submit">Logout</button>
             </div>
             <div>
                 <div>
