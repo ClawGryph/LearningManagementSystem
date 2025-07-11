@@ -15,21 +15,20 @@ ORDER BY lm.uploaded_at DESC
 ?>
 
 <div class="home-content">
-    <div>
+    <div class="sidebar-toggle">
         <i class="fa-solid fa-bars"></i>
         <span class="menu-text">Drop Down Sidebar</span>
     </div>
     <div class="content-container">
         <!-- FIRST PAGE -->
         <div class="first-page">
-            <div>
-                <h2>Welcome, Admin</h2>
-            </div>
-            <div>
-                <div>
-                    <button type="submit"><i class="fa-regular fa-circle-check"></i>Read</button>
-                    <input type="radio" id="checkAll" name="choices" value="checkAll">
-                    <label for="checkAll">Check All</label>
+            <h2>Welcome, Admin</h2>
+                <div class="notification-controls">
+                    <button type="submit" class="btn-drk-bg"><i class="fa-regular fa-circle-check"></i>Read</button>
+                    <div>
+                        <input type="checkbox" id="checkAll" name="choices" value="checkAll">
+                        <label for="checkAll">Check All</label>
+                    </div>
                 </div>
                 <?php if ($notifQuery->num_rows > 0): ?>
                 <?php while ($notif = $notifQuery->fetch_assoc()): ?>
@@ -49,7 +48,6 @@ ORDER BY lm.uploaded_at DESC
                 <?php else: ?>
                     <p>No new notifications.</p>
                 <?php endif; ?>
-            </div>
         </div>
     </div>
 </div>

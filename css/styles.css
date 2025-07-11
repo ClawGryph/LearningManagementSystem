@@ -122,7 +122,8 @@ h4{
 }
 .card-body button,
 .form-body button,
-.content button{
+.content button
+{
     width: 40%;
     padding: 10px;
     font-size: 16px;
@@ -671,6 +672,11 @@ form.signup-form{
     display: flex;
     flex-direction: column;
 }
+.home-section .home-content .sidebar-toggle{
+    display: flex;
+    align-items: center;
+    margin-top: 10px;
+}
 .home-section .home-content i,
 .home-section .home-content .menu-text{
     color: var(--secondary-color);
@@ -689,12 +695,43 @@ form.signup-form{
 .home-section .home-content .content-container{
     display: flex;
     flex-direction: column;
-    border: 1px solid red;
 }
 .home-section .home-content .first-page{
     display: flex;
-    align-items: center;
     justify-content: center;
     flex-direction: column;
     height: 100%;
+    background: var(--background-color);
+    margin: 10px;
+    padding: 20px;
+    border-radius: 16px;
+    box-shadow: var(--box-shadow);
+}
+.home-section .home-content .first-page h2{
+    font-size: 2.5rem;
+    margin: 10px 0 20px 0;
+    padding-bottom: 20px;
+    border-bottom: 1px solid var(--border-color);
+}
+.home-section .home-content .first-page .notification-controls{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+.home-section .home-content .first-page .notification-controls button{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100px;
+    padding: 10px;
+    border-radius: 40px;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+.home-section .home-content .first-page .notification-controls button i{
+    font-size: 20px;
+    color: var(--primary-color);
+    margin: 0 5px 0 0;
 }
