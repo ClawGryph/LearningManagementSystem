@@ -17,6 +17,10 @@ if ($userId) {
     }
     $stmt->close();
 }
+
+$notif = $conn->query("SELECT COUNT(*) AS notif_count FROM course_learningmaterials WHERE status = 'pending'");
+$row = $notif->fetch_assoc();
+$notifCount = $row['notif_count'];
 ?>
 
 <!DOCTYPE html>
@@ -60,8 +64,16 @@ if ($userId) {
                 </ul>
             </li>
             <li>
-                <a href="#" data-content="admin-notification.php">
+                <a href="#" data-content="admin-notification.php" class="notif">
                     <i class="fa-solid fa-bell"></i>
+
+                    <!-- Notification Badge -->
+                    <?php if ($notifCount > 0): ?>
+                        <span class="notif-badge"><?= $notifCount ?></span>
+                    <?php else: ?>
+                        <span class="notif-badge">0</span>
+                    <?php endif; ?>
+
                     <span class="link_name">Notification</span>
                 </a>
                 <ul class="sub-menu blank">

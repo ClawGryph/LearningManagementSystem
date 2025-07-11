@@ -492,6 +492,20 @@ form.signup-form{
     align-items: center;
     justify-content: space-between;
 }
+.sidebar .nav-links li .notif{
+    position: relative;
+}
+.sidebar .nav-links li .notif .notif-badge {
+    position: absolute;
+    top: 7px;
+    left: 40px;
+    background: red;
+    color: white;
+    font-size: 10px;
+    padding: 0px 3px;
+    border-radius: 50%;
+    font-weight: bold;
+}
 .sidebar .nav-links li i{
     height: 50px;
     min-width: 78px;
