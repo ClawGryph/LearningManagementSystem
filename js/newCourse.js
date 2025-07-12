@@ -1,6 +1,5 @@
 function initNewCourse(){
 
-    hideSidebarOnClick();
     toggleUserManagementView();
 
     function toggleUserManagementView() {
@@ -18,16 +17,6 @@ function initNewCourse(){
             event.preventDefault(); // Prevent form submission
             courseModal.classList.remove('active');
             firstPage.classList.remove('hidden');
-        });
-    }
-
-    // Hide Sidebar on click
-    function hideSidebarOnClick() {
-        const sidebar = document.querySelector('.sidebar');
-        const sidebarBtn = document.querySelector('.fa-bars');
-
-        sidebarBtn.addEventListener('click', () => {
-            sidebar.classList.toggle('close');
         });
     }
 

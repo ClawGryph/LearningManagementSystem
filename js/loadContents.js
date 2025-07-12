@@ -29,6 +29,7 @@ document.addEventListener("DOMContentLoaded", function() {
             if(normalizedUrl === 'admin-create-courses.php' && typeof initNewCourse === 'function') {
                 setTimeout(() => {
                     initNewCourse();
+                    if (typeof initHideSidebarOnClick === 'function') initHideSidebarOnClick();
                 }, 0);
             }
             if(normalizedUrl === 'admin-instructor-courses.php' && typeof initHideSidebarOnClick === 'function') {
