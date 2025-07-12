@@ -31,6 +31,11 @@ document.addEventListener("DOMContentLoaded", function() {
                     initNewCourse();
                 }, 0);
             }
+            if(normalizedUrl === 'admin-instructor-courses.php' && typeof initHideSidebarOnClick === 'function') {
+                setTimeout(() => {
+                    initHideSidebarOnClick();
+                }, 0);
+            }
         });
     }
 
