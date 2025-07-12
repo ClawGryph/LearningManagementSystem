@@ -85,13 +85,13 @@ function initNewCourse(){
 
                 // AJAX to update
                 var xhr = new XMLHttpRequest();
-                xhr.open("POST", "editPurchaseHandler.php", true);
+                xhr.open("POST", "../action/editInstructorCourse.php", true);
                 xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
                 xhr.onload = function() {
                     if (xhr.status === 200) {
                         courseCodeCell.textContent = newCourseCode;
                         courseNameCell.textContent = newCourseName;
-                        instructorNameCell.textContent = newIntructorName;
+                        instructorNameCell.textContent = instructorList.find(i => i.userID == newIntructorID)?.fullName || "Unknown";
                         btn.innerHTML = "<i class='fa-solid fa-pen-to-square'></i>";
                         btn.classList.add("editBtn");
                         btn.classList.remove("saveBtn");
@@ -100,7 +100,7 @@ function initNewCourse(){
                         if (!actionsCell.querySelector('.deleteBtn')) {
                             var deleteBtn = document.createElement('button');
                             deleteBtn.type = "button";
-                            deleteBtn.classList.add("icon", "deleteBtn", "delete-bg");
+                            deleteBtn.classList.add("home-contentBtn", "deleteBtn", "btn-drk-bg");
                             deleteBtn.innerHTML = "<i class='fa-solid fa-trash'></i>";
                             actionsCell.appendChild(deleteBtn);
                         }
