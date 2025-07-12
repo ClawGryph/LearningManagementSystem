@@ -12,12 +12,16 @@ $courseStmt->execute();
 $courses = $courseStmt->get_result();
 ?>
 
-<div>
-    <div>
+<div class="home-content">
+    <div class="sidebar-toggle">
+        <i class="fa-solid fa-bars"></i>
+        <span class="menu-text">Drop Down Sidebar</span>
+    </div>
+    <div class="content-container">
         <!-- FIRST PAGE -->
-        <div>
+        <div class="first-page">
             <h2>Add Instructor to the course</h2>
-            <form method="POST" action="../action/assignCourse.php">
+            <form method="POST" class="form-content form-widthpercent60" action="../action/assignCourse.php">
                 <h3>Select Instructor</h3>
                 <!-- List of instructors will be populated here -->
                 <select name="instructor_id" required>
@@ -40,7 +44,7 @@ $courses = $courseStmt->get_result();
                     </div>
                 <?php endwhile; ?>
 
-                <button type="submit" name="add_instructor">Add Instructor</button>
+                <button type="submit" class="home-contentBtn btn-accent-bg" name="add_instructor">Add Instructor</button>
             </form>
         </div>
     </div>

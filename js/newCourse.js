@@ -121,7 +121,7 @@ function initNewCourse(){
     document.getElementById("courseTable").addEventListener("click", function (e) {
         const deleteBtn = e.target.closest(".deleteBtn");
         if (deleteBtn) {
-            if (!confirm("Are you sure you want to delete this Course?")) return;
+            if (!confirm("Are you sure you want to delete this Teaching Load?")) return;
 
             const row = deleteBtn.closest("tr");
             const instructorCourseID = row.getAttribute('data-instructor_course-id');

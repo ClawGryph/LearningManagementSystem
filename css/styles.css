@@ -846,14 +846,25 @@ form.signup-form{
 }
 
 /* SECTIONS - FORM */
+.form-widthmin500{
+    max-width: 500px;
+}
+.form-widthpercent60{
+    width: 60%;
+}
 .home-section .home-content .first-page .form-content,
 .home-section .home-content .second-page .form-content{
-    max-width: 500px;
     margin: 0 auto;
     padding: 20px;
     background-color: #f4f4f4;
     border-radius: 12px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+.home-section .home-content .first-page .form-content h3,
+.home-section .home-content .second-page .form-content h3{
+    font-size: 2rem;
+    margin-bottom: 20px;
+    color: var(--heading-color);
 }
 .home-section .home-content .first-page .form-content div,
 .home-section .home-content .second-page .form-content div{
@@ -871,7 +882,8 @@ form.signup-form{
     font-size: 1.2rem;
     color: var(--secondary-color, #333);
 }
-.home-section .home-content .second-page .form-content input[type="text"]{
+.home-section .home-content .second-page .form-content input[type="text"],
+.home-section .home-content .first-page .form-content input[type="text"]{
     border: none;
     outline: none;
     width: 100%;
@@ -879,9 +891,29 @@ form.signup-form{
     background: transparent;
     color: #333;
 }
-.home-section .home-content .second-page .form-content input[type="text"]::placeholder{
+.home-section .home-content .first-page .form-content select{
+    width: 100%;
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    padding: 10px 12px;
+    margin-bottom: 20px;
+    font-size: 1.5rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+    transition: border 0.3s, box-shadow 0.3s;
+    background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg width='12' height='8' viewBox='0 0 12 8' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1.41.59L6 5.17l4.59-4.58L12 2l-6 6-6-6z' fill='%23333'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 12px center;
+    background-size: 12px;
+}
+.home-section .home-content .second-page .form-content input[type="text"]::placeholder,
+.home-section .home-content .first-page .form-content input[type="text"]::placeholder{
     color: #aaa;
 }
-.home-section .home-content .second-page .form-content .home-contentBtn{
+.home-section .home-content .second-page .form-content .home-contentBtn,
+.home-section .home-content .first-page .form-content .home-contentBtn{
     width: 100%;
 }

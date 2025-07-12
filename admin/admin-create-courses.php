@@ -73,7 +73,7 @@ while ($row = $query->fetch_assoc()) {
                 <a href="#" data-content="admin-create-courses.php"><i class="fa-solid fa-circle-arrow-left"></i></a>
                 <h2>Create New Course</h2>
             </div>
-            <form action="../action/addNewCourse.php" class="form-content" method="POST">
+            <form action="../action/addNewCourse.php" class="form-content form-widthmin500" method="POST">
                 <div>
                     <i class="fa-solid fa-book"></i>
                     <input type="text" id="courseCode" name="courseCode" placeholder="Enter course code" required>
