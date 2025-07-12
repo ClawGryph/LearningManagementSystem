@@ -12,14 +12,19 @@ $query = $conn->query("SELECT
                     JOIN courses c ON c.courseID = clm.courseID
                     WHERE clm.status = 'pending';");
 ?>
-<div>
-    <div>
+
+<div class="home-content">
+    <div class="sidebar-toggle">
+        <i class="fa-solid fa-bars"></i>
+        <span class="menu-text">Drop Down Sidebar</span>
+    </div>
+    <div class="content-container">
         <!-- FIRST PAGE -->
-        <div>
+        <div class="first-page">
             <h2>Learning materials to be approved</h2>
-            <div>
+            <div class="table-container">
                 <?php if ($query->num_rows > 0): ?>
-                <table>
+                <table class="table-content">
                     <thead>
                         <tr>
                             <th>Instructor Name</th>
@@ -29,7 +34,7 @@ $query = $conn->query("SELECT
                             <th>Action</th>
                         </tr>
                     </thead>
-                    <tbody>
+                    <tbody class="table-body">
                         <?php while ($row = $query->fetch_assoc()): ?>
                             <tr>
                                 <td><?php echo htmlspecialchars($row['Instructor_Name']); ?></td>
@@ -37,8 +42,8 @@ $query = $conn->query("SELECT
                                 <td><?php echo htmlspecialchars($row['file_name']); ?></td>
                                 <td><?php echo date("F j, Y g:i A", strtotime($row['uploaded_at'])) ?></td>
                                 <td>
-                                    <button type="button" class="approve-btn" data-id="<?php echo $row['course_lmID']; ?>">Approve</button>
-                                    <button type="button" class="reject-btn" data-id="<?php echo $row['course_lmID']; ?>">Reject</button>
+                                    <button type="button" class="home-contentBtn approve-btn btn-accent-bg" data-id="<?php echo $row['course_lmID']; ?>">Approve</button>
+                                    <button type="button" class="home-contentBtn reject-btn btn-drk-bg" data-id="<?php echo $row['course_lmID']; ?>">Reject</button>
                                 </td>
                             </tr>
                         <?php endwhile; ?>
