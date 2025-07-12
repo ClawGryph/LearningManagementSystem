@@ -24,6 +24,11 @@ document.addEventListener("DOMContentLoaded", function() {
             mainContent.querySelectorAll('script').forEach(script => {
                 if(script.textContent) eval(script.textContent);
             });
+
+            // Initialize specific functions after loading the page
+            if(normalizedUrl === 'admin-create-courses.php') {
+                initNewCourse();
+            }
         });
     }
 

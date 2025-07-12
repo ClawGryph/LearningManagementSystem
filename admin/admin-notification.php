@@ -24,7 +24,7 @@ ORDER BY lm.uploaded_at DESC
         <div class="first-page">
             <h2>Welcome, Admin</h2>
                 <div class="notification-controls">
-                    <button type="submit" class="btn-drk-bg"><i class="fa-regular fa-circle-check"></i>Read</button>
+                    <button type="submit" class="home-contentBtn btn-drk-bg"><i class="fa-regular fa-circle-check"></i>Read</button>
                     <div>
                         <input type="checkbox" id="checkAll" name="choices" value="checkAll">
                         <label for="checkAll">Check All</label>

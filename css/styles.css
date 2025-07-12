@@ -153,6 +153,9 @@ h4{
 .btn-light-bg:hover{
     background-color: #ecedee;
 }
+.btn-accent-bg:hover{
+    background-color: #fb8b24;
+}
 @media (max-width: 600px) {
   .role-card {
     padding: 2rem;
@@ -696,22 +699,58 @@ form.signup-form{
     display: flex;
     flex-direction: column;
 }
-.home-section .home-content .first-page{
+.home-section .home-content .first-page,
+.home-section .home-content .second-page{
     display: flex;
     justify-content: center;
     flex-direction: column;
-    height: 100%;
     background: var(--background-color);
-    margin: 10px;
+    margin: 20px;
     padding: 20px;
     border-radius: 16px;
     box-shadow: var(--box-shadow);
 }
-.home-section .home-content .first-page h2{
+.home-section .home-content .second-page{
+    display: none;
+}
+.home-section .home-content .first-page.hidden{
+    display: none;
+}
+.home-section .home-content .second-page.active{
+    display: block;
+}
+.home-section .home-content .first-page h2,
+.home-section .home-content .second-page h2{
     font-size: 2.5rem;
     margin: 10px 0 20px 0;
     padding-bottom: 20px;
     border-bottom: 1px solid var(--border-color);
+}
+.home-section .home-content .first-page .home-contentBtn,
+.home-section .home-content .second-page .home-contentBtn{
+    width: auto;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px 20px;
+    margin: 0;
+    border-radius: 40px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    box-shadow: var(--box-shadow);
+    border: none;
+    outline: none;
+    font-size: 16px;
+    gap: 8px;
+}
+.home-section .home-content .first-page .home-contentBtn i,
+.home-section .home-content .second-page .home-contentBtn i{
+    font-size: 1.2rem;
+    margin: 0;
+    color: var(--primary-color);
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 .home-section .home-content .first-page .notification-controls{
     display: flex;
@@ -719,19 +758,130 @@ form.signup-form{
     align-items: center;
     margin-bottom: 20px;
 }
-.home-section .home-content .first-page .notification-controls button{
+.home-section .home-content .first-page .page-header,
+.home-section .home-content .second-page .page-header{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid var(--border-color);
+}
+.home-section .home-content .first-page .page-header h2,
+.home-section .home-content .second-page .page-header h2{
+    border: none;
+    margin: 0;
+    padding: 0;
+    line-height: 1;
+}
+.home-section .home-content .first-page .page-header a,
+.home-section .home-content .second-page .page-header a{
+    text-decoration: none;
+}
+.home-section .home-content .first-page .page-header a i,
+.home-section .home-content .second-page .page-header a i{
     display: flex;
     align-items: center;
-    justify-content: center;
-    width: 100px;
-    padding: 10px;
-    border-radius: 40px;
-    border: none;
+    font-size: 2.5rem;
+    color: var(--secondary-color);
     cursor: pointer;
-    transition: background-color 0.3s ease;
 }
-.home-section .home-content .first-page .notification-controls button i{
-    font-size: 20px;
-    color: var(--primary-color);
-    margin: 0 5px 0 0;
+.home-section .home-content .first-page .page-header a i:hover,
+.home-section .home-content .second-page .page-header a i:hover{
+    color: #bb573e;
+}
+
+/* TABLE */
+.home-section .home-content .first-page .table-container{
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+}
+.home-section .home-content .first-page .table-container .table-content{
+    width: 100%;
+    border-collapse: collapse;
+    table-layout: fixed;
+}
+.home-section .home-content .first-page .table-container .table-content th,
+.home-section .home-content .first-page .table-container .table-content td{
+    padding: 1rem;
+    text-align: left;
+    word-wrap: break-word;
+    word-break: break-word;
+    overflow-wrap: break-word;
+}
+.home-section .home-content .first-page .table-container .table-content th{
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 1.5rem;
+    color: var(--heading-color);
+    background-color:  #dad6c4;
+    letter-spacing: 0.1rem;
+}
+.home-section .home-content .first-page .table-container .table-content td{
+    vertical-align: middle;
+    color: #3d0000;
+    padding: 10px;
+}
+.home-section .home-content .first-page .table-container .table-content td input[type="text"],
+.home-section .home-content .first-page .table-container .table-content td input[type="number"],
+.home-section .home-content .first-page .table-container .table-content td select{
+    width: 100%;
+    padding: 6px 10px;
+    font-size: 1rem;
+    border: 1px solid #aaa;
+    border-radius: 4px;
+    box-sizing: border-box;
+    background-color: #fff;
+    font-family: inherit;
+}
+.home-section .home-content .first-page .table-container .table-body tr{
+    border-bottom: 1px solid var(--border-color);
+}
+.home-section .home-content .first-page .table-container .table-body tr:last-child{
+    border-bottom: none;
+}
+.home-section .home-content .first-page .table-container .table-body tr:nth-child(even){
+    background-color: rgba(76, 77, 82, 0.1);
+}
+
+/* SECTIONS - FORM */
+.home-section .home-content .first-page .form-content,
+.home-section .home-content .second-page .form-content{
+    max-width: 500px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #f4f4f4;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+.home-section .home-content .first-page .form-content div,
+.home-section .home-content .second-page .form-content div{
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+    background-color: #fff;
+    padding: 10px 15px;
+    border-radius: 8px;
+    border: 1px solid var(--border-color, #ccc);
+}
+.home-section .home-content .first-page .form-content div i,
+.home-section .home-content .second-page .form-content div i{
+    margin-right: 12px;
+    font-size: 1.2rem;
+    color: var(--secondary-color, #333);
+}
+.home-section .home-content .second-page .form-content input[type="text"]{
+    border: none;
+    outline: none;
+    width: 100%;
+    font-size: 2rem;
+    background: transparent;
+    color: #333;
+}
+.home-section .home-content .second-page .form-content input[type="text"]::placeholder{
+    color: #aaa;
+}
+.home-section .home-content .second-page .form-content .home-contentBtn{
+    width: 100%;
 }
