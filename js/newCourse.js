@@ -126,7 +126,7 @@ function initNewCourse(){
             const row = deleteBtn.closest("tr");
             const instructorCourseID = row.getAttribute('data-instructor_course-id');
             const xhr = new XMLHttpRequest();
-            xhr.open("POST", "deletePurchaseHandler.php", true);
+            xhr.open("POST", "../action/deleteInstructorCourse.php", true);
             xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
             xhr.onload = function () {
                 if (xhr.status === 200 && xhr.responseText === "success") {
