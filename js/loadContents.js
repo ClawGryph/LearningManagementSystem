@@ -26,8 +26,10 @@ document.addEventListener("DOMContentLoaded", function() {
             });
 
             // Initialize specific functions after loading the page
-            if(normalizedUrl === 'admin-create-courses.php') {
-                initNewCourse();
+            if(normalizedUrl === 'admin-create-courses.php' && typeof initNewCourse === 'function') {
+                setTimeout(() => {
+                    initNewCourse();
+                }, 0);
             }
         });
     }

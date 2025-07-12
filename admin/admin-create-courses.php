@@ -1,3 +1,13 @@
+<?php
+include '../db.php';
+$instructors = [];
+
+$query = $conn->query("SELECT userID, CONCAT(firstName, ' ', lastName) AS fullName FROM users WHERE role = 'instructor'");
+while ($row = $query->fetch_assoc()) {
+    $instructors[] = $row;
+}
+?>
+
 <div class="home-content">
     <div class="sidebar-toggle">
         <i class="fa-solid fa-bars"></i>
@@ -11,7 +21,7 @@
                 <button type="submit" id="coursePage" class="home-contentBtn btn-accent-bg"><i class="fa-solid fa-circle-plus"></i>Create new course</button>
             </div>
             <div class="table-container">
-                <table class="table-content">
+                <table class="table-content" id="courseTable">
                     <thead>
                         <tr>
                             <th>No.</th>
@@ -26,14 +36,14 @@
                         <?php
                         include '../db.php';
 
-                        $stmt = $conn->prepare("SELECT c.courseCode, c.courseName, CONCAT(i.firstName, ' ', i.lastName) AS 'Instructors_Name', ic.code from instructor_courses ic JOIN courses c ON ic.courseID = c.courseID JOIN users i ON ic.instructorID = i.userID;");
+                        $stmt = $conn->prepare("SELECT c.courseCode, c.courseName, CONCAT(i.firstName, ' ', i.lastName) AS 'Instructors_Name', ic.code, ic.instructor_courseID from instructor_courses ic JOIN courses c ON ic.courseID = c.courseID JOIN users i ON ic.instructorID = i.userID;");
                         $stmt->execute();
                         $result = $stmt->get_result();
 
                         if ($result->num_rows > 0) {
                             $count = 1;
                             while ($row = $result->fetch_assoc()) {
-                                echo "<tr>
+                                echo "<tr data-instructor_course-id='{$row['instructor_courseID']}'>
                                         <td>{$count}</td>
                                         <td>{$row['courseCode']}</td>
                                         <td>{$row['courseName']}</td>
@@ -76,4 +86,8 @@
             </form>
         </div>
     </div>
+    <script>
+        // Embed instructor data into JS
+        window.instructorList = <?= json_encode($instructors) ?>;
+    </script>
 </div>
