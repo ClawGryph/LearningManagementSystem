@@ -7,13 +7,14 @@ $userFullName = '';
 $userRole = '';
 
 if ($userId) {
-    $stmt = $conn->prepare("SELECT firstName, lastName, role FROM users WHERE userID = ?");
+    $stmt = $conn->prepare("SELECT firstName, lastName, role, profileImage FROM users WHERE userID = ?");
     $stmt->bind_param("i", $userId);
     $stmt->execute();
-    $stmt->bind_result($firstName, $lastName, $role);
+    $stmt->bind_result($firstName, $lastName, $role, $profileImage);
     if ($stmt->fetch()) {
         $userFullName = htmlspecialchars($firstName . ' ' . $lastName);
         $userRole = htmlspecialchars(ucfirst($role));
+        $profileImage = $profileImage ?: 'default.png';
     }
     $stmt->close();
 }
@@ -83,8 +84,20 @@ $notifCount = $row['notif_count'];
             <li>
                 <div class="profile-details">
                     <div class="profile-content">
-                        <img src="../images/profile.png" alt="empty profile image">
+                        <div class="overlay-text"><i class="fa-solid fa-camera"></i></div>
+
+                        <!-- Image preview area -->
+                        <img src="../uploads/<?= $profileImage ?>" id="profileImagePreview" alt="Profile Image">
+
+                        <!-- Trigger file input on click (optional, for UX) -->
+                        <input type="file" id="profileImageInput" style="display: none;" accept="image/*">
+
+                        <!-- Actual form used for uploading -->
+                        <form action="../action/uploadProfileImage.php" id="uploadProfileForm" enctype="multipart/form-data" style="display: none;" method="POST">
+                            <input type="file" name="profileImage" id="profileImageRealInput" accept="image/*">
+                        </form>
                     </div>
+
                     <div class="name-job">
                         <div class="profile_name"><?= $userFullName ?: 'User' ?></div>
                         <div class="job"><?= $userRole ?: 'Role' ?></div>
@@ -98,6 +111,7 @@ $notifCount = $row['notif_count'];
         
     </main>
     <script src="../js/loadContents.js"></script>
+    <script src="../js/imageUpload.js"></script>
     <script src="../js/linkView.js"></script>
     <script src="../js/hideSidebar.js"></script>
     <script src="../js/newCourse.js"></script>

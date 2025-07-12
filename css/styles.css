@@ -618,9 +618,30 @@ form.signup-form{
     width: 78px;
     background: none;
 }
+.sidebar .profile-details .overlay-text {
+    position: absolute;
+    top: 0;
+    left: 12px;
+    height: 52px;
+    width: 52px;
+    border-radius: 16px;
+    background: rgba(0, 0, 0, 0.5);
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    pointer-events: none;
+}
+.sidebar .profile-details .profile-content:hover .overlay-text {
+    opacity: 1;
+}
 .sidebar .profile-details .profile-content{
     display: flex;
     align-items: center;
+    position: relative;
+    cursor: pointer;
 }
 .sidebar .profile-details img{
     height: 52px;
@@ -629,8 +650,11 @@ form.signup-form{
     border-radius: 16px;
     margin: 0 14px 0 12px;
     background-color: var(--background-color);
-    padding: 10px;
+    padding: 2px;
     transition: all 0.5s ease;
+}
+.sidebar .profile-details img:hover{
+    opacity: 0.1;
 }
 .sidebar.close .profile-details img{
     padding: 10px;
