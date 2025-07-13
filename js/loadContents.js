@@ -42,9 +42,13 @@ document.addEventListener("DOMContentLoaded", function() {
 
     //Auto-load notification page when successully logged in (Admin, Instructor, Student)
     const isAdminPage = document.querySelector('a[data-content="admin-notification.php"]');
+    const isInstructorPage = document.querySelector('a[data-content="instructor-notification.php"]');
 
     if(isAdminPage) {
         loadPage('admin-notification.php');
+    }
+    else if(isInstructorPage) {
+        loadPage('instructor-notification.php');
     }
 
     document.addEventListener('click', function(e){

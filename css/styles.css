@@ -618,7 +618,8 @@ form.signup-form{
     width: 78px;
     background: none;
 }
-.sidebar .profile-details .overlay-text {
+.sidebar .profile-details .overlay-text,
+.sidebar.close .profile-details .overlay-text {
     position: absolute;
     top: 0;
     left: 12px;
@@ -634,7 +635,8 @@ form.signup-form{
     transition: opacity 0.3s ease;
     pointer-events: none;
 }
-.sidebar .profile-details .profile-content:hover .overlay-text {
+.sidebar .profile-details .profile-content:hover .overlay-text,
+.sidebar.close .profile-details .profile-content:hover .overlay-text {
     opacity: 1;
 }
 .sidebar .profile-details .profile-content{
@@ -657,7 +659,7 @@ form.signup-form{
     opacity: 0.1;
 }
 .sidebar.close .profile-details img{
-    padding: 10px;
+    padding: 2px;
 }
 .sidebar .profile-details i{
     transform: scaleX(-1);
