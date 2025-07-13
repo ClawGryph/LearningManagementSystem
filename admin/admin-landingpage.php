@@ -110,6 +110,9 @@ $notifCount = $row['notif_count'];
     <main class="home-section" id="main-content">
         
     </main>
+    <script>
+        const currentUserRole = "<?= $_SESSION['role'] ?? '' ?>";
+    </script>
     <script src="../js/loadContents.js"></script>
     <script src="../js/imageUpload.js"></script>
     <script src="../js/linkView.js"></script>

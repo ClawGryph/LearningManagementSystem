@@ -943,3 +943,38 @@ form.signup-form{
 .home-section .home-content .first-page .form-content .home-contentBtn{
     width: 100%;
 }
+
+/* Card */
+.home-section .home-content .content-container .first-page .course-card{
+    display: flex;
+    min-height: 100px;
+    flex-direction: column;
+    background-color: #fff;
+    border-radius: 12px;
+    box-shadow: var(--box-shadow);
+    padding: 20px;
+    margin-bottom: 20px;
+    text-decoration: none;
+    gap: 0;
+}
+.home-section .home-content .content-container .first-page .course-card h3{
+    font-size: 2rem;
+    text-transform: uppercase;
+    font-weight: 600;
+    color: var(--heading-color);
+}
+.home-section .home-content .content-container .first-page .course-card h4{
+    font-size: 1.5rem;
+    color: var(--border-color);
+    margin: 10px 0;
+}
+.home-section .home-content .content-container .first-page .course-card p{
+    font-size: 1.5rem;
+    color: var(--secondary-color);
+    margin: 0;
+    padding: 0;
+}
+.home-section .home-content .content-container .first-page .course-card p span{
+    font-weight: 600;
+    color: var(--heading-color);
+}

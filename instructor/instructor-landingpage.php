@@ -39,12 +39,12 @@ if ($userId) {
         <ul class="nav-links">
             <!-- 1 -->
             <li>
-                <a href="#" data-content="admin-lm-lists.php">
+                <a href="#" data-content="instructor-classes.php">
                     <i class="fa-solid fa-person-chalkboard"></i>
                     <span class="link_name">My class</span>
                 </a>
                 <ul class="sub-menu blank">
-                    <li><a href="#" data-content="admin-lm-lists.php" class="link_name">My class</a></li>
+                    <li><a href="#" data-content="instructor-classes.php" class="link_name">My class</a></li>
                 </ul>
             </li>
 
@@ -120,6 +120,9 @@ if ($userId) {
     <main class="home-section" id="main-content">
         
     </main>
+    <script>
+        const currentUserRole = "<?= $_SESSION['role'] ?? '' ?>";
+    </script>
     <script src="../js/loadContents.js"></script>
     <script src="../js/imageUpload.js"></script>
     <script src="../js/linkView.js"></script>

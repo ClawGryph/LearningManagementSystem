@@ -5,7 +5,8 @@ document.addEventListener("DOMContentLoaded", function() {
         'admin-notification.php' : 'Admin | Notification',
         'admin-create-courses.php' : 'Admin | Create Course',
         'admin-instructor-courses.php' : 'Admin | Add Instructor to Course',
-        'admin-lm-lists.php' : 'Admin | Materials Lists'
+        'admin-lm-lists.php' : 'Admin | Materials Lists',
+        'instructor-classes.php' : 'Instructor | Classes'
     };
 
     const mainContent = document.getElementById('main-content');
@@ -27,8 +28,8 @@ document.addEventListener("DOMContentLoaded", function() {
 
             // Initialize specific functions after loading the page
             if(normalizedUrl === 'admin-create-courses.php' && typeof initNewCourse === 'function') {
+                initNewCourse();
                 setTimeout(() => {
-                    initNewCourse();
                     if (typeof initHideSidebarOnClick === 'function') initHideSidebarOnClick();
                 }, 0);
             }
@@ -41,14 +42,16 @@ document.addEventListener("DOMContentLoaded", function() {
     }
 
     //Auto-load notification page when successully logged in (Admin, Instructor, Student)
-    const isAdminPage = document.querySelector('a[data-content="admin-notification.php"]');
-    const isInstructorPage = document.querySelector('a[data-content="instructor-notification.php"]');
-
-    if(isAdminPage) {
-        loadPage('admin-notification.php');
-    }
-    else if(isInstructorPage) {
-        loadPage('instructor-notification.php');
+    switch(currentUserRole) {
+        case 'admin':
+            loadPage('admin-notification.php');
+            break;
+        case 'instructor':
+            loadPage('instructor-classes.php');
+            break;
+        default:
+            alert('Role not recognized or not set.');
+            break;
     }
 
     document.addEventListener('click', function(e){

@@ -82,7 +82,7 @@ while ($row = $query->fetch_assoc()) {
                     <i class="fa-solid fa-keyboard"></i>
                     <input type="text" id="courseName" name="courseName" placeholder="Enter course name" required>
                 </div>
-                <button type="submit" id="addNewCourse" class="home-contentBtn btn-accent-bg">Create Course</button>
+                <button type="submit" id="submitCourse" class="home-contentBtn btn-accent-bg">Create Course</button>
             </form>
         </div>
     </div>

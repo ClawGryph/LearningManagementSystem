@@ -12,11 +12,11 @@ function initNewCourse(){
             courseModal.classList.add('active');
         });
 
-        //Hide modal, show first page
-        document.getElementById('addNewCourse').addEventListener('click', function(event) {
-            event.preventDefault(); // Prevent form submission
-            courseModal.classList.remove('active');
-            firstPage.classList.remove('hidden');
+        // Back button
+        document.querySelector("#courseModal a[data-content='admin-create-courses.php']").addEventListener("click", function (e) {
+            e.preventDefault();
+            courseModal.classList.remove("active");
+            firstPage.classList.remove("hidden");
         });
     }
 
