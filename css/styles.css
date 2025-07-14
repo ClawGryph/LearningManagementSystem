@@ -945,34 +945,66 @@ form.signup-form{
 }
 
 /* Card */
+.home-section .home-content .content-container .first-page .course-card-container{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: flex-start;
+}
 .home-section .home-content .content-container .first-page .course-card{
     display: flex;
-    min-height: 100px;
+    flex: 1 1 calc(33.333% - 20px); /* 3 cards per row with gap */
+    max-width: calc(33.333% - 20px);
+    min-width: 250px;
+    height: auto;
     flex-direction: column;
     background-color: #fff;
     border-radius: 12px;
     box-shadow: var(--box-shadow);
-    padding: 20px;
     margin-bottom: 20px;
     text-decoration: none;
     gap: 0;
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.home-section .home-content .content-container .first-page .course-card:hover{
+    transform: translateY(-5px);
+    box-shadow: var(--box-shadow);
+}
+.home-section .home-content .content-container .first-page .course-card .course-card-header{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 15px;
+}
+.course-card-container a:nth-child(3n+1) .course-card-header {
+    background: #774936; /* Warm Mustard */
+}
+.course-card-container a:nth-child(3n+2) .course-card-header {
+    background: #8e9aaf; /* Deep Indigo */
+}
+.course-card-container a:nth-child(3n+3) .course-card-header {
+    background: #006D77; /* Deep Teal */
+}
+.course-card-container a:nth-child(3n+4) .course-card-header {
+    background: #6a994e; /* Deep Teal */
 }
 .home-section .home-content .content-container .first-page .course-card h3{
     font-size: 2rem;
     text-transform: uppercase;
     font-weight: 600;
-    color: var(--heading-color);
+    color: var(--primary-color);
 }
 .home-section .home-content .content-container .first-page .course-card h4{
     font-size: 1.5rem;
-    color: var(--border-color);
-    margin: 10px 0;
+    color: #f8edeb;
+    margin: 0;
 }
 .home-section .home-content .content-container .first-page .course-card p{
     font-size: 1.5rem;
     color: var(--secondary-color);
     margin: 0;
-    padding: 0;
+    padding: 10px;
 }
 .home-section .home-content .content-container .first-page .course-card p span{
     font-weight: 600;

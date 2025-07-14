@@ -34,16 +34,21 @@ if ($instructorID) {
         <!-- FIRST PAGE -->
         <div class="first-page">
             <h2>Classes</h2>
-            <?php foreach ($courses as $course): ?>
-                <a href="#" class="course-card">
-                    <h3><?= htmlspecialchars($course['courseCode']) ?></h3>
-                    <h4><?= htmlspecialchars($course['courseName']) ?></h4>
-                    <p><span>Class Code:</span> <?= htmlspecialchars($course['code']) ?></p>
-                </a>
-            <?php endforeach; ?>
-            <?php if (empty($courses)): ?>
-                <p>No courses available.</p>
-            <?php endif; ?>
+            <div class="course-card-container">
+                <?php foreach ($courses as $course): ?>
+                        <a href="#" class="course-card">
+                            <div class="course-card-header">
+                                <h3><?= htmlspecialchars($course['courseCode']) ?></h3>
+                                <h4><?= htmlspecialchars($course['courseName']) ?></h4>
+                            </div>
+                            <p><span>Class Code:</span> <?= htmlspecialchars($course['code']) ?></p>
+                        </a>
+                    
+                <?php endforeach; ?>
+                <?php if (empty($courses)): ?>
+                    <p>No courses available.</p>
+                <?php endif; ?>
+            </div>
         </div>
     </div>
 </div>
