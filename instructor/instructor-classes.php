@@ -8,10 +8,18 @@ $courses = [];
 
 if ($instructorID) {
     $stmt = $conn->prepare("
-        SELECT c.courseCode, c.courseName, ic.code
-        FROM instructor_courses ic
-        JOIN courses c ON ic.courseID = c.courseID
-        WHERE ic.instructorID = ?
+        SELECT 
+            COUNT(isl.studentID) AS Number_of_students_enrolled, 
+            c.courseCode, 
+            c.courseName, 
+            ic.code 
+            FROM instructor_courses ic 
+            LEFT JOIN instructor_student_load isl 
+            ON ic.instructor_courseID = isl.instructor_courseID 
+            JOIN courses c 
+            ON ic.courseID = c.courseID 
+            WHERE ic.instructorID = ?
+            GROUP BY c.courseCode, c.courseName, ic.code;
     ");
     $stmt->bind_param("i", $instructorID);
     $stmt->execute();
@@ -41,9 +49,9 @@ if ($instructorID) {
                                 <h3><?= htmlspecialchars($course['courseCode']) ?></h3>
                                 <h4><?= htmlspecialchars($course['courseName']) ?></h4>
                             </div>
+                            <p><span>Number of Students Enrolled:</span> <?= htmlspecialchars($course['Number_of_students_enrolled'])?></p>
                             <p><span>Class Code:</span> <?= htmlspecialchars($course['code']) ?></p>
                         </a>
-                    
                 <?php endforeach; ?>
                 <?php if (empty($courses)): ?>
                     <p>No courses available.</p>
