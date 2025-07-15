@@ -47,7 +47,7 @@
         <div class="second-page" id="addQuizModal">
             <a href="#" data-content="instructor-create-quiz.php"><i class="fa-solid fa-circle-arrow-left"></i></a>
 
-           <form id="quizForm" action="" method="POST">
+           <form id="quizForm" action="../action/addNewQuiz.php" method="POST">
                 <div>
                     <input type="text" id="quizTitle" name="quizTitle" placeholder="Enter quiz title..." required maxlength="50">
                     <input type="text" id="quizDescription" name="quizDescription" placeholder="Enter quiz description..." required maxlength="100">
@@ -59,7 +59,7 @@
                     <div class="question-block">
                         <p>Question # <span class="questionNumber"></span></p>
                         <label>Question Type:</label>
-                        <select class="quizTypeSelect">
+                        <select class="quizTypeSelect" name="quizTypeSelect[]">
                             <option value="multiple" selected>Multiple Choice</option>
                             <option value="identification">Identification</option>
                             <option value="truefalse">True/False</option>
@@ -67,21 +67,21 @@
 
                         <div class="quizInputsContainer">
                             <div class="multipleChoiceInputs">
-                                <input type="text" name="question[]" placeholder="Enter question..." required>
-                                <input type="text" name="A[]" placeholder="a" required>
-                                <input type="text" name="B[]" placeholder="b" required>
+                                <input type="text" name="question[]" placeholder="Enter question...">
+                                <input type="text" name="A[]" placeholder="a">
+                                <input type="text" name="B[]" placeholder="b">
                                 <input type="text" name="C[]" placeholder="c">
                                 <input type="text" name="D[]" placeholder="d">
                                 <input type="text" name="correctAnswer[]" placeholder="Correct answer (e.g. a)" pattern="[a-dA-D]" maxlength="1" title="Please enter only a, b, c, or d">
                             </div>
 
                             <div class="identificationInputs" style="display:none;">
-                                <input type="text" name="identificationQuestion[]" placeholder="Enter question..." required>
-                                <input type="text" name="identificationAnswer[]" placeholder="Correct answer..." required>
+                                <input type="text" name="identificationQuestion[]" placeholder="Enter question...">
+                                <input type="text" name="identificationAnswer[]" placeholder="Correct answer...">
                             </div>
 
                             <div class="trueFalseInputs" style="display:none;">
-                                <input type="text" name="tfQuestion[]" placeholder="Enter question..." required>
+                                <input type="text" name="tfQuestion[]" placeholder="Enter question...">
                                 <select name="tfAnswer[]">
                                     <option value="">Select answer</option>
                                     <option value="True">True</option>
