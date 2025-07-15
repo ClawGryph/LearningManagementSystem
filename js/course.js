@@ -56,6 +56,8 @@ function initCourse(){
                             deleteBtn.innerHTML = "<i class='fa-solid fa-trash'></i>";
                             actionsCell.appendChild(deleteBtn);
                         }
+
+                        alert("Update Successful!");
                     } else {
                         alert("Update failed!");
                     }
