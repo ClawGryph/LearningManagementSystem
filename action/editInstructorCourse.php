@@ -3,39 +3,32 @@ include '../db.php';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $instructorCourseID = $_POST['instructor_courseID'];
-    $newCourseCode = $_POST['courseCode'];
-    $newCourseName = $_POST['courseName'];
+    $newCourseID = $_POST['courseID'];
     $newInstructorID = $_POST['instructorID'];
+    $newClassID = $_POST['classID'];
 
-    // Step 1: Get the courseID from instructor_courses
-    $stmt = $conn->prepare("SELECT courseID FROM instructor_courses WHERE instructor_courseID = ?");
-    $stmt->bind_param("i", $instructorCourseID);
-    $stmt->execute();
-    $stmt->bind_result($courseID);
-    $stmt->fetch();
-    $stmt->close();
+    // Check for duplicate assignment
+    $checkStmt = $conn->prepare("SELECT * FROM instructor_courses WHERE instructorID = ? AND courseID = ? AND classID = ? AND instructor_courseID != ?");
+    $checkStmt->bind_param("iiii", $newInstructorID, $newCourseID, $newClassID, $instructorCourseID);
+    $checkStmt->execute();
+    $result = $checkStmt->get_result();
 
-    if (!$courseID) {
-        echo "Invalid course";
+    if ($result->num_rows > 0) {
+        echo "duplicate"; // Record already exists
         exit;
     }
 
-    // Step 2: Update the courses table
-    $stmt = $conn->prepare("UPDATE courses SET courseCode = ?, courseName = ? WHERE courseID = ?");
-    $stmt->bind_param("ssi", $newCourseCode, $newCourseName, $courseID);
-    $success1 = $stmt->execute();
-    $stmt->close();
-
-    // Step 3: Update the instructor_courses table
-    $stmt = $conn->prepare("UPDATE instructor_courses SET instructorID = ? WHERE instructor_courseID = ?");
-    $stmt->bind_param("ii", $newInstructorID, $instructorCourseID);
-    $success2 = $stmt->execute();
-    $stmt->close();
-
-    if ($success1 && $success2) {
+    // Proceed with update if no duplicate
+    $stmt = $conn->prepare("UPDATE instructor_courses SET instructorID = ?, courseID = ?, classID = ? WHERE instructor_courseID = ?");
+    $stmt->bind_param("iiii", $newInstructorID, $newCourseID, $newClassID, $instructorCourseID);
+    
+    if ($stmt->execute()) {
         echo "success";
     } else {
         echo "failed";
     }
+
+    $checkStmt->close();
+    $stmt->close();
 }
 ?>

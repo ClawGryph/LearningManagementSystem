@@ -1,33 +1,12 @@
-function initNewCourse(){
-
-    toggleUserManagementView();
-
-    function toggleUserManagementView() {
-        const firstPage = document.querySelector('.first-page');
-        const courseModal = document.getElementById('courseModal');
-
-        //Show modal, hide first page
-        document.getElementById('coursePage').addEventListener('click', function() {
-            firstPage.classList.add('hidden');
-            courseModal.classList.add('active');
-        });
-
-        // Back button
-        document.querySelector("#courseModal a[data-content='admin-create-courses.php']").addEventListener("click", function (e) {
-            e.preventDefault();
-            courseModal.classList.remove("active");
-            firstPage.classList.remove("hidden");
-        });
-    }
-
+function initInstructorLoad(){
     // Handle Edit and Delete actions in the Purchase Table
     document.querySelectorAll('.editBtn').forEach(function(btn) {
         btn.addEventListener('click', function handler() {
             var row = btn.closest('tr');
             var instructorCourseID = row.getAttribute('data-instructor_course-id');
             var courseCodeCell = row.children[1];
-            var courseNameCell = row.children[2];
-            var instructorNameCell = row.children[3];
+            var instructorNameCell = row.children[2];
+            var classCell = row.children[3];
             var actionsCell = row.children[5];
 
             if (btn.classList.contains("editBtn")) {
@@ -39,17 +18,26 @@ function initNewCourse(){
 
                 // Save current values BEFORE replacing with inputs
                 var oldCourseCode = courseCodeCell.textContent.trim();
-                var oldCourseName = courseNameCell.textContent.trim();
                 var oldInstructorName = instructorNameCell.textContent.trim();
+                var oldClass = classCell.textContent.trim();
 
                 // Store oldUsername as a data attribute on the button
                 btn.dataset.oldCourseCode = oldCourseCode;
-                btn.dataset.oldCourseName = oldCourseName;
                 btn.dataset.oldInstructorName = oldInstructorName;
+                btn.dataset.oldClass = oldClass;
 
                 // Replace with input fields
-                courseCodeCell.innerHTML = "<input type='text' value='" + oldCourseCode + "'>";
-                courseNameCell.innerHTML = "<input type='text' value='" + oldCourseName + "'>";
+                // DROPDOWN FOR Courses
+                let selectCourseHTML = "<select>";
+                courseList.forEach(course => {
+                    const courseName = course.courseCode + "-" + course.courseName;
+                    const selectedCourse = courseName === oldCourseCode ? "selected" : "";
+                    selectCourseHTML += `<option value="${course.courseID}" ${selectedCourse}>${courseName}</option>`;
+                });
+                selectCourseHTML += "</select>";
+
+                courseCodeCell.innerHTML = selectCourseHTML;
+
                 // DROPDOWN FOR INSTRUCTOR NAME
                 let selectHTML = "<select>";
                 instructorList.forEach(instructor => {
@@ -61,15 +49,26 @@ function initNewCourse(){
 
                 instructorNameCell.innerHTML = selectHTML;
 
+                // DROPDOWN FOR CLASS NAME
+                let selectClassHTML = "<select>";
+                classList.forEach(classes => {
+                    const className = classes.year + "-" + classes.section;
+                    const selectedClass = className === oldClass ? "selected" : "";
+                    selectClassHTML += `<option value="${classes.classID}" ${selectedClass}>${className}</option>`;
+                });
+                selectClassHTML += "</select>";
+
+                classCell.innerHTML = selectClassHTML;
+
                 // Change Edit to Save
                 btn.innerHTML = "<i class='fa-solid fa-floppy-disk'></i>";
                 btn.classList.add("icon", "saveBtn");
                 btn.classList.remove("editBtn");
             } else {
                 // On Save
-                var newCourseCode = courseCodeCell.querySelector("input").value.trim();
-                var newCourseName = courseNameCell.querySelector("input").value.trim();
+                var newCourseID = courseCodeCell.querySelector("select").value;
                 var newIntructorID = instructorNameCell.querySelector("select").value;
+                var newClassID = classCell.querySelector("select").value;
                 var oldCourseCode = btn.dataset.oldCourseCode;
 
                 // AJAX to update
@@ -78,9 +77,22 @@ function initNewCourse(){
                 xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
                 xhr.onload = function() {
                     if (xhr.status === 200) {
-                        courseCodeCell.textContent = newCourseCode;
-                        courseNameCell.textContent = newCourseName;
+                        if (xhr.responseText === "duplicate") {
+                            alert("This instructor is already assigned to that course and class.");
+                            return;
+                        }
+
+                        //Store new values
+                        const selectedCourse = courseList.find(c => c.courseID == newCourseID);
+                        courseCodeCell.textContent = selectedCourse
+                            ? `${selectedCourse.courseCode}-${selectedCourse.courseName}`
+                            : "Unknown";
                         instructorNameCell.textContent = instructorList.find(i => i.userID == newIntructorID)?.fullName || "Unknown";
+                        const selectedClass = classList.find(cl => cl.classID == newClassID);
+                        classCell.textContent = selectedClass
+                            ? `${selectedClass.year}-${selectedClass.section}`
+                            : "Unknown";
+
                         btn.innerHTML = "<i class='fa-solid fa-pen-to-square'></i>";
                         btn.classList.add("editBtn");
                         btn.classList.remove("saveBtn");
@@ -93,21 +105,22 @@ function initNewCourse(){
                             deleteBtn.innerHTML = "<i class='fa-solid fa-trash'></i>";
                             actionsCell.appendChild(deleteBtn);
                         }
+
+                        alert("Update successful!");
                     } else {
                         alert("Update failed!");
                     }
                 };
                 xhr.send("instructor_courseID=" + encodeURI(instructorCourseID) +
-                         "&oldCourseCode=" + encodeURIComponent(oldCourseCode) +
-                         "&courseCode=" + encodeURIComponent(newCourseCode) +
-                         "&courseName=" + encodeURIComponent(newCourseName) +
-                         "&instructorID=" + encodeURIComponent(newIntructorID));
+                         "&courseID=" + encodeURIComponent(newCourseID) +
+                         "&instructorID=" + encodeURIComponent(newIntructorID) +
+                         "&classID=" + encodeURIComponent(newClassID));
             }
         });
     });
 
 
-    document.getElementById("courseTable").addEventListener("click", function (e) {
+    document.getElementById("instructor-load-table").addEventListener("click", function (e) {
         const deleteBtn = e.target.closest(".deleteBtn");
         if (deleteBtn) {
             if (!confirm("Are you sure you want to delete this Teaching Load?")) return;
@@ -120,6 +133,7 @@ function initNewCourse(){
             xhr.onload = function () {
                 if (xhr.status === 200 && xhr.responseText === "success") {
                     row.remove();
+                    alert("Delete successful!");
                 } else {
                     alert("Delete failed!");
                 }

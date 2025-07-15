@@ -1,10 +1,25 @@
 <?php
 include '../db.php';
 $instructors = [];
+$courses = [];
+$classes = [];
 
+//Fetch Instructor
 $query = $conn->query("SELECT userID, CONCAT(firstName, ' ', lastName) AS fullName FROM users WHERE role = 'instructor'");
 while ($row = $query->fetch_assoc()) {
     $instructors[] = $row;
+}
+
+//Fetch Courses
+$courseStmt = $conn->query("SELECT * FROM courses");
+while($row = $courseStmt->fetch_assoc()){
+    $courses[] = $row;
+}
+
+//Fetch Classes
+$classStmt = $conn->query("SELECT classID, year, section FROM class");
+while($row = $classStmt->fetch_assoc()){
+    $classes[] = $row;
 }
 ?>
 
@@ -19,7 +34,7 @@ while ($row = $query->fetch_assoc()) {
                 <h2>Instructor Subjects</h2>
             </div>
             <div class="table-container">
-                <table class="table-content" id="courseTable">
+                <table class="table-content" id="instructor-load-table">
                     <thead>
                         <tr>
                             <th>No.</th>
@@ -42,7 +57,7 @@ while ($row = $query->fetch_assoc()) {
                             $count = 1;
                             while ($row = $result->fetch_assoc()) {
                                 echo "<tr data-instructor_course-id='{$row['instructor_courseID']}'>
-                                        <td>{$count}</td>
+                                        <td>{$count}</td> 
                                         <td>{$row['courseCode']} - {$row['courseName']}</td>
                                         <td>{$row['Instructors_Name']}</td>
                                         <td>{$row['year']} - {$row['section']}</td>
@@ -67,6 +82,8 @@ while ($row = $query->fetch_assoc()) {
     </div>
     <script>
         // Embed instructor data into JS
+        window.courseList = <?= json_encode($courses) ?>;
         window.instructorList = <?= json_encode($instructors) ?>;
+        window.classList = <?= json_encode($classes) ?>;
     </script>
 </div>
