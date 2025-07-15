@@ -57,6 +57,7 @@ function initClass(){
                             deleteBtn.innerHTML = "<i class='fa-solid fa-trash'></i>";
                             actionsCell.appendChild(deleteBtn);
                         }
+                        alert("Update sucessful!");
                     } else {
                         alert("Update failed!");
                     }
@@ -82,6 +83,7 @@ function initClass(){
             xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
             xhr.onload = function () {
                 if (xhr.status === 200 && xhr.responseText === "success") {
+                    alert("Delete successful!");
                     row.remove();
                 } else {
                     alert("Delete failed!");
