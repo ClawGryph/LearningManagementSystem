@@ -10,7 +10,7 @@
                 <!-- CLASS LIST -->
                 <div class="class-list-container">
                     <div class="table-container">
-                        <table class="table-content">
+                        <table class="table-content" id="classTable">
                             <thead>
                                 <th>No.</th>
                                 <th>Year</th>

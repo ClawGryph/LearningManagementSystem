@@ -3,6 +3,7 @@ document.addEventListener("DOMContentLoaded", function() {
     const titleMap = {
         //ADMIN PAGES
         'admin-notification.php' : 'Admin | Notification',
+        'admin-create-class.php' : 'Admin | Class',
         'admin-create-courses.php' : 'Admin | Create Course',
         'admin-instructor-courses.php' : 'Admin | Add Instructor to Course',
         'admin-lm-lists.php' : 'Admin | Materials Lists',
@@ -27,6 +28,12 @@ document.addEventListener("DOMContentLoaded", function() {
             });
 
             // Initialize specific functions after loading the page
+            if(normalizedUrl === 'admin-create-class.php' && typeof initClass === 'function'){
+                initClass();
+                setTimeout(() => {
+                    if (typeof initHideSidebarOnClick === 'function') initHideSidebarOnClick();
+                }, 0);
+            }
             if(normalizedUrl === 'admin-create-courses.php' && typeof initNewCourse === 'function') {
                 initNewCourse();
                 setTimeout(() => {
