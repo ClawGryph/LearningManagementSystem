@@ -50,12 +50,12 @@ if ($userId) {
 
             <!-- 2 -->
             <li>
-                <a href="#" data-content="admin-lm-lists.php">
+                <a href="#" data-content="instructor-create-quiz.php">
                     <i class="fa-solid fa-clipboard"></i>
                     <span class="link_name">Create Quiz</span>
                 </a>
                 <ul class="sub-menu blank">
-                    <li><a href="#" data-content="admin-lm-lists.php" class="link_name">Create Quiz</a></li>
+                    <li><a href="#" data-content="instructor-create-quiz.php" class="link_name">Create Quiz</a></li>
                 </ul>
             </li>
 
