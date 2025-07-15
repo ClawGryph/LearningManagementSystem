@@ -10,7 +10,7 @@
                 <!-- COURSE LIST -->
                 <div class="class-list-container">
                     <div class="table-container">
-                        <table class="table-content">
+                        <table class="table-content" id="courseTable">
                             <thead>
                                 <th>No.</th>
                                 <th>Course Code</th>
@@ -29,7 +29,7 @@
                                     if ($result->num_rows > 0) {
                                         $count = 1;
                                         while ($row = $result->fetch_assoc()) {
-                                            echo "<tr data-class-id='{$row['courseID']}'>
+                                            echo "<tr data-course-id='{$row['courseID']}'>
                                                     <td>{$count}</td>
                                                     <td>{$row['courseCode']}</td>
                                                     <td>{$row['courseName']}</td>
