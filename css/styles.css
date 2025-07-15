@@ -823,6 +823,7 @@ form.signup-form{
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     gap: 2rem;
+    overflow-x: auto;
 }
 .home-section .home-content .first-page .table-container .table-content{
     width: 100%;
@@ -899,7 +900,7 @@ form.signup-form{
     align-items: center;
     margin-bottom: 20px;
     background-color: #fff;
-    padding: 10px 15px;
+    padding: 10px;
     border-radius: 8px;
     border: 1px solid var(--border-color, #ccc);
 }
@@ -910,7 +911,8 @@ form.signup-form{
     color: var(--secondary-color, #333);
 }
 .home-section .home-content .second-page .form-content input[type="text"],
-.home-section .home-content .first-page .form-content input[type="text"]{
+.home-section .home-content .first-page .form-content input[type="text"],
+.home-section .home-content .first-page .form-content input[type="number"]{
     border: none;
     outline: none;
     width: 100%;
@@ -937,8 +939,10 @@ form.signup-form{
     background-size: 12px;
 }
 .home-section .home-content .second-page .form-content input[type="text"]::placeholder,
-.home-section .home-content .first-page .form-content input[type="text"]::placeholder{
+.home-section .home-content .first-page .form-content input[type="text"]::placeholder,
+.home-section .home-content .first-page .form-content input[type="number"]::placeholder{
     color: #aaa;
+    font-size: 1.5rem;
 }
 .home-section .home-content .second-page .form-content .home-contentBtn,
 .home-section .home-content .first-page .form-content .home-contentBtn{
@@ -1013,4 +1017,24 @@ form.signup-form{
 .home-section .home-content .content-container .first-page .course-card p span{
     font-weight: 600;
     color: var(--heading-color);
+}
+
+/* CLASS CONTAINER */
+.home-section .home-content .content-container .first-page .class-management-container{
+    display: flex;
+    gap: 20px;
+    padding: 20px;
+    width: 100%;
+}
+.home-section .home-content .content-container .first-page .class-list-container{
+    width: 70%;
+}
+.home-section .home-content .content-container .first-page .class-list-container .home-contentBtn:last-child{
+    margin-top: 5px;
+}
+.home-section .home-content .content-container .first-page .create-class-container{
+    width: 30%;
+    position: sticky;
+    top: 20px;
+    align-self: flex-start;
 }

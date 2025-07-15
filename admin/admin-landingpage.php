@@ -42,6 +42,15 @@ $notifCount = $row['notif_count'];
         </div>
         <ul class="nav-links">
             <li>
+                <a href="#" data-content="admin-create-class.php">
+                    <i class="fa-solid fa-book-open"></i>
+                    <span class="link_name">Create Class</span>
+                </a>
+                <ul class="sub-menu blank">
+                    <li><a href="#" data-content="admin-create-class.php" class="link_name">Create Class</a></li>
+                </ul>
+            </li>
+            <li>
                 <div class="icon-link" >
                     <a href="">
                         <i class="fa-solid fa-book-open-reader"></i>
