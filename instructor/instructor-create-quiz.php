@@ -1,3 +1,7 @@
+<?php
+session_start();
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -106,9 +110,28 @@
         <!-- THIRD PAGE !-->
         <div class="second-page" id="addQuizToClassModal">
             <a href="#" data-content="admin-create-courses.php"><i class="fa-solid fa-circle-arrow-left"></i></a>
-            <form action="../action/addNewCourse.php" method="POST">
+            <form action="../action/addQuizToClass.php" method="POST">
                 <div>
                     <!-- DROPDOWN LIST TO ALL QUIZZES THAT ARE NOT YET IN DEADLINE -->
+                    <label for="quizSelect">Select a quiz:</label>
+                    <select name="quizID" id="quizSelect" required>
+                        <option value="">-- Choose a quiz --</option>
+                        <?php
+                        include '../db.php';
+                        $now = date('Y-m-d H:i:s');
+                        $query = "SELECT quizID, title, deadline FROM quizzes WHERE deadline >= ?";
+                        $stmt = $conn->prepare($query);
+                        $stmt->bind_param("s", $now);
+                        $stmt->execute();
+                        $result = $stmt->get_result();
+
+                        while ($row = $result->fetch_assoc()) {
+                            echo '<option value="' . $row['quizID'] . '">' . htmlspecialchars($row['title']) . ' (Deadline: ' . date('M d, Y H:i', strtotime($row['deadline'])) . ')</option>';
+                        }
+
+                        $stmt->close();
+                        ?>
+                    </select>
                 </div>
                 <div>
                     <input type="number" name="quizTime" placeholder="Quiz Time (in minutes)" min="1" max="60" required>
@@ -123,6 +146,28 @@
                     </thead>
                     <tbody>
                         <!-- RADIO BUTTON IN EACH CLASS AND SUBJECT -->
+                        <?php
+                            include '../db.php';
+
+                            $instructorID = $_SESSION['user_id'];
+
+                            $result = $conn->prepare("SELECT cl.year, cl.section, c.courseCode, c.courseName, ic.instructor_courseID
+                                                    FROM instructor_courses ic
+                                                    JOIN class cl ON ic.classID = cl.classID
+                                                    JOIN courses c ON ic.courseID = c.courseID
+                                                    WHERE instructorID = ?");
+                            $result->bind_param("i", $instructorID);
+                            $result->execute();
+                            $stmt = $result->get_result();
+
+                            while ($row = $stmt->fetch_assoc()) {
+                                echo '<tr>';
+                                echo '<td><input type="radio" name="instructorCourseID" value="' . $row['instructor_courseID'] . '" required></td>';
+                                echo '<td>' . htmlspecialchars($row['year']) . '-' . htmlspecialchars($row['section']) . '</td>';
+                                echo '<td>' . htmlspecialchars($row['courseCode']) . '-' . htmlspecialchars($row['courseName']) . '</td>';
+                                echo '</tr>';
+                            }
+                        ?>
                     </tbody>
                 </table>
                 <button type="submit" id="submitQuiz" class="home-contentBtn btn-accent-bg">Add</button>
