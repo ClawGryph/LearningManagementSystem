@@ -51,6 +51,9 @@
                 <div>
                     <input type="text" id="quizTitle" name="quizTitle" placeholder="Enter quiz title..." required maxlength="50">
                     <input type="text" id="quizDescription" name="quizDescription" placeholder="Enter quiz description..." required maxlength="100">
+
+                    <label for="quizDeadline">Deadline:</label>
+                    <input type="datetime-local" id="quizDeadline" name="quizDeadline" required>
                 </div>
 
                 <!-- Where all question blocks will go -->

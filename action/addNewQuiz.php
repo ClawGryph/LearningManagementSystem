@@ -4,10 +4,11 @@ include '../db.php';
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $title = $_POST['quizTitle'];
     $description = $_POST['quizDescription'];
+    $deadline = $_POST['quizDeadline'];
 
     // Insert quiz metadata
-    $stmt = $conn->prepare("INSERT INTO quizzes (title, description) VALUES (?, ?)");
-    $stmt->bind_param("ss", $title, $description);
+    $stmt = $conn->prepare("INSERT INTO quizzes (title, description, deadline) VALUES (?, ?, ?)");
+    $stmt->bind_param("sss", $title, $description, $deadline);
     $stmt->execute();
     $quizID = $stmt->insert_id;
     $stmt->close();
