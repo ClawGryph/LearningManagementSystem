@@ -80,6 +80,7 @@ function initCourse(){
             xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
             xhr.onload = function () {
                 if (xhr.status === 200 && xhr.responseText === "success") {
+                    alert("Delete successfully!");
                     row.remove();
                 } else {
                     alert("Delete failed!");
