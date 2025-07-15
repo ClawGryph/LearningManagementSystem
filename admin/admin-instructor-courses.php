@@ -10,6 +10,11 @@ $result = $stmt->get_result();
 $courseStmt = $conn->prepare("SELECT courseID, courseCode, courseName FROM courses");
 $courseStmt->execute();
 $courses = $courseStmt->get_result();
+
+//fetch all class
+$classStmt = $conn->prepare("SELECT classID, year, section FROM class");
+$classStmt->execute();
+$class = $classStmt->get_result();
 ?>
 
 <div class="home-content">
@@ -29,6 +34,14 @@ $courses = $courseStmt->get_result();
                     <?php while ($row = $result->fetch_assoc()): ?>
                         <option value="<?= htmlspecialchars($row['userID']) ?>">
                             <?= htmlspecialchars($row['firstName'] . ' ' . $row['lastName']) ?>
+                        </option>
+                    <?php endwhile; ?>
+                </select>
+                <select name="class_id" required>
+                    <option value="">-- Select Class --</option>
+                    <?php while ($row = $class->fetch_assoc()): ?>
+                        <option value="<?= htmlspecialchars($row['classID']) ?>">
+                            <?= htmlspecialchars($row['section'] . " - " . $row['year']) ?>
                         </option>
                     <?php endwhile; ?>
                 </select>

@@ -25,9 +25,9 @@ while ($row = $query->fetch_assoc()) {
                     <thead>
                         <tr>
                             <th>No.</th>
-                            <th>Course Code</th>
-                            <th>Course Name</th>
+                            <th>Course</th>
                             <th>Instructor</th>
+                            <th>Class</th>
                             <th>Code</th>
                             <th>Actions</th>
                         </tr>
@@ -36,7 +36,7 @@ while ($row = $query->fetch_assoc()) {
                         <?php
                         include '../db.php';
 
-                        $stmt = $conn->prepare("SELECT c.courseCode, c.courseName, CONCAT(i.firstName, ' ', i.lastName) AS 'Instructors_Name', ic.code, ic.instructor_courseID from instructor_courses ic JOIN courses c ON ic.courseID = c.courseID JOIN users i ON ic.instructorID = i.userID;");
+                        $stmt = $conn->prepare("SELECT c.courseCode, c.courseName, CONCAT(i.firstName, ' ', i.lastName) AS 'Instructors_Name', cl.year, cl.section, ic.code, ic.instructor_courseID from instructor_courses ic JOIN courses c ON ic.courseID = c.courseID JOIN class cl ON ic.classID = cl.classID JOIN users i ON ic.instructorID = i.userID;");
                         $stmt->execute();
                         $result = $stmt->get_result();
 
@@ -45,9 +45,9 @@ while ($row = $query->fetch_assoc()) {
                             while ($row = $result->fetch_assoc()) {
                                 echo "<tr data-instructor_course-id='{$row['instructor_courseID']}'>
                                         <td>{$count}</td>
-                                        <td>{$row['courseCode']}</td>
-                                        <td>{$row['courseName']}</td>
+                                        <td>{$row['courseCode']} - {$row['courseName']}</td>
                                         <td>{$row['Instructors_Name']}</td>
+                                        <td>{$row['year']} - {$row['section']}</td>
                                         <td>{$row['code']}</td>
                                         <td>
                                             <button type='button' class='home-contentBtn editBtn btn-accent-bg'><i class='fa-solid fa-pen-to-square'></i></button>
@@ -57,7 +57,7 @@ while ($row = $query->fetch_assoc()) {
                                 $count++;
                             }
                         } else {
-                            echo "<tr><td colspan='5'>No courses found.</td></tr>";
+                            echo "<tr><td colspan='5'>No assigned courses found.</td></tr>";
                         }
 
                         $stmt->close();
