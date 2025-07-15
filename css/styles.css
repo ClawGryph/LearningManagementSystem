@@ -145,7 +145,7 @@ h4{
 }
 .btn-accent-bg{
     background-color: var(--accent-color);
-    color: var(--heading-color);
+    color: var(--primary-color);
 }
 .btn-drk-bg:hover{
     background-color: #c62828;

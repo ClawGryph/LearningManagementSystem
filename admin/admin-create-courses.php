@@ -1,93 +1,72 @@
-<?php
-include '../db.php';
-$instructors = [];
-
-$query = $conn->query("SELECT userID, CONCAT(firstName, ' ', lastName) AS fullName FROM users WHERE role = 'instructor'");
-while ($row = $query->fetch_assoc()) {
-    $instructors[] = $row;
-}
-?>
-
 <div class="home-content">
     <div class="sidebar-toggle">
         <i class="fa-solid fa-bars"></i>
         <span class="menu-text">Drop Down Sidebar</span>
     </div>
     <div class="content-container">
-        <!-- FIRST PAGE !-->
-        <div class="first-page">
-            <div class="page-header">
-                <h2>Instructor Subjects</h2>
-                <button type="submit" id="coursePage" class="home-contentBtn btn-accent-bg"><i class="fa-solid fa-circle-plus"></i>Create new course</button>
-            </div>
-            <div class="table-container">
-                <table class="table-content" id="courseTable">
-                    <thead>
-                        <tr>
-                            <th>No.</th>
-                            <th>Course</th>
-                            <th>Instructor</th>
-                            <th>Class</th>
-                            <th>Code</th>
-                            <th>Actions</th>
-                        </tr>
-                    </thead>
-                    <tbody class="table-body">
-                        <?php
-                        include '../db.php';
-
-                        $stmt = $conn->prepare("SELECT c.courseCode, c.courseName, CONCAT(i.firstName, ' ', i.lastName) AS 'Instructors_Name', cl.year, cl.section, ic.code, ic.instructor_courseID from instructor_courses ic JOIN courses c ON ic.courseID = c.courseID JOIN class cl ON ic.classID = cl.classID JOIN users i ON ic.instructorID = i.userID;");
-                        $stmt->execute();
-                        $result = $stmt->get_result();
-
-                        if ($result->num_rows > 0) {
-                            $count = 1;
-                            while ($row = $result->fetch_assoc()) {
-                                echo "<tr data-instructor_course-id='{$row['instructor_courseID']}'>
-                                        <td>{$count}</td>
-                                        <td>{$row['courseCode']} - {$row['courseName']}</td>
-                                        <td>{$row['Instructors_Name']}</td>
-                                        <td>{$row['year']} - {$row['section']}</td>
-                                        <td>{$row['code']}</td>
-                                        <td>
-                                            <button type='button' class='home-contentBtn editBtn btn-accent-bg'><i class='fa-solid fa-pen-to-square'></i></button>
-                                            <button type='button' class='home-contentBtn deleteBtn btn-drk-bg'><i class='fa-solid fa-trash'></i></button>
-                                        </td>
-                                    </tr>";
-                                $count++;
-                            }
-                        } else {
-                            echo "<tr><td colspan='5'>No assigned courses found.</td></tr>";
-                        }
-
-                        $stmt->close();
-                        ?>
-                    </tbody>
-                </table>
-            </div>
-        </div>
-
-        <!-- SECOND PAGE !-->
-        <div class="second-page" id="courseModal">
-            <div class="page-header">
-                <a href="#" data-content="admin-create-courses.php"><i class="fa-solid fa-circle-arrow-left"></i></a>
-                <h2>Create New Course</h2>
-            </div>
-            <form action="../action/addNewCourse.php" class="form-content form-widthmin500" method="POST">
-                <div>
-                    <i class="fa-solid fa-book"></i>
-                    <input type="text" id="courseCode" name="courseCode" placeholder="Enter course code" required>
+        <div class="first-page" id="courseModal">
+            <h2>Course</h2>
+            <div class="class-management-container">
+                <!-- COURSE LIST -->
+                <div class="class-list-container">
+                    <div class="table-container">
+                        <table class="table-content">
+                            <thead>
+                                <th>No.</th>
+                                <th>Course Code</th>
+                                <th>Name</th>
+                                <th>Action</th>
+                            </thead>
+                            <tbody class="table-body">
+                                <!-- Section and maximum students -->
+                                <?php
+                                    include '../db.php';
+    
+                                    $stmt = $conn->prepare("SELECT * from courses;");
+                                    $stmt->execute();
+                                    $result = $stmt->get_result();
+    
+                                    if ($result->num_rows > 0) {
+                                        $count = 1;
+                                        while ($row = $result->fetch_assoc()) {
+                                            echo "<tr data-class-id='{$row['courseID']}'>
+                                                    <td>{$count}</td>
+                                                    <td>{$row['courseCode']}</td>
+                                                    <td>{$row['courseName']}</td>
+                                                    <td>
+                                                        <button type='button' class='home-contentBtn editBtn btn-accent-bg'><i class='fa-solid fa-pen-to-square'></i></button>
+                                                        <button type='button' class='home-contentBtn deleteBtn btn-drk-bg'><i class='fa-solid fa-trash'></i></button>
+                                                    </td>
+                                                </tr>";
+                                            $count++;
+                                        }
+                                    } else {
+                                        echo "<tr><td colspan='5'>No course found.</td></tr>";
+                                    }
+    
+                                    $stmt->close();
+                                ?>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
-                <div>
-                    <i class="fa-solid fa-keyboard"></i>
-                    <input type="text" id="courseName" name="courseName" placeholder="Enter course name" required>
+
+                <!-- COURSE FORM -->
+                <div class="create-class-container">
+                    <form action="../action/addNewCourse.php" class="form-content" method="POST">
+                        <h2>Create Course</h2>
+                        <div>
+                            <i class="fa-solid fa-book"></i>
+                            <input type="text" id="courseCode" name="courseCode" placeholder="Enter course code" required>
+                        </div>
+                        <div>
+                            <i class="fa-solid fa-keyboard"></i>
+                            <input type="text" id="courseName" name="courseName" placeholder="Enter course name" required>
+                        </div>
+                        <button type="submit" id="submitCourse" class="home-contentBtn btn-accent-bg">Create Course</button>
+                    </form>
                 </div>
-                <button type="submit" id="submitCourse" class="home-contentBtn btn-accent-bg">Create Course</button>
-            </form>
+            </div>
         </div>
     </div>
-    <script>
-        // Embed instructor data into JS
-        window.instructorList = <?= json_encode($instructors) ?>;
-    </script>
 </div>

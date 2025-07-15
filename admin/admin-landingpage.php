@@ -62,6 +62,7 @@ $notifCount = $row['notif_count'];
                     <span class="sub-menu-header">Courses</span>
                     <li><a href="#" data-content="admin-create-courses.php">Create Courses</a></li>
                     <li><a href="#" data-content="admin-instructor-courses.php">Add Instructor to Courses</a></li>
+                    <li><a href="#" data-content="admin-instructor-load.php">Instructors Load</a></li>
                 </ul>
             </li>
             <li>

@@ -62,9 +62,11 @@
                             <option value="1">1</option>
                         </select>
                         <div>
+                            <i class="fa-solid fa-chalkboard-user"></i>
                             <input type="text" name="classSection" maxlength="10" placeholder="Section name">
                         </div>
                         <div>
+                            <i class="fa-solid fa-users"></i>
                             <input type="number" name="classMaxStudent" min="1" max="100" placeholder="maximum number of students">
                         </div>
                         <button type="submit" class="home-contentBtn btn-accent-bg">Create Class</button>
