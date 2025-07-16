@@ -41,6 +41,30 @@ session_start();
                         </tr>
                     </thead>
                     <tbody class="table-body">
+                        <?php
+                            include '../db.php';
+
+                            $query = $conn->prepare("SELECT * FROM quizzes");
+                            $query->execute();
+                            $result = $query->get_result();
+
+                            if($result->num_rows > 0){
+                                while($row = $result->fetch_assoc()){
+                                    echo "<tr data-quiz-id='{$row['quizID']}'>
+                                            <td>{$row['title']}</td>
+                                            <td>{$row['description']}</td>
+                                            <td>{$row['deadline']}</td>
+                                            <td><a href='#questions' class='view-questions' data-id={$row['quizID']}>Questions</a></td>
+                                            <td>
+                                                <button type='button' class='home-contentBtn editBtn btn-accent-bg'><i class='fa-solid fa-pen-to-square'></i></button>
+                                                <button type='button' class='home-contentBtn deleteBtn btn-drk-bg'><i class='fa-solid fa-trash'></i></button>
+                                            </td>
+                                        </tr>";
+                                }
+                            }else{
+                                echo "<tr><td colspan='5'>No quiz found.</td></tr>";
+                            }
+                        ?>
                         
                     </tbody>
                 </table>
@@ -175,13 +199,16 @@ session_start();
         </div>
 
         <!-- QUESTIONS PAGE !-->
-        <div class="second-page" id="courseModal">
+        <div class="second-page" id="questions">
             <div class="page-header">
                 <a href="#" data-content="admin-create-courses.php"><i class="fa-solid fa-circle-arrow-left"></i></a>
                 <h2>Questions</h2>
             </div>
-            <form action="../action/addNewCourse.php" class="form-content form-widthmin500" method="POST">
-                <div><!-- DISPLAY ALL QUESTIONS OF THAT QUIZ --></div>
+            <form id="editQuizForm" action="../action/updateQuizQuestions.php" method="POST">
+                <input type="hidden" name="quizID" id="editQuizID">
+                <div id="questionEditContainer">
+                    <!-- Loaded questions here -->
+                </div>
                 <button type="submit" id="submitCourse" class="home-contentBtn btn-accent-bg">Update</button>
             </form>
         </div>

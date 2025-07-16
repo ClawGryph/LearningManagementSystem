@@ -1,43 +1,40 @@
 document.addEventListener("DOMContentLoaded", function () {
     let questionCount = 1;
-    document.querySelector(".questionNumber").textContent = questionCount;
-
-    const addBtn = document.getElementById("addQuestionBtn");
     const container = document.getElementById("questionsContainer");
+    const addBtn = document.getElementById("addQuestionBtn");
+    const initialSelect = document.querySelector(".quizTypeSelect");
 
-    // Bind dropdown for the first block
-    bindDropdownChange(document.querySelector(".quizTypeSelect"));
+    if (initialSelect) bindDropdownChange(initialSelect);
 
-    addBtn.addEventListener("click", function () {
-        const firstBlock = container.querySelector(".question-block");
-        const newBlock = firstBlock.cloneNode(true);
-        questionCount++;
+    if (addBtn) {
+        addBtn.addEventListener("click", function () {
+            const firstBlock = container.querySelector(".question-block");
+            const newBlock = firstBlock.cloneNode(true);
+            questionCount++;
 
-        // Reset values
-        newBlock.querySelectorAll("input").forEach(input => input.value = "");
-        newBlock.querySelectorAll("select").forEach(select => select.selectedIndex = 0);
+            // Reset inputs
+            newBlock.querySelectorAll("input").forEach(input => input.value = "");
+            newBlock.querySelectorAll("select").forEach(select => select.selectedIndex = 0);
 
-        // Show default (multiple choice), hide others
-        newBlock.querySelector(".multipleChoiceInputs").style.display = "block";
-        newBlock.querySelectorAll(".multipleChoiceInputs input").forEach(el => el.required = true);
+            // Show default multiple choice
+            newBlock.querySelector(".multipleChoiceInputs").style.display = "block";
+            newBlock.querySelectorAll(".multipleChoiceInputs input").forEach(el => el.required = true);
 
-        newBlock.querySelector(".identificationInputs").style.display = "none";
-        newBlock.querySelectorAll(".identificationInputs input").forEach(el => el.required = false);
+            newBlock.querySelector(".identificationInputs").style.display = "none";
+            newBlock.querySelectorAll(".identificationInputs input").forEach(el => el.required = false);
 
-        newBlock.querySelector(".trueFalseInputs").style.display = "none";
-        newBlock.querySelectorAll(".trueFalseInputs input, .trueFalseInputs select").forEach(el => el.required = false);
+            newBlock.querySelector(".trueFalseInputs").style.display = "none";
+            newBlock.querySelectorAll(".trueFalseInputs input, .trueFalseInputs select").forEach(el => el.required = false);
 
-        // Update the Question # number
-        const span = newBlock.querySelector(".questionNumber");
-        if (span) span.textContent = questionCount;
+            const span = newBlock.querySelector(".questionNumber");
+            if (span) span.textContent = questionCount;
 
-        container.appendChild(newBlock);
+            container.appendChild(newBlock);
 
-        // Re-bind dropdown for the new block
-        bindDropdownChange(newBlock.querySelector(".quizTypeSelect"));
-    });
+            bindDropdownChange(newBlock.querySelector(".quizTypeSelect"));
+        });
+    }
 
-    // Dropdown logic
     function bindDropdownChange(selectElement) {
         selectElement.addEventListener("change", function () {
             const block = selectElement.closest(".question-block");
@@ -46,7 +43,7 @@ document.addEventListener("DOMContentLoaded", function () {
             const identificationInputs = block.querySelector(".identificationInputs");
             const trueFalseInputs = block.querySelector(".trueFalseInputs");
 
-            // Hide all and remove required
+            // Hide all and reset required
             [multipleInputs, identificationInputs, trueFalseInputs].forEach(section => {
                 section.style.display = "none";
                 section.querySelectorAll("input, select").forEach(el => {
@@ -54,7 +51,6 @@ document.addEventListener("DOMContentLoaded", function () {
                 });
             });
 
-            // Show selected and set required
             if (this.value === "multiple") {
                 multipleInputs.style.display = "block";
                 multipleInputs.querySelectorAll("input").forEach(el => el.required = true);
@@ -68,32 +64,85 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     }
 
-    // Final validation before submit
-    document.getElementById("quizForm").addEventListener("submit", function (e) {
-        const form = this;
+    // Form submit for new quiz
+    const quizForm = document.getElementById("quizForm");
+    if (quizForm) {
+        quizForm.addEventListener("submit", function (e) {
+            document.querySelectorAll(".question-block").forEach(block => {
+                const type = block.querySelector(".quizTypeSelect").value;
+                block.querySelectorAll("input, select").forEach(el => el.required = false);
 
-        // Ensure correct fields are required before validation
-        document.querySelectorAll(".question-block").forEach(block => {
-            const type = block.querySelector(".quizTypeSelect").value;
+                if (type === "multiple") {
+                    block.querySelectorAll(".multipleChoiceInputs input").forEach(el => el.required = true);
+                } else if (type === "identification") {
+                    block.querySelectorAll(".identificationInputs input").forEach(el => el.required = true);
+                } else if (type === "truefalse") {
+                    block.querySelectorAll(".trueFalseInputs input, .trueFalseInputs select").forEach(el => el.required = true);
+                }
+            });
 
-            // Reset all required
-            block.querySelectorAll("input, select").forEach(el => el.required = false);
-
-            // Set required based on selected type
-            if (type === "multiple") {
-                block.querySelectorAll(".multipleChoiceInputs input").forEach(el => el.required = true);
-            } else if (type === "identification") {
-                block.querySelectorAll(".identificationInputs input").forEach(el => el.required = true);
-            } else if (type === "truefalse") {
-                block.querySelectorAll(".trueFalseInputs input, .trueFalseInputs select").forEach(el => el.required = true);
+            if (!quizForm.checkValidity()) {
+                e.preventDefault();
+                quizForm.reportValidity();
             }
         });
+    }
 
-        // Check validity
-        if (!form.checkValidity()) {
+    // View Questions handler
+    document.querySelectorAll(".view-questions").forEach(link => {
+        link.addEventListener("click", function (e) {
             e.preventDefault();
-            form.reportValidity(); // Let browser show messages
-        }
-        // else: let the form submit
+
+            const quizID = this.dataset.id;
+            const container = document.getElementById("questionEditContainer");
+            document.getElementById("editQuizID").value = quizID;
+
+            fetch(`../action/fetchQuizQuestions.php?quizID=${quizID}`)
+                .then(res => res.text())
+                .then(html => {
+                    container.innerHTML = html;
+
+                    container.querySelectorAll(".edit-question-block").forEach(block => {
+                        const type = block.querySelector("input[name='questionType[]']").value;
+                        const tfSelect = block.querySelector("select[name='correctAnswer[]']");
+                        const mcInputs = block.querySelectorAll("input[name^='choice']");
+
+                        mcInputs.forEach(input => input.required = false);
+                        if (tfSelect) tfSelect.required = false;
+
+                        if (type === "multiple") {
+                            mcInputs.forEach(input => input.required = true);
+                        } else if (type === "truefalse") {
+                            if (tfSelect) tfSelect.required = true;
+                        }
+                    });
+                });
+        });
     });
+
+    // Submit for edit form
+    const editForm = document.getElementById("editQuizForm");
+    if (editForm) {
+        editForm.addEventListener("submit", function (e) {
+            editForm.querySelectorAll(".edit-question-block").forEach(block => {
+                const type = block.querySelector("input[name='questionType[]']").value;
+                const tfSelect = block.querySelector("select[name='correctAnswer[]']");
+                const mcInputs = block.querySelectorAll("input[name^='choice']");
+
+                mcInputs.forEach(input => input.required = false);
+                if (tfSelect) tfSelect.required = false;
+
+                if (type === "multiple") {
+                    mcInputs.forEach(input => input.required = true);
+                } else if (type === "truefalse") {
+                    if (tfSelect) tfSelect.required = true;
+                }
+            });
+
+            if (!editForm.checkValidity()) {
+                e.preventDefault();
+                editForm.reportValidity();
+            }
+        });
+    }
 });
