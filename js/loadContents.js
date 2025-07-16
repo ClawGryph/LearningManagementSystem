@@ -8,7 +8,8 @@ document.addEventListener("DOMContentLoaded", function() {
         'admin-instructor-courses.php' : 'Admin | Add Instructor to Course',
         'admin-instructor-load.php' : "Admin | Instructor Load",
         'admin-lm-lists.php' : 'Admin | Materials Lists',
-        'instructor-classes.php' : 'Instructor | Classes'
+        'instructor-classes.php' : 'Instructor | Classes',
+        'instructor-create-quiz.php' : 'Instructor | Quiz'
     };
 
     const mainContent = document.getElementById('main-content');
@@ -49,6 +50,12 @@ document.addEventListener("DOMContentLoaded", function() {
             if(normalizedUrl === 'admin-instructor-load.php' && typeof initInstructorLoad === 'function') {
                 initInstructorLoad();
                 setTimeout(() => {
+                    if (typeof initHideSidebarOnClick === 'function') initHideSidebarOnClick();
+                }, 0);
+            }
+            if(normalizedUrl === 'instructor-create-quiz.php' && typeof initQuestionToggle === 'function'){
+                setTimeout(() => {
+                    initQuestionToggle();
                     if (typeof initHideSidebarOnClick === 'function') initHideSidebarOnClick();
                 }, 0);
             }

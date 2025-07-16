@@ -2,19 +2,7 @@
 session_start();
 ?>
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
-    <link rel="stylesheet" href="../css/normalize.css">
-    <link rel="stylesheet" href="../css/styles.css">
-</head>
-<body>
-    <main class="home-section">
-    <div class="home-content">
+<div class="home-content">
     <div class="sidebar-toggle">
         <i class="fa-solid fa-bars"></i>
         <span class="menu-text">Drop Down Sidebar</span>
@@ -214,7 +202,3 @@ session_start();
         </div>
     </div>
 </div>
-    </main>
-<script src="../js/questionToggle.js"></script>
-</body>
-</html>

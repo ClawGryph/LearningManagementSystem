@@ -1,4 +1,4 @@
-document.addEventListener("DOMContentLoaded", function () {
+function initQuestionToggle(){
     let questionCount = 1;
     const container = document.getElementById("questionsContainer");
     const addBtn = document.getElementById("addQuestionBtn");
@@ -145,4 +145,4 @@ document.addEventListener("DOMContentLoaded", function () {
             }
         });
     }
-});
+}
