@@ -31,31 +31,44 @@ if (isset($_GET['quizID'])) {
         }
     }
 
+    $count = 1;
+
     // Now loop through grouped questions to generate output
     foreach ($questions as $qid => $qdata) {
-        $output .= "<div class='edit-question-block'>";
+        $output .= "<div class='edit-question-block quizInputsContainer'>";
+
+        $output .= "<h3>Question # {$count}</h3>";
+
         $output .= "<input type='hidden' name='questionID[]' value='{$qid}'>";
         $output .= "<input type='hidden' name='questionType[]' value='" . htmlspecialchars($qdata['question_type']) . "'>";
 
-        $output .= "<label>Question:</label>";
+        $output .= "<div class='inputGroup'>";
         $output .= "<input type='text' name='questionText[]' value='" . htmlspecialchars($qdata['question']) . "' required>";
+        $output .= "<label for='questionText'>Question:</label>";
+        $output .= "</div>";
 
         if ($qdata['question_type'] === 'multiple') {
             foreach (['A', 'B', 'C', 'D'] as $label) {
                 $value = isset($qdata['choices'][$label]) ? htmlspecialchars($qdata['choices'][$label], ENT_QUOTES) : '';
-                $output .= "<label>Choice $label:</label>";
+                $output .= "<div class='inputGroup'>";
                 $output .= "<input type='text' name='choice{$label}[]' value='{$value}' required>";
+                $output .= "<label for='choice'>Choice $label:</label>";
+                $output .= "</div>";
             }
 
-            $output .= "<label>Correct Answer (A-D):</label>";
+            $output .= "<div class='inputGroup'>";
             $output .= "<input type='text' name='correctAnswer[]' value='" . htmlspecialchars($qdata['correct_answer']) . "' pattern='[a-dA-D]' maxlength='1' required>";
+            $output .= "<label for='correctAnswer'>Correct Answer (A-D):</label>";
+            $output .= "</div>";
         } elseif ($qdata['question_type'] === 'truefalse') {
-            $output .= "<label>Correct Answer:</label>";
+            $output .= "<div class='inputNoToggle'>";
+            $output .= "<label for='correctAnswer'>Correct Answer:</label>";
             $output .= "<select name='correctAnswer[]' required>";
             $output .= "<option value=''>--Select--</option>";
             $output .= "<option value='True'" . ($qdata['correct_answer'] === 'True' ? " selected" : "") . ">True</option>";
             $output .= "<option value='False'" . ($qdata['correct_answer'] === 'False' ? " selected" : "") . ">False</option>";
             $output .= "</select>";
+            $output .= "</div>";
 
             // Maintain structure for alignment
             foreach (['A', 'B', 'C', 'D'] as $label) {
@@ -63,8 +76,10 @@ if (isset($_GET['quizID'])) {
             }
         } else {
             // Identification
-            $output .= "<label>Correct Answer:</label>";
+            $output .= "<div class='inputGroup'>";
             $output .= "<input type='text' name='correctAnswer[]' value='" . htmlspecialchars($qdata['correct_answer']) . "' required>";
+            $output .= "<label for='correctAnswer'>Correct Answer:</label>";
+            $output .= "</div>";
 
             foreach (['A', 'B', 'C', 'D'] as $label) {
                 $output .= "<input type='hidden' name='choice{$label}[]' value=''>";
@@ -72,6 +87,7 @@ if (isset($_GET['quizID'])) {
         }
 
         $output .= "</div>";
+        $count++;
     }
 
     echo $output;

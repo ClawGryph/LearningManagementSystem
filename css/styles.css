@@ -819,26 +819,31 @@ form.signup-form{
 }
 
 /* TABLE */
-.home-section .home-content .first-page .table-container{
+.home-section .home-content .first-page .table-container,
+.home-section .home-content .second-page .table-container{
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     gap: 2rem;
     overflow-x: auto;
 }
-.home-section .home-content .first-page .table-container .table-content{
+.home-section .home-content .first-page .table-container .table-content,
+.home-section .home-content .second-page .table-container .table-content{
     width: 100%;
     border-collapse: collapse;
     table-layout: fixed;
 }
 .home-section .home-content .first-page .table-container .table-content th,
-.home-section .home-content .first-page .table-container .table-content td{
+.home-section .home-content .first-page .table-container .table-content td,
+.home-section .home-content .second-page .table-container .table-content th,
+.home-section .home-content .second-page .table-container .table-content td{
     padding: 1rem;
     text-align: left;
     word-wrap: break-word;
     word-break: break-word;
     overflow-wrap: break-word;
 }
-.home-section .home-content .first-page .table-container .table-content th{
+.home-section .home-content .first-page .table-container .table-content th,
+.home-section .home-content .second-page .table-container .table-content th{
     font-weight: 600;
     text-transform: uppercase;
     font-size: 1.5rem;
@@ -846,7 +851,8 @@ form.signup-form{
     background-color:  #dad6c4;
     letter-spacing: 0.1rem;
 }
-.home-section .home-content .first-page .table-container .table-content td{
+.home-section .home-content .first-page .table-container .table-content td,
+.home-section .home-content .second-page .table-container .table-content td{
     vertical-align: middle;
     color: #3d0000;
     padding: 10px;
@@ -863,6 +869,14 @@ form.signup-form{
     background-color: #fff;
     font-family: inherit;
 }
+.home-section .home-content .first-page .table-container .table-content .table-body .view-questions{
+    text-decoration: none;
+    color: #072ac8;
+    transition: text-decoration 0.5s ease-in;
+}
+.home-section .home-content .first-page .table-container .table-content .table-body .view-questions:hover{
+    text-decoration: underline;
+}
 .home-section .home-content .first-page .table-container .table-body tr{
     border-bottom: 1px solid var(--border-color);
 }
@@ -872,6 +886,7 @@ form.signup-form{
 .home-section .home-content .first-page .table-container .table-body tr:nth-child(even){
     background-color: rgba(76, 77, 82, 0.1);
 }
+
 
 /* SECTIONS - FORM */
 .form-widthmin500{
@@ -983,16 +998,16 @@ form.signup-form{
     padding: 15px;
 }
 .course-card-container a:nth-child(3n+1) .course-card-header {
-    background: #774936; /* Warm Mustard */
+    background: #774936;
 }
 .course-card-container a:nth-child(3n+2) .course-card-header {
-    background: #8e9aaf; /* Deep Indigo */
+    background: #8e9aaf;
 }
 .course-card-container a:nth-child(3n+3) .course-card-header {
-    background: #006D77; /* Deep Teal */
+    background: #006D77; 
 }
 .course-card-container a:nth-child(3n+4) .course-card-header {
-    background: #6a994e; /* Deep Teal */
+    background: #6a994e;
 }
 .home-section .home-content .content-container .first-page .course-card h3{
     font-size: 2rem;
@@ -1037,4 +1052,167 @@ form.signup-form{
     position: sticky;
     top: 20px;
     align-self: flex-start;
+}
+
+/* QUIZ */
+.home-section .home-content .content-container .second-page .quizzes{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+.home-section .home-content .content-container .second-page .quizzes .page-header{
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 20px;
+    margin-top: 15px;
+}
+.home-section .home-content .content-container .second-page .quizzes .tooltip{
+    position: relative;
+    display: inline-block;
+}
+.home-section .home-content .content-container .second-page .quizzes .tooltip .tooltiptext{
+    visibility: hidden;
+    width: max-content;
+    background-color: var(--accent-color);
+    color: #fff;
+    text-align: center;
+    border-radius: 5px;
+    padding: 5px 8px;
+    position: absolute;
+    z-index: 1;
+
+    top: 50%;
+    left: 7%; /* push to the right */
+    transform: translateY(-50%);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    font-size: 14px;
+    white-space: nowrap; /* prevent line break */
+}
+.home-section .home-content .content-container .second-page .quizzes .tooltip .addBtn:hover + .tooltiptext{
+    visibility: visible;
+    opacity: 1;
+    pointer-events: none;
+}
+.home-section .home-content .content-container .second-page .quizzes .addBtn{
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: none;
+    outline: none;
+    background: transparent;
+    margin-left: 3rem;
+}
+.home-section .home-content .content-container .second-page .quizzes .addBtn i{
+    font-size: 40px;
+    color: var(--accent-color);
+    padding: 0;
+    margin: 0;
+    transition: transform 0.3s ease-in;
+}
+.home-section .home-content .content-container .second-page .quizzes .addBtn i:hover{
+    transform: rotate(-180deg);
+}
+.home-section .home-content .content-container .second-page .quizzes .home-contentBtn-container{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+}
+.home-section .home-content .content-container .second-page .quizzes .home-contentBtn{
+    width: 20%;
+}
+.home-section .home-content .content-container .second-page .inputGroup{
+    width: 40%;
+    position: relative;
+}
+.home-section .home-content .content-container .second-page .inputGroup:first-child{
+    margin-top: 30px;
+}
+.home-section .home-content .content-container .second-page .inputGroup input{
+    font-size: 100%;
+    padding: 1rem;
+    outline: none;
+    border: 2px solid #ff6700;
+    background-color: transparent;
+    border-radius: 20px;
+    width: 100%;
+}
+.home-section .home-content .content-container .second-page .inputGroup label{
+    font-size: 100%;
+    position: absolute;
+    left: 0;
+    padding: 1rem;
+    margin-left: 0.5em;
+    pointer-events: none;
+    transition: all 0.3s ease;
+    color: rgb(100, 100, 100);
+}
+.home-section .home-content .content-container .second-page .inputGroup :is(input:focus, input:valid)~label{
+    transform: translateY(-50%) scale(.9);
+    font-size: 15px;
+    margin: 0em;
+    margin-left: 1.3em;
+    padding: 0.4em;
+    background-color: var(--background-color);
+}
+.home-section .home-content .content-container .second-page .inputGroup :is(input:focus, input:valid){
+    border-color: rgb(150, 150, 200);
+}
+.home-section .home-content .content-container .second-page .inputNoToggle{
+    width: 40%;
+}
+.home-section .home-content .content-container .second-page .inputNoToggle label,
+.home-section .home-content .content-container .second-page p,.questionNumber{
+    color: var(--heading-color);
+    font-size: 2rem;
+    font-weight: 600;
+}
+.home-section .home-content .content-container .second-page .inputNoToggle input,
+.home-section .home-content .content-container .second-page .inputNoToggle select{
+    padding: 1rem;
+    outline: none;
+    border: 2px solid #072ac8;
+    background-color: transparent;
+    border-radius: 20px;
+    width: 100%;
+}
+
+/* QUESTION */
+.home-section .home-content .content-container .second-page .questionContent{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+.home-section .home-content .content-container .second-page .questionContent .question-block{
+    width: 70%;
+    margin-bottom: 2rem;
+    padding: 2rem;
+    background: var(--primary-color);
+    box-shadow: var(--box-shadow);
+    border-radius: 16px;
+    border-left: 7px solid var(--accent-color);
+}
+.home-section .home-content .content-container .second-page .questionContent .inputGroup{
+    width: 100%;
+}
+.home-section .home-content .content-container .second-page .questionContent .inputGroup input{
+    border: 2px solid #6c757d;
+}
+.home-section .home-content .content-container .second-page .questionContent .inputGroup :is(input:focus, input:valid)~label{
+    background: var(--primary-color);
+}
+.home-section .home-content .content-container .second-page .quizInputsContainer > div{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    margin-bottom: 20px;
+}
+.home-section .home-content .content-container .second-page .edit-question-block h3{
+    margin-bottom: 20px;
+    padding-top: 20px;
+    font-size: 20px;
+    font-weight: 600;
+    color: var(--secondary-color);
 }

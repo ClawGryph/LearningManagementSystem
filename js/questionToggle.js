@@ -17,7 +17,9 @@ function initQuestionToggle(){
             newBlock.querySelectorAll("select").forEach(select => select.selectedIndex = 0);
 
             // Show default multiple choice
-            newBlock.querySelector(".multipleChoiceInputs").style.display = "block";
+            newBlock.querySelector(".multipleChoiceInputs").style.display = "flex";
+            newBlock.querySelector(".multipleChoiceInputs").style.flexDirection = "column";
+            newBlock.querySelector(".multipleChoiceInputs").style.gap = "20px";
             newBlock.querySelectorAll(".multipleChoiceInputs input").forEach(el => el.required = true);
 
             newBlock.querySelector(".identificationInputs").style.display = "none";
@@ -52,13 +54,22 @@ function initQuestionToggle(){
             });
 
             if (this.value === "multiple") {
-                multipleInputs.style.display = "block";
+                multipleInputs.style.display = "flex";
+                multipleInputs.style.flexDirection = "column";
+                multipleInputs.style.gap = "20px";
+
                 multipleInputs.querySelectorAll("input").forEach(el => el.required = true);
             } else if (this.value === "identification") {
-                identificationInputs.style.display = "block";
+                identificationInputs.style.display = "flex";
+                identificationInputs.style.flexDirection = "column";
+                identificationInputs.style.gap = "20px";
+
                 identificationInputs.querySelectorAll("input").forEach(el => el.required = true);
             } else if (this.value === "truefalse") {
-                trueFalseInputs.style.display = "block";
+                trueFalseInputs.style.display = "flex";
+                trueFalseInputs.style.flexDirection = "column";
+                trueFalseInputs.style.gap = "20px";
+                
                 trueFalseInputs.querySelectorAll("input, select").forEach(el => el.required = true);
             }
         });
@@ -120,7 +131,7 @@ function initQuestionToggle(){
         });
     });
 
-    // Submit for edit form
+    // Submit for edited Question form
     const editForm = document.getElementById("editQuizForm");
     if (editForm) {
         editForm.addEventListener("submit", function (e) {

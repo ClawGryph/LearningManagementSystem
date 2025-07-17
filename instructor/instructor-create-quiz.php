@@ -63,106 +63,153 @@ session_start();
         <div class="second-page" id="addQuizModal">
             <a href="#" data-content="instructor-create-quiz.php"><i class="fa-solid fa-circle-arrow-left"></i></a>
 
-           <form id="quizForm" action="../action/addNewQuiz.php" method="POST">
-                <div>
-                    <input type="text" id="quizTitle" name="quizTitle" placeholder="Enter quiz title..." required maxlength="50">
-                    <input type="text" id="quizDescription" name="quizDescription" placeholder="Enter quiz description..." required maxlength="100">
-
-                    <label for="quizDeadline">Deadline:</label>
-                    <input type="datetime-local" id="quizDeadline" name="quizDeadline" required>
+            <form id="quizForm" class="quizzes" action="../action/addNewQuiz.php" method="POST">
+                <div class="page-header">
+                    <h2>Create Quiz</h2>
+                    <div class="inputGroup">
+                        <input type="text" id="quizTitle" name="quizTitle" required maxlength="50">
+                        <label for="quizTitle">Quiz title</label>
+                    </div>
+                    <div class="inputGroup">
+                        <input type="text" id="quizDescription" name="quizDescription" required maxlength="100">
+                        <label for="quizDescription">Quiz description</label>
+                    </div>
+                    <div class="inputNoToggle">
+                        <label for="quizDeadline">Deadline:</label>
+                        <input type="datetime-local" id="quizDeadline" name="quizDeadline" required>
+                    </div>
                 </div>
 
                 <!-- Where all question blocks will go -->
-                <div id="questionsContainer">
+                <div id="questionsContainer" class="questionContent">
                     <!-- First Question Block -->
                     <div class="question-block">
-                        <p>Question # <span class="questionNumber"></span></p>
-                        <label>Question Type:</label>
-                        <select class="quizTypeSelect" name="quizTypeSelect[]">
-                            <option value="multiple" selected>Multiple Choice</option>
-                            <option value="identification">Identification</option>
-                            <option value="truefalse">True/False</option>
-                        </select>
+                        <p>Question # <span class="questionNumber">1</span></p>
+                        <div class="inputNoToggle">
+                            <label>Question Type:</label>
+                            <select class="quizTypeSelect" name="quizTypeSelect[]">
+                                <option value="multiple" selected>Multiple Choice</option>
+                                <option value="identification">Identification</option>
+                                <option value="truefalse">True/False</option>
+                            </select>
+                        </div>
 
                         <div class="quizInputsContainer">
                             <div class="multipleChoiceInputs">
-                                <input type="text" name="question[]" placeholder="Enter question...">
-                                <input type="text" name="A[]" placeholder="a">
-                                <input type="text" name="B[]" placeholder="b">
-                                <input type="text" name="C[]" placeholder="c">
-                                <input type="text" name="D[]" placeholder="d">
-                                <input type="text" name="correctAnswer[]" placeholder="Correct answer (e.g. a)" pattern="[a-dA-D]" maxlength="1" title="Please enter only a, b, c, or d">
+                                <div class="inputGroup">
+                                    <input type="text" name="question[]">
+                                    <label for="question[]">Enter question...</label>
+                                </div>
+                                <div class="inputGroup">
+                                    <input type="text" name="A[]">
+                                    <label for="A[]">a</label>
+                                </div>
+                                <div class="inputGroup">
+                                    <input type="text" name="B[]">
+                                    <label for="B[]">b</label>
+                                </div>
+                                <div class="inputGroup">
+                                    <input type="text" name="C[]">
+                                    <label for="C[]">c</label>
+                                </div>
+                                <div class="inputGroup">
+                                    <input type="text" name="D[]">
+                                    <label for="D[]">d</label>
+                                </div>
+                                <div class="inputGroup">
+                                    <input type="text" name="correctAnswer[]" pattern="[a-dA-D]" maxlength="1" title="Please enter only a, b, c, or d">
+                                    <label for="correctAnswer[]">Correct answer (e.g. a)</label>
+                                </div>
                             </div>
 
                             <div class="identificationInputs" style="display:none;">
-                                <input type="text" name="identificationQuestion[]" placeholder="Enter question...">
-                                <input type="text" name="identificationAnswer[]" placeholder="Correct answer...">
+                                <div class="inputGroup">
+                                    <input type="text" name="identificationQuestion[]">
+                                    <label for="identificationQuestion">Enter question...</label>
+                                </div>
+                                <div class="inputGroup">
+                                    <input type="text" name="identificationAnswer[]">
+                                    <label for="identificationAnswer">Correct answer...</label>
+                                </div>
                             </div>
 
                             <div class="trueFalseInputs" style="display:none;">
-                                <input type="text" name="tfQuestion[]" placeholder="Enter question...">
-                                <select name="tfAnswer[]">
-                                    <option value="">Select answer</option>
-                                    <option value="True">True</option>
-                                    <option value="False">False</option>
-                                </select>
+                                <div class="inputGroup">
+                                    <input type="text" name="tfQuestion[]">
+                                    <label for="tfQuestion">Enter question...</label>
+                                </div>
+                                <div class="inputNoToggle">
+                                    <select name="tfAnswer[]">
+                                        <option value="">Select answer</option>
+                                        <option value="True">True</option>
+                                        <option value="False">False</option>
+                                    </select>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
 
-                <button type="button" id="addQuestionBtn">
-                    <i class="fa-solid fa-circle-plus"></i>
-                </button>
-
-                <button type="submit" class="home-contentBtn btn-accent-bg">Create Quiz</button>
+                <div class="tooltip">
+                    <button type="button" class="addBtn" id="addQuestionBtn">
+                        <i class="fa-solid fa-circle-plus"></i>
+                    </button>
+                    <span class="tooltiptext">Add Question</span>
+                </div>
+                <div class="home-contentBtn-container">
+                    <button type="submit" class="home-contentBtn btn-accent-bg">Create Quiz</button>
+                </div>
             </form>
         </div>
 
         <!-- THIRD PAGE !-->
         <div class="second-page" id="addQuizToClassModal">
             <a href="#" data-content="admin-create-courses.php"><i class="fa-solid fa-circle-arrow-left"></i></a>
-            <form action="../action/addQuizToClass.php" method="POST">
-                <div>
-                    <!-- DROPDOWN LIST TO ALL QUIZZES THAT ARE NOT YET IN DEADLINE -->
-                    <label for="quizSelect">Select a quiz:</label>
-                    <select name="quizID" id="quizSelect" required>
-                        <option value="">-- Choose a quiz --</option>
-                        <?php
-                        include '../db.php';
-                        $now = date('Y-m-d H:i:s');
-                        $query = "SELECT quizID, title, deadline FROM quizzes WHERE deadline >= ?";
-                        $stmt = $conn->prepare($query);
-                        $stmt->bind_param("s", $now);
-                        $stmt->execute();
-                        $result = $stmt->get_result();
-
-                        while ($row = $result->fetch_assoc()) {
-                            echo '<option value="' . $row['quizID'] . '">' . htmlspecialchars($row['title']) . ' (Deadline: ' . date('M d, Y H:i', strtotime($row['deadline'])) . ')</option>';
-                        }
-
-                        $stmt->close();
-                        ?>
-                    </select>
-                </div>
-                <div>
-                    <input type="number" name="quizTime" placeholder="Quiz Time (in minutes)" min="1" max="60" required>
-                </div>
-                <table>
-                    <thead>
-                        <tr>
-                            <th></th>
-                            <th>Class</th>
-                            <th>Subject</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <!-- RADIO BUTTON IN EACH CLASS AND SUBJECT -->
-                        <?php
+            <form action="../action/addQuizToClass.php" class="quizzes" method="POST">
+                <div class="page-header">
+                    <div class="inputNoToggle">
+                        <!-- DROPDOWN LIST TO ALL QUIZZES THAT ARE NOT YET IN DEADLINE -->
+                        <label for="quizSelect">Select a quiz:</label>
+                        <select name="quizID" id="quizSelect" required>
+                            <option value="">-- Choose a quiz --</option>
+                            <?php
                             include '../db.php';
+                            $now = date('Y-m-d H:i:s');
+                            $query = "SELECT quizID, title, deadline FROM quizzes WHERE deadline >= ?";
+                            $stmt = $conn->prepare($query);
+                            $stmt->bind_param("s", $now);
+                            $stmt->execute();
+                            $result = $stmt->get_result();
 
+                            while ($row = $result->fetch_assoc()) {
+                                echo '<option value="' . $row['quizID'] . '">' . htmlspecialchars($row['title']) . ' (Deadline: ' . date('M d, Y H:i', strtotime($row['deadline'])) . ')</option>';
+                            }
+
+                            $stmt->close();
+                            ?>
+                        </select>
+                    </div>
+                    <div class="inputGroup">
+                        <input type="number" name="quizTime" min="1" max="60" required>
+                        <label for="quizTime">Quiz Time (in minutes)</label>
+                    </div>
+                </div>
+                <div class="table-container">
+                    <table class="table-content">
+                        <thead>
+                            <tr>
+                                <th></th>
+                                <th>Class</th>
+                                <th>Subject</th>
+                            </tr>
+                        </thead>
+                        <tbody class="table-body">
+                            <!-- RADIO BUTTON IN EACH CLASS AND SUBJECT -->
+                            <?php
+                            include '../db.php';
+                            
                             $instructorID = $_SESSION['user_id'];
-
+                            
                             $result = $conn->prepare("SELECT cl.year, cl.section, c.courseCode, c.courseName, ic.instructor_courseID
                                                     FROM instructor_courses ic
                                                     JOIN class cl ON ic.classID = cl.classID
@@ -171,7 +218,7 @@ session_start();
                             $result->bind_param("i", $instructorID);
                             $result->execute();
                             $stmt = $result->get_result();
-
+                            
                             while ($row = $stmt->fetch_assoc()) {
                                 echo '<tr>';
                                 echo '<td><input type="radio" name="instructorCourseID" value="' . $row['instructor_courseID'] . '" required></td>';
@@ -179,10 +226,13 @@ session_start();
                                 echo '<td>' . htmlspecialchars($row['courseCode']) . '-' . htmlspecialchars($row['courseName']) . '</td>';
                                 echo '</tr>';
                             }
-                        ?>
-                    </tbody>
-                </table>
-                <button type="submit" id="submitQuiz" class="home-contentBtn btn-accent-bg">Add</button>
+                            ?>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="home-contentBtn-container">
+                    <button type="submit" id="submitQuiz" class="home-contentBtn btn-accent-bg">Add</button>
+                </div>
             </form>
         </div>
 
