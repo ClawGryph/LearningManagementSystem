@@ -71,6 +71,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
     }
 
-    echo "<script>alert('Quiz saved successfully!'); window.location.href='../instructor/instructor-create-quiz.php';</script>";
+    echo "<script>alert('Quiz saved successfully!'); window.location.href='../instructor/instructor-landingpage.php';</script>";
 }
 ?>
