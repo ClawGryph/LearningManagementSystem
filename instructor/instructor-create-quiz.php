@@ -13,12 +13,12 @@ session_start();
             <div class="page-header">
                 <h2>Quizzes</h2>
                 <div>
-                    <button type="submit" id="coursePage" class="home-contentBtn btn-accent-bg"><i class="fa-solid fa-circle-plus"></i>Add Quiz</button>
-                    <button type="submit" id="coursePage" class="home-contentBtn btn-accent-bg"><i class="fa-solid fa-circle-plus"></i>Add quiz to class</button>
+                    <button type="submit" id="addQuizPage" class="home-contentBtn btn-accent-bg"><i class="fa-solid fa-circle-plus"></i>Add Quiz</button>
+                    <button type="submit" id="addQuizToClassPage" class="home-contentBtn btn-accent-bg"><i class="fa-solid fa-circle-plus"></i>Add quiz to class</button>
                 </div>
             </div>
             <div class="table-container">
-                <table class="table-content" id="courseTable">
+                <table class="table-content" id="quizTable">
                     <thead>
                         <tr>
                             <th>Quiz Name</th>
@@ -42,7 +42,7 @@ session_start();
                                             <td>{$row['title']}</td>
                                             <td>{$row['description']}</td>
                                             <td>{$row['deadline']}</td>
-                                            <td><a href='#questions' class='view-questions' data-id={$row['quizID']}>Questions</a></td>
+                                            <td><a href='#' id='questionPage' class='view-questions' data-id={$row['quizID']}>Questions</a></td>
                                             <td>
                                                 <button type='button' class='home-contentBtn editBtn btn-accent-bg'><i class='fa-solid fa-pen-to-square'></i></button>
                                                 <button type='button' class='home-contentBtn deleteBtn btn-drk-bg'><i class='fa-solid fa-trash'></i></button>
@@ -164,7 +164,7 @@ session_start();
 
         <!-- THIRD PAGE !-->
         <div class="second-page" id="addQuizToClassModal">
-            <a href="#" data-content="admin-create-courses.php"><i class="fa-solid fa-circle-arrow-left"></i></a>
+            <a href="#" data-content="instructor-create-quiz.php"><i class="fa-solid fa-circle-arrow-left"></i></a>
             <form action="../action/addQuizToClass.php" class="quizzes" method="POST">
                 <div class="page-header">
                     <div class="inputNoToggle">
@@ -239,7 +239,7 @@ session_start();
         <!-- QUESTIONS PAGE !-->
         <div class="second-page" id="questions">
             <div class="page-header">
-                <a href="#" data-content="admin-create-courses.php"><i class="fa-solid fa-circle-arrow-left"></i></a>
+                <a href="#" data-content="instructor-create-quiz.php"><i class="fa-solid fa-circle-arrow-left"></i></a>
                 <h2>Questions</h2>
             </div>
             <form id="editQuizForm" action="../action/updateQuizQuestions.php" method="POST">
@@ -247,7 +247,9 @@ session_start();
                 <div id="questionEditContainer">
                     <!-- Loaded questions here -->
                 </div>
-                <button type="submit" id="submitCourse" class="home-contentBtn btn-accent-bg">Update</button>
+                <div class="home-contentBtn-container">
+                    <button type="submit" id="submitCourse" class="home-contentBtn btn-accent-bg">Update</button>
+                </div>
             </form>
         </div>
     </div>

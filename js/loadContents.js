@@ -53,9 +53,10 @@ document.addEventListener("DOMContentLoaded", function() {
                     if (typeof initHideSidebarOnClick === 'function') initHideSidebarOnClick();
                 }, 0);
             }
-            if(normalizedUrl === 'instructor-create-quiz.php' && typeof initQuestionToggle === 'function'){
+            if(normalizedUrl === 'instructor-create-quiz.php' && typeof initQuiz === 'function'){
+                initQuiz();
                 setTimeout(() => {
-                    initQuestionToggle();
+                    if (typeof initQuestionToggle === 'function') initQuestionToggle();
                     if (typeof initHideSidebarOnClick === 'function') initHideSidebarOnClick();
                 }, 0);
             }

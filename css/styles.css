@@ -736,13 +736,15 @@ form.signup-form{
     border-radius: 16px;
     box-shadow: var(--box-shadow);
 }
-/* .home-section .home-content .second-page{
+.home-section .home-content .second-page{
     display: none;
-} */
+}
 .home-section .home-content .first-page.hidden{
     display: none;
 }
-.home-section .home-content .second-page.active{
+#addQuizModal.active,
+#addQuizToClassModal.active,
+#questions.active{
     display: block;
 }
 .home-section .home-content .first-page h2,
@@ -859,6 +861,7 @@ form.signup-form{
 }
 .home-section .home-content .first-page .table-container .table-content td input[type="text"],
 .home-section .home-content .first-page .table-container .table-content td input[type="number"],
+.home-section .home-content .first-page .table-container .table-content td input[type="datetime-local"],
 .home-section .home-content .first-page .table-container .table-content td select{
     width: 100%;
     padding: 6px 10px;

@@ -127,6 +127,7 @@ if ($userId) {
     <script src="../js/imageUpload.js"></script>
     <script src="../js/linkView.js"></script>
     <script src="../js/hideSidebar.js"></script>
+    <script src="../js/quiz.js"></script>
     <script src="../js/questionToggle.js"></script>
 </body>
 </html>
