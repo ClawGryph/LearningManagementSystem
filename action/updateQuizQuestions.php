@@ -63,6 +63,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
     }
 
-    echo "<script>alert('Questions updated successfully!'); window.location.href='../instructor/instructor-create-quiz.php';</script>";
+    echo "<script>alert('Questions updated successfully!'); window.location.href='../instructor/instructor-landingpage.php';</script>";
 }
 ?>

@@ -21,9 +21,12 @@ function initQuiz(){
         });
 
         // Show questions modal, hide main table
-        document.getElementById("questionPage").addEventListener("click", function () {
-            firstPage.classList.add("hidden");
-            questions.classList.add("active");
+        document.querySelectorAll(".view-questions").forEach(link => {
+            link.addEventListener("click", function () {
+
+                firstPage.classList.add("hidden");
+                questions.classList.add("active");
+            });
         });
 
 
@@ -128,6 +131,7 @@ function initQuiz(){
 
 
     document.getElementById("quizTable").addEventListener("click", function (e) {
+
         const deleteBtn = e.target.closest(".deleteBtn");
         if (deleteBtn) {
             if (!confirm("Are you sure you want to delete this quiz?")) return;
@@ -138,9 +142,11 @@ function initQuiz(){
         xhr.open("POST", "../action/deleteQuiz.php", true);
             xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
             xhr.onload = function () {
+                console.log("Response:", xhr.responseText);
+                
                 if (xhr.status === 200 && xhr.responseText === "success") {
-                    alert("Delete successful!");
                     row.remove();
+                    alert("Delete successful!");
                 } else {
                     alert("Delete failed!");
                 }

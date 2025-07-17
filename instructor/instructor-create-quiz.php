@@ -42,7 +42,7 @@ session_start();
                                             <td>{$row['title']}</td>
                                             <td>{$row['description']}</td>
                                             <td>{$row['deadline']}</td>
-                                            <td><a href='#' id='questionPage' class='view-questions' data-id={$row['quizID']}>Questions</a></td>
+                                            <td><a href='#' class='view-questions' data-id={$row['quizID']}>Questions</a></td>
                                             <td>
                                                 <button type='button' class='home-contentBtn editBtn btn-accent-bg'><i class='fa-solid fa-pen-to-square'></i></button>
                                                 <button type='button' class='home-contentBtn deleteBtn btn-drk-bg'><i class='fa-solid fa-trash'></i></button>
