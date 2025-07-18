@@ -174,6 +174,7 @@ session_start();
                             <option value="">-- Choose a quiz --</option>
                             <?php
                             include '../db.php';
+                            date_default_timezone_set('Asia/Manila');
                             $now = date('Y-m-d H:i:s');
                             $query = "SELECT quizID, title, deadline FROM quizzes WHERE deadline >= ?";
                             $stmt = $conn->prepare($query);
