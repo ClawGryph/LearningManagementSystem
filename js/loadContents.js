@@ -9,7 +9,8 @@ document.addEventListener("DOMContentLoaded", function() {
         'admin-instructor-load.php' : "Admin | Instructor Load",
         'admin-lm-lists.php' : 'Admin | Materials Lists',
         'instructor-classes.php' : 'Instructor | Classes',
-        'instructor-create-quiz.php' : 'Instructor | Quiz'
+        'instructor-create-quiz.php' : 'Instructor | Quiz',
+        'instructor-create-assignment.php' : 'Instructor | Assignment'
     };
 
     const mainContent = document.getElementById('main-content');
@@ -58,6 +59,13 @@ document.addEventListener("DOMContentLoaded", function() {
                 setTimeout(() => {
                     if (typeof initQuestionToggle === 'function') initQuestionToggle();
                     if (typeof initHideSidebarOnClick === 'function') initHideSidebarOnClick();
+                }, 0);
+            }
+            if(normalizedUrl === 'instructor-create-assignment.php' && typeof initAssignment === 'function' && typeof initHideSidebarOnClick === 'function'){
+                initAssignment();
+                setTimeout(() => {
+                    initHideSidebarOnClick();
+                    if (typeof initShowAssignmentFile === 'function') initShowAssignmentFile();
                 }, 0);
             }
         });

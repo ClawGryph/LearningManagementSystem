@@ -61,12 +61,12 @@ if ($userId) {
 
             <!-- 3 -->
             <li>
-                <a href="#" data-content="admin-lm-lists.php">
+                <a href="#" data-content="instructor-create-assignment.php">
                     <i class="fa-solid fa-file"></i>
                     <span class="link_name">Create Assignment</span>
                 </a>
                 <ul class="sub-menu blank">
-                    <li><a href="#" data-content="admin-lm-lists.php" class="link_name">Create Assignment</a></li>
+                    <li><a href="#" data-content="instructor-create-assignment.php" class="link_name">Create Assignment</a></li>
                 </ul>
             </li>
 
@@ -129,5 +129,7 @@ if ($userId) {
     <script src="../js/hideSidebar.js"></script>
     <script src="../js/quiz.js"></script>
     <script src="../js/questionToggle.js"></script>
+    <script src="../js/assignment.js"></script>
+    <script src="../js/showAssignmentFile.js"></script>
 </body>
 </html>
