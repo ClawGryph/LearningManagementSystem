@@ -140,6 +140,10 @@ while($row = $query->fetch_assoc()){
                             ?>
                         </select>
                     </div>
+                    <div class="inputGroup">
+                        <input type="number" name="activityTime" min="1" max="60" required>
+                        <label for="activityTime">Activity Timelimit (in minutes)</label>
+                    </div>
                 </div>
                 <div class="table-container">
                     <table class="table-content">
