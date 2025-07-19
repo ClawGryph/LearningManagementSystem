@@ -745,7 +745,8 @@ form.signup-form{
 #addQuizModal.active,
 #addQuizToClassModal.active,
 #questions.active,
-#assignmentModal.active{
+#assignmentModal.active,
+#activityModal.active{
     display: block;
 }
 .home-section .home-content .first-page h2,
@@ -1050,11 +1051,20 @@ form.signup-form{
 .home-section .home-content .content-container .first-page .class-list-container{
     width: 70%;
 }
+.home-section .home-content .content-container .first-page .activity-list-container{
+    width: 60%;
+}
 .home-section .home-content .content-container .first-page .class-list-container .home-contentBtn:last-child{
     margin-top: 5px;
 }
 .home-section .home-content .content-container .first-page .create-class-container{
     width: 30%;
+}
+.home-section .home-content .content-container .first-page .create-activity-container{
+    width: 40%;
+}
+.home-section .home-content .content-container .first-page .create-class-container,
+.home-section .home-content .content-container .first-page .create-activity-container{
     position: sticky;
     top: 20px;
     align-self: flex-start;
@@ -1256,4 +1266,9 @@ form.signup-form{
 }
 .home-section .home-content .content-container .first-page .form-content .assignmentFile button:hover{
     background-color: #0056b3;
+}
+
+/* PROGRAMMING ACTIVITY */
+.home-section .home-content .content-container .first-page .form-content textarea{
+    width: 100%;
 }

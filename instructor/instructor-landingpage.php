@@ -72,12 +72,12 @@ if ($userId) {
 
             <!-- 4 -->
             <li>
-                <a href="#" data-content="admin-lm-lists.php">
+                <a href="#" data-content="instructor-create-activity.php">
                     <i class="fa-solid fa-laptop-code"></i>
                     <span class="link_name">Programming Activity</span>
                 </a>
                 <ul class="sub-menu blank">
-                    <li><a href="#" data-content="admin-lm-lists.php" class="link_name">Programming Activity</a></li>
+                    <li><a href="#" data-content="instructor-create-activity.php" class="link_name">Programming Activity</a></li>
                 </ul>
             </li>
 
@@ -131,5 +131,6 @@ if ($userId) {
     <script src="../js/questionToggle.js"></script>
     <script src="../js/assignment.js"></script>
     <script src="../js/showAssignmentFile.js"></script>
+    <script src="../js/activity.js"></script>
 </body>
 </html>

@@ -87,6 +87,7 @@ function initInstructorLoad(){
                         courseCodeCell.textContent = selectedCourse
                             ? `${selectedCourse.courseCode}-${selectedCourse.courseName}`
                             : "Unknown";
+                            
                         instructorNameCell.textContent = instructorList.find(i => i.userID == newIntructorID)?.fullName || "Unknown";
                         const selectedClass = classList.find(cl => cl.classID == newClassID);
                         classCell.textContent = selectedClass
