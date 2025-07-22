@@ -746,7 +746,8 @@ form.signup-form{
 #addQuizToClassModal.active,
 #questions.active,
 #assignmentModal.active,
-#activityModal.active{
+#activityModal.active,
+.home-section .home-content .hiddenPage.active{
     display: block;
 }
 .home-section .home-content .first-page h2,
@@ -933,7 +934,8 @@ form.signup-form{
 .home-section .home-content .second-page .form-content input[type="text"],
 .home-section .home-content .first-page .form-content input[type="text"],
 .home-section .home-content .first-page .form-content input[type="number"],
-.home-section .home-content .first-page .form-content input[type="datetime-local"]{
+.home-section .home-content .first-page .form-content input[type="datetime-local"],
+.home-section .home-content .first-page .form-content input[type="url"]{
     border: none;
     outline: none;
     width: 100%;
@@ -962,7 +964,8 @@ form.signup-form{
 .home-section .home-content .second-page .form-content input[type="text"]::placeholder,
 .home-section .home-content .first-page .form-content input[type="text"]::placeholder,
 .home-section .home-content .first-page .form-content input[type="number"]::placeholder,
-.home-section .home-content .first-page .form-content input[type="datetime-local"]::placeholder{
+.home-section .home-content .first-page .form-content input[type="datetime-local"]::placeholder,
+.home-section .home-content .first-page .form-content input[type="url"]::placeholder{
     color: #aaa;
     font-size: 1.5rem;
 }
@@ -1271,4 +1274,45 @@ form.signup-form{
 /* PROGRAMMING ACTIVITY */
 .home-section .home-content .content-container .first-page .form-content textarea{
     width: 100%;
+}
+
+/* UPLOAD MATERIALS */
+.home-section .home-content .content-container .first-page .table-container .table-content .statusGroup{
+    display: inline-block;
+    text-align: center;
+    font-size: 14px;
+    color: var(--primary-color);
+    border-radius: 16px;
+    padding: 5px 15px;
+    box-shadow: var(--box-shadow);
+}
+.home-section .home-content .content-container .first-page .table-container .table-content .statusGroup.pending{
+    background: #8e9aaf;
+}
+.home-section .home-content .content-container .first-page .table-container .table-content .statusGroup.approved{
+    background-color: #6a994e;
+}
+.home-section .home-content .content-container .first-page .table-container .table-content .statusGroup.rejected{
+    background-color: #ba181b;
+}
+.home-section .home-content .content-container .first-page .form-content .divider-label{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: #333;
+    font-size: 14px;
+    margin-bottom: 15px;
+}
+.home-section .home-content .content-container .first-page .form-content .divider-label::before,
+.home-section .home-content .content-container .first-page .form-content .divider-label::after{
+    content: "";
+    flex: 1;
+    height: 1px;
+    background: #ccc;
+}
+.home-section .home-content .content-container .first-page .form-content .divider-label::before{
+    margin-right: 10px;
+}
+.home-section .home-content .content-container .first-page .form-content .divider-label::after{
+    margin-left: 10px;
 }

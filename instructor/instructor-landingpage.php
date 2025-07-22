@@ -83,12 +83,12 @@ if ($userId) {
 
             <!-- 5 -->
             <li>
-                <a href="#" data-content="admin-lm-lists.php">
+                <a href="#" data-content="instructor-upload-lm.php">
                     <i class="fa-solid fa-upload"></i>
                     <span class="link_name">Upload Learning Materials</span>
                 </a>
                 <ul class="sub-menu blank">
-                    <li><a href="#" data-content="admin-lm-lists.php" class="link_name">Upload Learning Materials</a></li>
+                    <li><a href="#" data-content="instructor-upload-lm.php" class="link_name">Upload Learning Materials</a></li>
                 </ul>
             </li>
             <li>
@@ -132,5 +132,6 @@ if ($userId) {
     <script src="../js/assignment.js"></script>
     <script src="../js/showAssignmentFile.js"></script>
     <script src="../js/activity.js"></script>
+    <script src="../js/materials.js"></script>
 </body>
 </html>
