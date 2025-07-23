@@ -12,7 +12,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 
     if ($result->num_rows > 0) {
         // Quiz already added to class
-        echo "<script>alert('This quiz is already added to the selected class.'); window.history.back();</script>";
+        echo "<script>alert('This material is already added to the selected class.'); window.history.back();</script>";
     } else {
         // Step 2: Insert if not yet added
         $stmt = $conn->prepare("INSERT INTO learningmaterials_author (instructor_courseID, course_lmID) VALUES (?, ?)");

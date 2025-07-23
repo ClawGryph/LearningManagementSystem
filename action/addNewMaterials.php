@@ -1,10 +1,13 @@
 <?php
 include '../db.php';
+session_start();
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $title = $_POST['materialTitle'];
     $description = $_POST['materialDescription'];
     $youtubeUrl = !empty($_POST['youtubeUrl']) ? $_POST['youtubeUrl'] : null;
+
+    $instructorID = $_SESSION['user_id'];
 
     $fileName = null;
     $filePath = null;
@@ -34,8 +37,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 
     // Insert regardless of whether it's a file or a YouTube link
-    $stmt = $conn->prepare("INSERT INTO course_learningmaterials (name, description, file_name, file_path, file_size, uploaded_at, file_type, youtube_url) VALUES (?, ?, ?, ?, ?, NOW(), ?, ?)");
-    $stmt->bind_param("ssssiss", $title, $description, $fileName, $filePath, $fileSize, $fileType, $youtubeUrl);
+    $stmt = $conn->prepare("INSERT INTO course_learningmaterials (instructor_ID, name, description, file_name, file_path, file_size, uploaded_at, file_type, youtube_url) VALUES (?, ?, ?, ?, ?, ?, NOW(), ?, ?)");
+    $stmt->bind_param("issssiss", $instructorID, $title, $description, $fileName, $filePath, $fileSize, $fileType, $youtubeUrl);
 
     if ($stmt->execute()) {
         echo "<script>alert('Upload Successful!'); window.location.href='../instructor/instructor-landingpage.php';</script>";

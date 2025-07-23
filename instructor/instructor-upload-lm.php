@@ -31,7 +31,10 @@ session_start();
                                 <?php
                                     include '../db.php';
 
-                                    $stmt = $conn->prepare("SELECT * FROM course_learningmaterials");
+                                    $instructorID = $_SESSION['user_id'];
+
+                                    $stmt = $conn->prepare("SELECT * FROM course_learningmaterials WHERE instructor_ID = ?");
+                                    $stmt->bind_param("i", $instructorID);
                                     $stmt->execute();
                                     $result = $stmt->get_result();
 
@@ -108,8 +111,12 @@ session_start();
                             <option value="" disabled selected>-- Choose a material --</option>
                             <?php
                             include '../db.php';
-                            $query = "SELECT course_lmID, name, status FROM course_learningmaterials WHERE status = 'pending'";
+
+                            $instructorID = $_SESSION['user_id'];
+
+                            $query = "SELECT course_lmID, instructor_ID, name, status FROM course_learningmaterials WHERE status = 'pending' AND instructor_ID = ?";
                             $stmt = $conn->prepare($query);
+                            $stmt->bind_param("i", $instructorID);
                             $stmt->execute();
                             $result = $stmt->get_result();
 
