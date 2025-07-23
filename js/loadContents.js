@@ -50,6 +50,12 @@ document.addEventListener("DOMContentLoaded", function() {
                     initHideSidebarOnClick();
                 }, 0);
             }
+            if(normalizedUrl === 'admin-lm-lists.php' && typeof initLMLists === 'function') {
+                initLMLists();
+                setTimeout(() => {
+                    if (typeof initHideSidebarOnClick === 'function') initHideSidebarOnClick();
+                }, 0);
+            }
             if(normalizedUrl === 'admin-instructor-load.php' && typeof initInstructorLoad === 'function') {
                 initInstructorLoad();
                 setTimeout(() => {

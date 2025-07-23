@@ -133,5 +133,6 @@ $notifCount = $row['notif_count'];
     <script src="../js/class.js"></script>
     <script src="../js/course.js"></script>
     <script src="../js/instructorLoad.js"></script>
+    <script src="../js/lm-lists.js"></script>
 </body>
 </html>

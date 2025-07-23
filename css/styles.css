@@ -838,6 +838,16 @@ form.signup-form{
     display: flex;
     gap: 20px;
 }
+
+/* MATERIALS LISTS */
+.home-section .home-content .first-page .table-container .table-content .lm-lists .home-contentBtn{
+    width: 60%;
+    padding: 5px;
+    margin-bottom: 5px;
+}
+.home-section .home-content .first-page .table-container .table-content .lm-lists .lm-link{
+    text-decoration: none;
+}
 .home-section .home-content .first-page .notification-item .page-header{
     display: flex;
     justify-content: flex-start;

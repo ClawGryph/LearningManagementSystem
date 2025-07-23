@@ -1,16 +1,13 @@
 <?php
 include '../db.php';
 
-$query = $conn->query("SELECT 
-                        CONCAT(i.firstName, ' ', i.lastName) AS Instructor_Name,
-                        c.courseName,
-                        clm.course_lmID,
-                        clm.file_name,
-                        clm.uploaded_at
-                    FROM course_learningmaterials clm
-                    JOIN users i ON i.userID = clm.instructorID
-                    JOIN courses c ON c.courseID = clm.courseID
-                    WHERE clm.status = 'pending';");
+$query = $conn->query("SELECT CONCAT(i.firstName, ' ', i.lastName) AS Instructor_Name, CONCAT(c.courseCode, ' - ', c.courseName) AS Course_Name, clm.name, clm.file_path, lma.lmID
+FROM learningmaterials_author lma 
+JOIN instructor_courses ic ON lma.instructor_courseID = ic.instructor_courseID 
+JOIN users i ON ic.instructorID = i.userID 
+JOIN courses c ON ic.courseID = c.courseID 
+JOIN course_learningmaterials clm ON lma.course_lmID = clm.course_lmID 
+WHERE clm.status = 'pending';");
 ?>
 
 <div class="home-content">
@@ -30,20 +27,25 @@ $query = $conn->query("SELECT
                             <th>Instructor Name</th>
                             <th>Course Name</th>
                             <th>File Name</th>
-                            <th>Date and Time</th>
+                            <th>Preview</th>
                             <th>Action</th>
                         </tr>
                     </thead>
-                    <tbody class="table-body">
+                    <tbody class="table-body lm-lists">
                         <?php while ($row = $query->fetch_assoc()): ?>
                             <tr>
                                 <td><?php echo htmlspecialchars($row['Instructor_Name']); ?></td>
-                                <td><?php echo htmlspecialchars($row['courseName']); ?></td>
-                                <td><?php echo htmlspecialchars($row['file_name']); ?></td>
-                                <td><?php echo date("F j, Y g:i A", strtotime($row['uploaded_at'])) ?></td>
+                                <td><?php echo htmlspecialchars($row['Course_Name']); ?></td>
+                                <td><?php echo htmlspecialchars($row['name']); ?></td>
+                                <td><?php if (!empty($row['file_path'])): ?>
+                                        <a href="<?= htmlspecialchars($row['file_path']) ?>" target="_blank" class="home-contentBtn lm-link btn-light-bg">Preview</a>
+                                    <?php else: ?>
+                                        <span>No file</span>
+                                    <?php endif; ?>
+                                </td>
                                 <td>
-                                    <button type="button" class="home-contentBtn approve-btn btn-accent-bg" data-id="<?php echo $row['course_lmID']; ?>">Approve</button>
-                                    <button type="button" class="home-contentBtn reject-btn btn-drk-bg" data-id="<?php echo $row['course_lmID']; ?>">Reject</button>
+                                    <button type="button" class="home-contentBtn approve-btn btn-accent-bg" data-id="<?php echo $row['lmID']; ?>">Approve</button>
+                                    <button type="button" class="home-contentBtn reject-btn btn-drk-bg" data-id="<?php echo $row['lmID']; ?>">Reject</button>
                                 </td>
                             </tr>
                         <?php endwhile; ?>
