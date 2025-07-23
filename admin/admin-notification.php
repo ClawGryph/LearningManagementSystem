@@ -31,23 +31,25 @@ WHERE lma.is_read = 0 AND clm.status = 'pending';
                     </div>
                     <?php if ($notifQuery->num_rows > 0): ?>
                     <?php while ($notif = $notifQuery->fetch_assoc()): ?>
-                        <div class="notification-item">
-                            <label class="notification-label">
-                                <input type="checkbox" name="notifications[]" value="<?= htmlspecialchars($notif['lmID']) ?>" class="notification-checkbox">
-                                <div class="notification-content">
-                                    <p class="page-header">
-                                        <span><strong><?= htmlspecialchars($notif['Instructor_Name']) ?></strong>&nbsp;</span>
-                                        added a course material to the course&nbsp;
-                                        <span><strong><?= htmlspecialchars($notif['Course_Name']) ?></strong></span>
-                                    </p>
-                                    <p class="notif-date">
-                                        <span><i class="fa-solid fa-calendar-days"></i>
-                                            <?= date("F j, Y g:i A", strtotime($notif['request_date'])) ?>
-                                        </span>
-                                    </p>
-                                </div>
-                            </label>
-                        </div>
+                        <a href="#" data-content="admin-lm-lists.php" class="notification-link">
+                            <div class="notification-item">
+                                <label class="notification-label">
+                                    <input type="checkbox" name="notifications[]" value="<?= htmlspecialchars($notif['lmID']) ?>" class="notification-checkbox">
+                                    <div class="notification-content">
+                                        <p class="page-header">
+                                            <span><strong><?= htmlspecialchars($notif['Instructor_Name']) ?></strong>&nbsp;</span>
+                                            added a course material to the course&nbsp;
+                                            <span><strong><?= htmlspecialchars($notif['Course_Name']) ?></strong></span>
+                                        </p>
+                                        <p class="notif-date">
+                                            <span><i class="fa-solid fa-calendar-days"></i>
+                                                <?= date("F j, Y g:i A", strtotime($notif['request_date'])) ?>
+                                            </span>
+                                        </p>
+                                    </div>
+                                </label>
+                            </div>
+                        </a>
                     <?php endwhile; ?>
                     <?php else: ?>
                         <p>No new notifications.</p>

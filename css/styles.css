@@ -824,19 +824,49 @@ form.signup-form{
 }
 
 /* NOTIFICATION */
+.home-section .home-content .first-page .notification-link{
+    position: relative;
+    display: block;
+    overflow: hidden;
+    text-decoration: none;
+    border-radius: 16px;
+}
+.home-section .home-content .first-page .notification-item::before{
+    content: "";
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 0;
+    height: 100%;
+    background-color:  #f0f0f0; /* your hover color */
+    transition: width 0.4s ease;
+    z-index: 0;
+    border-radius: 16px; 
+}
+.home-section .home-content .first-page .notification-item:hover::before{
+    width: 100%;
+    left: 0;
+    right: auto;
+}
 .home-section .home-content .first-page .notification-item{
-    background: var(--primary-color);
-    margin-bottom: 20px;
+    padding: 20px;
+    background-color: var(--primary-color);
     box-shadow: var(--box-shadow);
     border-radius: 16px;
-    padding: 10px 20px;
+    transition: color 0.3s ease;
+}
+.home-section .home-content .first-page .notification-item *{
+    position: relative;
+    z-index: 1;
 }
 .home-section .home-content .first-page .notification-item .notification-content{
     flex: 1;
+    cursor: pointer;
 }
 .home-section .home-content .first-page .notification-item .notification-label{
     display: flex;
     gap: 20px;
+     z-index: 3;
 }
 
 /* MATERIALS LISTS */
