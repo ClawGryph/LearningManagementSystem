@@ -30,7 +30,10 @@ session_start();
                                 <?php
                                     include '../db.php';
 
-                                    $stmt = $conn->prepare("SELECT * FROM assignment");
+                                    $instructorID = $_SESSION['user_id'];
+
+                                    $stmt = $conn->prepare("SELECT * FROM assignment WHERE instructor_ID = ?");
+                                    $stmt->bind_param("i", $instructorID);
                                     $stmt->execute();
                                     $result = $stmt->get_result();
 
@@ -47,7 +50,7 @@ session_start();
                                                 </tr>";
                                         }
                                     } else {
-                                        echo "<tr><td colspan='4'>No course found.</td></tr>";
+                                        echo "<tr><td colspan='4'>No assignment file found.</td></tr>";
                                     }
                                 ?>
 
@@ -101,14 +104,17 @@ session_start();
                         <!-- DROPDOWN LIST TO ALL QUIZZES THAT ARE NOT YET IN DEADLINE -->
                         <label for="assignmentSelect">Select a assignment:</label>
                         <select name="assignmentID" id="assignmentSelect" required>
-                            <option value="">-- Choose an assignment --</option>
+                            <option value="" disabled selected>-- Choose an assignment --</option>
                             <?php
                             include '../db.php';
+
+                            $instructorID = $_SESSION['user_id'];
+
                             date_default_timezone_set('Asia/Manila');
                             $now = date('Y-m-d H:i:s');
-                            $query = "SELECT assignmentID, title, deadline FROM assignment WHERE deadline >= ?";
+                            $query = "SELECT assignmentID, title, deadline FROM assignment WHERE deadline >= ? AND instructor_ID = ?";
                             $stmt = $conn->prepare($query);
-                            $stmt->bind_param("s", $now);
+                            $stmt->bind_param("si", $now, $instructorID);
                             $stmt->execute();
                             $result = $stmt->get_result();
 
