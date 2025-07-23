@@ -32,7 +32,10 @@ session_start();
                         <?php
                             include '../db.php';
 
-                            $query = $conn->prepare("SELECT * FROM quizzes");
+                            $instructorID = $_SESSION['user_id'];
+
+                            $query = $conn->prepare("SELECT * FROM quizzes WHERE instructor_ID = ?");
+                            $query->bind_param("i", $instructorID);
                             $query->execute();
                             $result = $query->get_result();
 
@@ -171,14 +174,17 @@ session_start();
                         <!-- DROPDOWN LIST TO ALL QUIZZES THAT ARE NOT YET IN DEADLINE -->
                         <label for="quizSelect">Select a quiz:</label>
                         <select name="quizID" id="quizSelect" required>
-                            <option value="">-- Choose a quiz --</option>
+                            <option value="" disabled selected>-- Choose a quiz --</option>
                             <?php
                             include '../db.php';
+
+                            $instructorID = $_SESSION['user_id'];
+
                             date_default_timezone_set('Asia/Manila');
                             $now = date('Y-m-d H:i:s');
-                            $query = "SELECT quizID, title, deadline FROM quizzes WHERE deadline >= ?";
+                            $query = "SELECT quizID, instructor_ID, title, deadline FROM quizzes WHERE deadline >= ? AND instructor_ID = ?";
                             $stmt = $conn->prepare($query);
-                            $stmt->bind_param("s", $now);
+                            $stmt->bind_param("si", $now, $instructorID,);
                             $stmt->execute();
                             $result = $stmt->get_result();
 

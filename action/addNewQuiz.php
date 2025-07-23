@@ -1,14 +1,17 @@
 <?php
 include '../db.php';
+session_start();
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $title = $_POST['quizTitle'];
     $description = $_POST['quizDescription'];
     $deadline = $_POST['quizDeadline'];
 
+    $instructorID = $_SESSION['user_id'];
+
     // Insert quiz metadata
-    $stmt = $conn->prepare("INSERT INTO quizzes (title, description, deadline) VALUES (?, ?, ?)");
-    $stmt->bind_param("sss", $title, $description, $deadline);
+    $stmt = $conn->prepare("INSERT INTO quizzes (instructor_ID, title, description, deadline) VALUES (?, ?, ?, ?)");
+    $stmt->bind_param("isss", $instructorID, $title, $description, $deadline);
     $stmt->execute();
     $quizID = $stmt->insert_id;
     $stmt->close();
