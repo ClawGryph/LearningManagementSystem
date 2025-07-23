@@ -56,6 +56,12 @@ document.addEventListener("DOMContentLoaded", function() {
                     if (typeof initHideSidebarOnClick === 'function') initHideSidebarOnClick();
                 }, 0);
             }
+            if(normalizedUrl === 'admin-notification.php' && typeof initCheckAll === 'function') {
+                setTimeout(() => {
+                    initCheckAll();
+                    if (typeof initHideSidebarOnClick === 'function') initHideSidebarOnClick();
+                }, 0);
+            }
             if(normalizedUrl === 'instructor-create-quiz.php' && typeof initQuiz === 'function'){
                 initQuiz();
                 setTimeout(() => {

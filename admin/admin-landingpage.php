@@ -19,7 +19,9 @@ if ($userId) {
     $stmt->close();
 }
 
-$notif = $conn->query("SELECT COUNT(*) AS notif_count FROM course_learningmaterials WHERE status = 'pending'");
+$notif = $conn->query("SELECT COUNT(*) AS notif_count FROM learningmaterials_author lma
+                        JOIN course_learningmaterials clm ON lma.course_lmID = clm.course_lmID
+                        WHERE lma.is_read = 0 AND clm.status = 'pending'");
 $row = $notif->fetch_assoc();
 $notifCount = $row['notif_count'];
 ?>
@@ -127,6 +129,7 @@ $notifCount = $row['notif_count'];
     <script src="../js/imageUpload.js"></script>
     <script src="../js/linkView.js"></script>
     <script src="../js/hideSidebar.js"></script>
+    <script src="../js/checkAll.js"></script>
     <script src="../js/class.js"></script>
     <script src="../js/course.js"></script>
     <script src="../js/instructorLoad.js"></script>

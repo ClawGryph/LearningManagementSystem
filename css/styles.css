@@ -823,6 +823,40 @@ form.signup-form{
     color: #bb573e;
 }
 
+/* NOTIFICATION */
+.home-section .home-content .first-page .notification-item{
+    background: var(--primary-color);
+    margin-bottom: 20px;
+    box-shadow: var(--box-shadow);
+    border-radius: 16px;
+    padding: 10px 20px;
+}
+.home-section .home-content .first-page .notification-item .notification-content{
+    flex: 1;
+}
+.home-section .home-content .first-page .notification-item .notification-label{
+    display: flex;
+    gap: 20px;
+}
+.home-section .home-content .first-page .notification-item .page-header{
+    display: flex;
+    justify-content: flex-start;
+    border-bottom: 1px solid var(--background-color);
+    color: var(--heading-color);
+}
+.home-section .home-content .first-page .notification-item .notif-date{
+    display: flex;
+    justify-content: flex-end;
+}
+.home-section .home-content .first-page .notification-item .notif-date span{
+    font-size: 14px;
+}
+.home-section .home-content .first-page .notification-item .notif-date span i{
+    font-size: 12px;
+    margin: 0px;
+    padding: 0px;
+}
+
 /* TABLE */
 .home-section .home-content .first-page .table-container,
 .home-section .home-content .second-page .table-container{
