@@ -12,7 +12,8 @@ document.addEventListener("DOMContentLoaded", function() {
         'instructor-create-quiz.php' : 'Instructor | Quiz',
         'instructor-create-assignment.php' : 'Instructor | Assignment',
         'instructor-create-activity.php' : 'Instructor | Activity',
-        'instructor-upload-lm.php' : 'Instructor | Upload'
+        'instructor-upload-lm.php' : 'Instructor | Upload',
+        'subject-landingpage.php' : 'Task'
     };
 
     const mainContent = document.getElementById('main-content');
@@ -66,6 +67,11 @@ document.addEventListener("DOMContentLoaded", function() {
                 setTimeout(() => {
                     initCheckAll();
                     if (typeof initHideSidebarOnClick === 'function') initHideSidebarOnClick();
+                }, 0);
+            }
+            if(normalizedUrl === 'instructor-classes.php' && typeof initHideSidebarOnClick === 'function') {
+                setTimeout(() => {
+                    initHideSidebarOnClick();
                 }, 0);
             }
             if(normalizedUrl === 'instructor-create-quiz.php' && typeof initQuiz === 'function'){
