@@ -7,8 +7,8 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
     $activityTime = $_POST['activityTime'];
     $assessmentType = 'activity';
 
-    $checkStmt = $conn->prepare("SELECT aa.instructor_courseID, aa.assessment_refID FROM assessment_author aa JOIN programming_activity pa ON aa.assessment_refID = pa.activityID WHERE instructor_courseID = ? AND assessment_refID = ?");
-    $checkStmt->bind_param("ii", $instructor_courseID, $activityID);
+    $checkStmt = $conn->prepare("SELECT aa.instructor_courseID, aa.assessment_refID, aa.assessment_type FROM assessment_author aa JOIN programming_activity pa ON aa.assessment_refID = pa.activityID WHERE instructor_courseID = ? AND assessment_refID = ? AND assessment_type = ?");
+    $checkStmt->bind_param("iis", $instructor_courseID, $activityID, $assessmentType);
     $checkStmt->execute();
     $result = $checkStmt->get_result();
 
