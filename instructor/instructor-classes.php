@@ -12,6 +12,7 @@ if ($instructorID) {
             COUNT(isl.studentID) AS Number_of_students_enrolled, 
             c.courseCode, 
             c.courseName, 
+            ic.courseID,
             ic.code 
             FROM instructor_courses ic 
             LEFT JOIN instructor_student_load isl 
@@ -44,7 +45,7 @@ if ($instructorID) {
             <h2>Classes</h2>
             <div class="course-card-container">
                 <?php foreach ($courses as $course): ?>
-                        <a href="#" data-content="subject-landingpage.php" class="course-card">
+                        <a href="subject-landingpage.php?courseID=<?= $course['courseID'] ?>" class="course-card">
                             <div class="course-card-header">
                                 <h3><?= htmlspecialchars($course['courseCode']) ?></h3>
                                 <h4><?= htmlspecialchars($course['courseName']) ?></h4>

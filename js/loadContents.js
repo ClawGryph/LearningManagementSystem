@@ -13,7 +13,8 @@ document.addEventListener("DOMContentLoaded", function() {
         'instructor-create-assignment.php' : 'Instructor | Assignment',
         'instructor-create-activity.php' : 'Instructor | Activity',
         'instructor-upload-lm.php' : 'Instructor | Upload',
-        'subject-landingpage.php' : 'Task'
+        'subject-landingpage.php' : 'Subject | Overview',
+        'subject-task-progress.php' : 'Subject | Task Progress'
     };
 
     const mainContent = document.getElementById('main-content');
@@ -24,7 +25,8 @@ document.addEventListener("DOMContentLoaded", function() {
         .then(html => {
             mainContent.innerHTML = html;
 
-            const normalizedUrl = contentUrl.split('/').pop();
+            const normalizedUrl = contentUrl.split('/').pop().split('?')[0];
+
             if(titleMap[normalizedUrl]) {
                 document.title = titleMap[normalizedUrl];
             }
@@ -101,20 +103,39 @@ document.addEventListener("DOMContentLoaded", function() {
                     if (typeof initShowAssignmentFile === 'function') initShowAssignmentFile();
                 }, 0);
             }
+            if(normalizedUrl === 'subject-task-progress.php' && typeof initCourseTitle === 'function'){
+                initCourseTitle();
+            }
         });
     }
 
+
     //Auto-load notification page when successully logged in (Admin, Instructor, Student)
-    switch(currentUserRole) {
-        case 'admin':
-            loadPage('admin-notification.php');
-            break;
-        case 'instructor':
-            loadPage('instructor-classes.php');
-            break;
-        default:
-            alert('Role not recognized or not set.');
-            break;
+    const isOnSubjectLandingPage = window.location.pathname.includes("subject-landingpage.php");
+
+    if (!isOnSubjectLandingPage) {
+        switch(currentUserRole) {
+            case 'admin':
+                loadPage('admin-notification.php');
+                break;
+            case 'instructor':
+                loadPage('instructor-classes.php');
+                break;
+            default:
+                alert('Role not recognized or not set.');
+                break;
+        }
+    }else{
+        // Get courseID from the URL
+        const params = new URLSearchParams(window.location.search);
+        const courseID = params.get('courseID');
+
+        // Load subject-task-progress.php with courseID
+        if (courseID) {
+            loadPage(`subject-task-progress.php?courseID=${courseID}`);
+        } else {
+            console.error('Missing courseID in subject-landingpage.php URL.');
+        }
     }
 
     document.addEventListener('click', function(e){

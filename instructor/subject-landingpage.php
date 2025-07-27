@@ -2,6 +2,7 @@
 session_start();
 include '../db.php';
 
+$courseID = $_GET['courseID'] ?? '';
 $userId = $_SESSION['user_id'] ?? null;
 $userFullName = '';
 $userRole = '';
@@ -50,12 +51,12 @@ if ($userId) {
 
             <!-- 2 -->
             <li>
-                <a href="#" data-content="instructor-create-quiz.php">
+                <a href="#" data-content="subject-task-progress.php">
                     <i class="fa-solid fa-bars-progress"></i>
                     <span class="link_name">Task Progress</span>
                 </a>
                 <ul class="sub-menu blank">
-                    <li><a href="#" data-content="instructor-create-quiz.php" class="link_name">Task Progress</a></li>
+                    <li><a href="#" data-content="subject-task-progress.php?courseID=<?= $_GET['courseID'] ?? '' ?>" class="link_name">Task Progress</a></li>
                 </ul>
             </li>
 
@@ -127,5 +128,6 @@ if ($userId) {
     <script src="../js/imageUpload.js"></script>
     <script src="../js/linkView.js"></script>
     <script src="../js/hideSidebar.js"></script>
+    <script src="../js/subjectTask.js"></script>
 </body>
 </html>
