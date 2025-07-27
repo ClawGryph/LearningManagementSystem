@@ -1390,3 +1390,70 @@ form.signup-form{
 .home-section .home-content .content-container .first-page .form-content .divider-label::after{
     margin-left: 10px;
 }
+
+
+/* SUBJECT */
+/*SEARCH CONTAINER*/
+.home-section .home-content .content-container .first-page .search-container {
+    display: flex;
+    align-items: center;
+    height: 42px;
+}
+.home-section .home-content .content-container .first-page .search-container input,
+.home-section .home-content .content-container .first-page .search-container button {
+    box-sizing: border-box;
+    height: 42px;
+    line-height: 1;
+}
+#searchInput {
+    padding: 0.8rem 1.2rem;
+    font-size: 1.6rem;
+    border: 1px solid #ccc;
+    border-right: none;
+    border-radius: 6px 0 0 6px;
+    background-color: #fff;
+    min-width: 220px;
+    height: 42px;
+    box-sizing: border-box;
+}
+#searchButton {
+    padding: 0.8rem 1.2rem;
+    font-size: 1.5rem;
+    border: 1px solid #ccc;
+    border-left: none;
+    border-radius: 0 6px 6px 0;
+    background-color: var(--accent-color);
+    color: var(--primary-color);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 42px;
+    box-sizing: border-box;
+    cursor: pointer;
+}
+#searchButton i{
+    margin-right: 0.5rem;
+    font-size: 1.4rem;
+    color: var(--primary-color);
+    padding: 0;
+    margin: 0 5px 0 0;
+}
+
+/* TASK CARDS */
+.home-section .home-content .content-container .first-page .card-tasks{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: 30px 0;
+}
+.home-section .home-content .content-container .first-page .card-tasks div{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border-right: 1px solid var(--border-color);
+    width: 100%;
+}
+.home-section .home-content .content-container .first-page .card-tasks div:last-child{
+    border: none;
+}

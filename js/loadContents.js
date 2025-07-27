@@ -105,6 +105,9 @@ document.addEventListener("DOMContentLoaded", function() {
             }
             if(normalizedUrl === 'subject-task-progress.php' && typeof initCourseTitle === 'function'){
                 initCourseTitle();
+                setTimeout(() => {
+                    if (typeof initHideSidebarOnClick === 'function') initHideSidebarOnClick();
+                }, 0);
             }
         });
     }
