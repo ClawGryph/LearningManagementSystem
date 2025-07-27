@@ -10,12 +10,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $sampleOutput = $_POST['sample_output'];
     $expectedOutput = $_POST['expected_output'];
     $deadline = $_POST['activityDeadline'];
+    $maxScore = $_POST['maxScore'];
 
     $instructorID = $_SESSION['user_id'];
 
-    $stmt = $conn->prepare("INSERT INTO programming_activity (instructor_ID, title, language, instructions, sample_input, sample_output, expected_output, deadline)
-                            VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
-    $stmt->bind_param("isssssss", $instructorID, $title, $language, $instructions, $sampleInput, $sampleOutput, $expectedOutput, $deadline);
+    $stmt = $conn->prepare("INSERT INTO programming_activity (instructor_ID, title, language, instructions, sample_input, sample_output, expected_output, deadline, max_score)
+                            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
+    $stmt->bind_param("isssssssi", $instructorID, $title, $language, $instructions, $sampleInput, $sampleOutput, $expectedOutput, $deadline, $maxScore);
 
     if ($stmt->execute()) {
         echo "<script>alert('Activity saved successfully'); window.location.href='../instructor/instructor-landingpage.php';</script>";
