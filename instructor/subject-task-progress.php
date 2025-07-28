@@ -1,7 +1,3 @@
-<?php
-    include '../action/get-task-statistics.php';
-?>
-
 <div class="home-content">
     <div class="sidebar-toggle">
         <i class="fa-solid fa-bars"></i>
@@ -9,7 +5,7 @@
     </div>
     <div class="content-container">
         <div class="first-page">
-            <h2><?= htmlspecialchars($courseName) ?></h2>
+            <h2 id="courseTitle"></h2>
             <div>
                 <div class="search-container">
                     <!-- SEARCH BAR -->
@@ -19,24 +15,51 @@
                 <div class="card-tasks">
                     <!-- Cards -->
                     <div>
-                        <span><?= $taskCounts['completed'] ?></span>
+                        <span id="completedCount">0</span>
                         <span>Completed Task</span>
                     </div>
                     <div>
-                        <span><?= $taskCounts['incomplete'] ?></span>
+                        <span id="incompleteCount">0</span>
                         <span>Incomplete Task</span>
                     </div>
                     <div>
-                        <span><?= $taskCounts['overdue'] ?></span>
+                        <span id="overdueCount">0</span>
                         <span>Overdue Task</span>
                     </div>
                     <div>
-                        <span><?= $taskCounts['total'] ?></span>
+                        <span id="totalCount">0</span>
                         <span>Total Task</span>
                     </div>
                 </div>
-                <div>
-                    <!-- Bars -->
+
+                <!-- CHARTS -->
+                <div class="charts-container">
+                    <!-- Score Bar Chart -->
+                    <div class="chart-card">
+                        <h3>Average Scores</h3>
+                        <canvas id="scoreChart"></canvas>
+                    </div>
+
+                    <!-- Task Type Donut Chart + Filter -->
+                    <div class="chart-card">
+                        <h3>Task Distribution</h3>
+                        <div class="filter-group">
+                            <label for="taskTypeFilter">Filter:</label>
+                            <select id="taskTypeFilter">
+                                <option value="all">All (Quiz + Activity + Assignment)</option>
+                                <option value="quiz">Quiz Only</option>
+                                <option value="activity">Activity Only</option>
+                                <option value="assignment">Assignment Only</option>
+                            </select>
+                        </div>
+                        <canvas id="taskTypeDonutChart"></canvas>
+                    </div>
+
+                    <!-- Tabs Open Bar Chart -->
+                    <div class="chart-card">
+                        <h3>Tabs Opened Per Task</h3>
+                        <canvas id="tabsOpenBarChart"></canvas>
+                    </div>
                 </div>
             </div>
         </div>

@@ -131,9 +131,11 @@ $_SESSION['courseID'] = $courseID;
     <script>
         const currentUserRole = "<?= $_SESSION['role'] ?? '' ?>";
     </script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="../js/loadContents.js"></script>
     <script src="../js/imageUpload.js"></script>
     <script src="../js/linkView.js"></script>
     <script src="../js/hideSidebar.js"></script>
+    <script src="../js/studentCourseBar.js"></script>
 </body>
 </html>

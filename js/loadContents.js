@@ -103,7 +103,8 @@ document.addEventListener("DOMContentLoaded", function() {
                     if (typeof initShowAssignmentFile === 'function') initShowAssignmentFile();
                 }, 0);
             }
-            if(normalizedUrl === 'subject-task-progress.php' && typeof initCourseTitle === 'function'){
+            if(normalizedUrl === 'subject-task-progress.php' && typeof initScoreBar === 'function'){
+                initScoreBar();
                 setTimeout(() => {
                     if (typeof initHideSidebarOnClick === 'function') initHideSidebarOnClick();
                 }, 0);
