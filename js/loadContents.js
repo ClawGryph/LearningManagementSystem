@@ -104,7 +104,6 @@ document.addEventListener("DOMContentLoaded", function() {
                 }, 0);
             }
             if(normalizedUrl === 'subject-task-progress.php' && typeof initCourseTitle === 'function'){
-                initCourseTitle();
                 setTimeout(() => {
                     if (typeof initHideSidebarOnClick === 'function') initHideSidebarOnClick();
                 }, 0);
@@ -129,16 +128,7 @@ document.addEventListener("DOMContentLoaded", function() {
                 break;
         }
     }else{
-        // Get courseID from the URL
-        const params = new URLSearchParams(window.location.search);
-        const courseID = params.get('courseID');
-
-        // Load subject-task-progress.php with courseID
-        if (courseID) {
-            loadPage(`subject-task-progress.php?courseID=${courseID}`);
-        } else {
-            console.error('Missing courseID in subject-landingpage.php URL.');
-        }
+        loadPage('subject-task-progress.php');
     }
 
     document.addEventListener('click', function(e){

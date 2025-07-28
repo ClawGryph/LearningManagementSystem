@@ -1,3 +1,21 @@
+<?php
+    include '../db.php';
+
+    session_start();
+    $courseID = $_SESSION['courseID'] ?? null;
+
+    if (!$courseID) {
+        die("No course ID in session.");
+    }else{
+        $stmt = $conn->prepare("SELECT CONCAT(courseCode, ' - ', courseName) AS class_name FROM courses WHERE courseID = ?");
+        $stmt->bind_param("i", $courseID);
+        $stmt->execute();
+        $stmt->bind_result($courseName);
+        $stmt->fetch();
+        $stmt->close();
+    }
+?>
+
 <div class="home-content">
     <div class="sidebar-toggle">
         <i class="fa-solid fa-bars"></i>
@@ -5,7 +23,7 @@
     </div>
     <div class="content-container">
         <div class="first-page">
-            <h2 id="subject-title"><!-- SUBJECT CLICKED TITLE --></h2>
+            <h2><?= htmlspecialchars($courseName) ?></h2>
             <div>
                 <div class="search-container">
                     <!-- SEARCH BAR -->

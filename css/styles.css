@@ -1055,12 +1055,14 @@ form.signup-form{
     gap: 20px;
     justify-content: flex-start;
 }
-.home-section .home-content .content-container .first-page .course-card{
-    display: flex;
-    flex: 1 1 calc(33.333% - 20px); /* 3 cards per row with gap */
+.home-section .home-content .content-container .first-page .course-card-form{
+    flex: 1 1 calc(33.333% - 20px);
     max-width: calc(33.333% - 20px);
     min-width: 250px;
-    height: auto;
+}
+.home-section .home-content .content-container .first-page .course-card{
+    display: flex;
+    height: 100%;
     flex-direction: column;
     background-color: #fff;
     border-radius: 12px;
@@ -1070,6 +1072,10 @@ form.signup-form{
     gap: 0;
     overflow: hidden;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
+    outline: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
 }
 .home-section .home-content .content-container .first-page .course-card:hover{
     transform: translateY(-5px);
@@ -1081,16 +1087,16 @@ form.signup-form{
     gap: 10px;
     padding: 15px;
 }
-.course-card-container a:nth-child(3n+1) .course-card-header {
+.course-card-container form:nth-child(3n+1) .course-card-header {
     background: #774936;
 }
-.course-card-container a:nth-child(3n+2) .course-card-header {
+.course-card-container form:nth-child(3n+2) .course-card-header {
     background: #8e9aaf;
 }
-.course-card-container a:nth-child(3n+3) .course-card-header {
+.course-card-container form:nth-child(3n+3) .course-card-header {
     background: #006D77; 
 }
-.course-card-container a:nth-child(3n+4) .course-card-header {
+.course-card-container form:nth-child(3n+4) .course-card-header {
     background: #6a994e;
 }
 .home-section .home-content .content-container .first-page .course-card h3{

@@ -45,14 +45,17 @@ if ($instructorID) {
             <h2>Classes</h2>
             <div class="course-card-container">
                 <?php foreach ($courses as $course): ?>
-                        <a href="subject-landingpage.php?courseID=<?= $course['courseID'] ?>" class="course-card">
-                            <div class="course-card-header">
-                                <h3><?= htmlspecialchars($course['courseCode']) ?></h3>
-                                <h4><?= htmlspecialchars($course['courseName']) ?></h4>
-                            </div>
-                            <p><span>Number of Students Enrolled:</span> <?= htmlspecialchars($course['Number_of_students_enrolled'])?></p>
-                            <p><span>Class Code:</span> <?= htmlspecialchars($course['code']) ?></p>
-                        </a>
+                        <form action="subject-landingpage.php" method="POST" class="course-card-form">
+                            <input type="hidden" name="courseID" value="<?= $course['courseID'] ?>">
+                            <button type="submit" class="course-card">
+                                <div class="course-card-header">
+                                    <h3><?= htmlspecialchars($course['courseCode']) ?></h3>
+                                    <h4><?= htmlspecialchars($course['courseName']) ?></h4>
+                                </div>
+                                <p><span>Number of Students Enrolled:</span> <?= htmlspecialchars($course['Number_of_students_enrolled']) ?></p>
+                                <p><span>Class Code:</span> <?= htmlspecialchars($course['code']) ?></p>
+                            </button>
+                        </form>
                 <?php endforeach; ?>
                 <?php if (empty($courses)): ?>
                     <p>No courses available.</p>
@@ -61,3 +64,13 @@ if ($instructorID) {
         </div>
     </div>
 </div>
+<!--
+<a href="subject-landingpage.php?courseID=<?= $course['courseID'] ?>" class="course-card">
+                            <div class="course-card-header">
+                                <h3><?= htmlspecialchars($course['courseCode']) ?></h3>
+                                <h4><?= htmlspecialchars($course['courseName']) ?></h4>
+                            </div>
+                            <p><span>Number of Students Enrolled:</span> <?= htmlspecialchars($course['Number_of_students_enrolled'])?></p>
+                            <p><span>Class Code:</span> <?= htmlspecialchars($course['code']) ?></p>
+                        </a>
+-->

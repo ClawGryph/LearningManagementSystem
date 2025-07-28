@@ -2,7 +2,6 @@
 session_start();
 include '../db.php';
 
-$courseID = $_GET['courseID'] ?? '';
 $userId = $_SESSION['user_id'] ?? null;
 $userFullName = '';
 $userRole = '';
@@ -19,6 +18,14 @@ if ($userId) {
     }
     $stmt->close();
 }
+
+$courseID = $_POST['courseID'] ?? $_SESSION['courseID'] ?? null;
+
+if (!$courseID) {
+    die("No course selected.");
+}
+
+$_SESSION['courseID'] = $courseID;
 ?>
 
 <!DOCTYPE html>
@@ -128,6 +135,5 @@ if ($userId) {
     <script src="../js/imageUpload.js"></script>
     <script src="../js/linkView.js"></script>
     <script src="../js/hideSidebar.js"></script>
-    <script src="../js/subjectTask.js"></script>
 </body>
 </html>
