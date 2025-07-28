@@ -1,19 +1,5 @@
 <?php
-    include '../db.php';
-
-    session_start();
-    $courseID = $_SESSION['courseID'] ?? null;
-
-    if (!$courseID) {
-        die("No course ID in session.");
-    }else{
-        $stmt = $conn->prepare("SELECT CONCAT(courseCode, ' - ', courseName) AS class_name FROM courses WHERE courseID = ?");
-        $stmt->bind_param("i", $courseID);
-        $stmt->execute();
-        $stmt->bind_result($courseName);
-        $stmt->fetch();
-        $stmt->close();
-    }
+    include '../action/get-task-statistics.php';
 ?>
 
 <div class="home-content">
@@ -33,19 +19,19 @@
                 <div class="card-tasks">
                     <!-- Cards -->
                     <div>
-                        <span><!-- NUMBER OF COMPLETED TASK -->1</span>
+                        <span><?= $taskCounts['completed'] ?></span>
                         <span>Completed Task</span>
                     </div>
                     <div>
-                        <span><!-- NUMBER OF INCOMPLETE TASK -->1</span>
+                        <span><?= $taskCounts['incomplete'] ?></span>
                         <span>Incomplete Task</span>
                     </div>
                     <div>
-                        <span><!-- NUMBER OF OVERDUE TASK -->1</span>
+                        <span><?= $taskCounts['overdue'] ?></span>
                         <span>Overdue Task</span>
                     </div>
                     <div>
-                        <span><!-- TOTAL TASK -->1</span>
+                        <span><?= $taskCounts['total'] ?></span>
                         <span>Total Task</span>
                     </div>
                 </div>

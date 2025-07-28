@@ -1463,3 +1463,6 @@ form.signup-form{
 .home-section .home-content .content-container .first-page .card-tasks div:last-child{
     border: none;
 }
+.home-section .home-content .content-container .first-page .card-tasks div span:last-child{
+    color: var(--heading-color);
+}
