@@ -72,28 +72,63 @@ try {
     $stmt->close();
 
     // Student scores
-    $studentScores = [];
-    $stmt = $conn->prepare("
-        SELECT CONCAT(u.firstName, ' ', u.lastName) AS studentName, AVG(sa.score) AS averageScore
-        FROM student_assessments sa
-        JOIN users u ON sa.student_id = u.userID
-        JOIN assessment_author aa ON sa.assessment_authorID = aa.assessment_authorID
-        WHERE aa.instructor_courseID = ?
-        AND sa.status IN ('submitted', 'graded') AND sa.score IS NOT NULL
-        GROUP BY u.userID
-        ORDER BY studentName ASC
-    ");
-    $stmt->bind_param("i", $instructorCourseID);
-    $stmt->execute();
-    $result = $stmt->get_result();
+    // Student scores grouped by type
+    $studentScoresByType = [
+        'all' => [],
+        'quiz' => [],
+        'activity' => [],
+        'assignment' => []
+    ];
 
-    while ($row = $result->fetch_assoc()) {
-        $studentScores[] = [
-            'name' => $row['studentName'],
-            'score' => round($row['averageScore'], 2)
+    $types = ['quiz', 'activity', 'assignment'];
+
+    foreach ($types as $type) {
+        $stmt = $conn->prepare("
+            SELECT CONCAT(u.firstName, ' ', u.lastName) AS studentName, AVG(sa.score) AS averageScore
+            FROM student_assessments sa
+            JOIN users u ON sa.student_id = u.userID
+            JOIN assessment_author aa ON sa.assessment_authorID = aa.assessment_authorID
+            WHERE aa.instructor_courseID = ?
+            AND aa.assessment_type = ?
+            AND sa.status IN ('submitted', 'graded') AND sa.score IS NOT NULL
+            GROUP BY u.userID
+            ORDER BY studentName ASC
+        ");
+        $stmt->bind_param("is", $instructorCourseID, $type);
+        $stmt->execute();
+        $result = $stmt->get_result();
+
+        while ($row = $result->fetch_assoc()) {
+            $studentScoresByType[$type][] = [
+                'name' => $row['studentName'],
+                'score' => round($row['averageScore'], 2)
+            ];
+        }
+        $stmt->close();
+    }
+
+    // For 'all' category (merged scores)
+    $mergedScores = [];
+    foreach (['quiz', 'activity', 'assignment'] as $type) {
+        foreach ($studentScoresByType[$type] as $entry) {
+            $name = $entry['name'];
+            $score = $entry['score'];
+
+            if (!isset($mergedScores[$name])) {
+                $mergedScores[$name] = ['scoreSum' => 0, 'count' => 0];
+            }
+
+            $mergedScores[$name]['scoreSum'] += $score;
+            $mergedScores[$name]['count'] += 1;
+        }
+    }
+
+    foreach ($mergedScores as $name => $data) {
+        $studentScoresByType['all'][] = [
+            'name' => $name,
+            'score' => round($data['scoreSum'] / $data['count'], 2)
         ];
     }
-    $stmt->close();
 
     //QUIZ AND ACTIVITIES
     $taskBreakdown = [
@@ -140,12 +175,52 @@ try {
     $stmt->close();
 
 
+    // Per-student task status
+    $studentTaskStatus = [];
+
+    $stmt = $conn->prepare("
+        SELECT 
+            CONCAT(u.firstName, ' ', u.lastName) AS studentName,
+            sa.status,
+            sa.score,
+            aa.assessment_type,
+            aa.assessment_refID,
+            CASE 
+                WHEN aa.assessment_type = 'quiz' THEN (SELECT q.title FROM quizzes q WHERE q.quizID = aa.assessment_refID)
+                WHEN aa.assessment_type = 'activity' THEN (SELECT a.title FROM programming_activity a WHERE a.activityID = aa.assessment_refID)
+                WHEN aa.assessment_type = 'assignment' THEN (SELECT asg.title FROM assignment asg WHERE asg.assignmentID = aa.assessment_refID)
+                ELSE 'Unknown'
+            END AS title
+        FROM student_assessments sa
+        JOIN users u ON sa.student_id = u.userID
+        JOIN assessment_author aa ON sa.assessment_authorID = aa.assessment_authorID
+        WHERE aa.instructor_courseID = ?
+    ");
+
+    $stmt->bind_param("i", $instructorCourseID);
+    $stmt->execute();
+    $result = $stmt->get_result();
+
+    while ($row = $result->fetch_assoc()) {
+        $studentTaskStatus[] = [
+            'studentName' => $row['studentName'],
+            'status' => $row['status'],
+            'score' => is_null($row['score']) ? '-' : round($row['score'], 2),
+            'type' => $row['assessment_type'],
+            'title' => $row['title']
+        ];
+    }
+
+    $stmt->close();
+
+
     echo json_encode([
         'success' => true,
         'courseName' => $courseName,
         'taskCounts' => $taskCounts,
-        'studentScores' => $studentScores,
-        'taskBreakdown' => $taskBreakdown
+        'studentScoresByType' => $studentScoresByType,
+        'taskBreakdown' => $taskBreakdown,
+        'studentTaskStatus' => $studentTaskStatus
     ]);
 
 } catch (Exception $e) {

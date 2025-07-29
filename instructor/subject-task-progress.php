@@ -8,10 +8,14 @@
             <h2 id="courseTitle"></h2>
             <div>
                 <div class="search-container">
-                    <!-- SEARCH BAR -->
-                    <input type="text" id="searchInput" placeholder="Search by students name...">
-                    <button id="searchButton"><i class="fa-solid fa-magnifying-glass"></i>Search</button>
+                    <div class="search-box">
+                        <input type="text" id="searchInput" placeholder="Search by student's name..." autocomplete="off">
+                        <button id="searchButton"><i class="fa-solid fa-magnifying-glass"></i> Search</button>
+                    </div>
+                    <div id="suggestions" class="suggestions-list"></div>
+                    <div id="searchMessage" class="search-message"></div>
                 </div>
+
                 <div class="card-tasks">
                     <!-- Cards -->
                     <div>
@@ -60,6 +64,35 @@
                         <h3>Tabs Opened Per Task</h3>
                         <canvas id="tabsOpenBarChart"></canvas>
                     </div>
+                </div>
+            </div>
+            <!-- Task Breakdown Table -->
+            <div class="task-status-filter">
+                <div>
+                    <label for="statusFilter">Filter by Status:</label>
+                    <select id="statusFilter">
+                        <option value="all">All</option>
+                        <option value="completed">Completed</option>
+                        <option value="incomplete">Incomplete</option>
+                        <option value="overdue">Overdue</option>
+                    </select>
+                </div>
+
+                <div class="table-container">
+                    <table class="table-content" id="studentTaskTable">
+                        <thead>
+                        <tr>
+                            <th>Student Name</th>
+                            <th>Assessment Title</th>
+                            <th>Type</th>
+                            <th>Status</th>
+                            <th>Score</th>
+                        </tr>
+                        </thead>
+                        <tbody class="table-body">
+                            <!-- Rows populated via JS -->
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>

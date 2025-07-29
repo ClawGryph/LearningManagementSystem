@@ -1402,8 +1402,22 @@ form.signup-form{
 /*SEARCH CONTAINER*/
 .home-section .home-content .content-container .first-page .search-container {
     display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.home-section .home-content .content-container .first-page .search-container .search-box {
+    display: flex;
     align-items: center;
     height: 42px;
+    position: relative;
+    width: 100%;
+}
+.home-section .home-content .content-container .first-page .search-container input{
+    width: 80%;
+}
+.home-section .home-content .content-container .first-page .search-container button{
+    width: 20%;
 }
 .home-section .home-content .content-container .first-page .search-container input,
 .home-section .home-content .content-container .first-page .search-container button {
@@ -1411,6 +1425,36 @@ form.signup-form{
     height: 42px;
     line-height: 1;
 }
+
+.home-section .home-content .content-container .first-page .search-container .suggestions-list {
+    position: relative;
+    top: 0;
+    left: 0;
+    width: calc(100% - 2px);
+    box-sizing: border-box;
+    background: #fff;
+    border: 1px solid #ccc;
+    z-index: 999;
+    max-height: 200px;
+    overflow-x: hidden;
+    overflow-y: auto;
+    border-top: none;
+}
+
+.home-section .home-content .content-container .first-page .search-container .suggestions-list div {
+    padding: 5px;
+    cursor: pointer;
+}
+
+.home-section .home-content .content-container .first-page .search-container .suggestions-list div:hover {
+    background-color: #eee;
+}
+
+.home-section .home-content .content-container .first-page .search-container .search-message {
+    margin-top: 5px;
+    color: #f44336;
+}
+
 #searchInput {
     padding: 0.8rem 1.2rem;
     font-size: 1.6rem;
@@ -1422,6 +1466,7 @@ form.signup-form{
     height: 42px;
     box-sizing: border-box;
 }
+
 #searchButton {
     padding: 0.8rem 1.2rem;
     font-size: 1.5rem;
@@ -1437,13 +1482,15 @@ form.signup-form{
     box-sizing: border-box;
     cursor: pointer;
 }
-#searchButton i{
+
+#searchButton i {
     margin-right: 0.5rem;
     font-size: 1.4rem;
     color: var(--primary-color);
     padding: 0;
     margin: 0 5px 0 0;
 }
+
 
 /* TASK CARDS */
 .home-section .home-content .content-container .first-page .card-tasks{
@@ -1474,10 +1521,14 @@ form.signup-form{
     gap: 1.5rem;
     padding: 1rem;
     margin-top: 20px;
+    justify-items: center;
 }
 
 .home-section .home-content .content-container .first-page .charts-container .chart-card {
-    background-color: var(--primary-color);
+    width: 100%;                /* Let grid handle width */
+    max-width: 400px;           /* Optional: cap the size */
+    height: 300px;              /* Fixed height for uniformity */
+    background-color: #0116278d;
     border-radius: 12px;
     box-shadow: 0 4px 8px rgba(0,0,0,0.05);
     padding: 1rem 1.5rem;
@@ -1508,7 +1559,7 @@ form.signup-form{
 .home-section .home-content .content-container .first-page .charts-container .chart-card h3 {
     margin: 0;
     font-size: 1.2rem;
-    color: #333;
+    color: var(--primary-color);
 }
 
 .home-section .home-content .content-container .first-page .charts-container .filter-group {
@@ -1520,11 +1571,29 @@ form.signup-form{
 
 .home-section .home-content .content-container .first-page .charts-container .filter-group label {
     font-weight: 500;
-    color: #555;
+    color: var(--primary-color);
+}
+.home-section .home-content .content-container .first-page .charts-container canvas{
+    max-width: 400px;
+    max-height: 400px;
+    margin: 0 auto;
 }
 
-.home-section .home-content .content-container .first-page .charts-container canvas {
-    max-width: 300px;
-    max-height: 300px;
-    margin: 0 auto;
+.home-section .home-content .content-container .first-page .charts-container .chart-card:nth-child(2) canvas{
+    max-width: 200px;
+    max-height: 200px;
+}
+
+/* STUDENT TABLE */
+.home-section .home-content .content-container .first-page .task-status-filter{
+    background: #fff;
+    margin-top: 20px;
+    padding: 1.5rem;
+    border-radius: 16px;
+}
+.home-section .home-content .content-container .first-page .task-status-filter label{
+    font-weight: 600;
+}
+.home-section .home-content .content-container .first-page .task-status-filter .table-container{
+    margin-top: 20px;
 }
