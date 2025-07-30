@@ -1,13 +1,16 @@
 <?php
 include '../db.php';
 
-$query = $conn->query("SELECT CONCAT(i.firstName, ' ', i.lastName) AS Instructor_Name, CONCAT(c.courseCode, ' - ', c.courseName) AS Course_Name, clm.name, clm.file_path, lma.lmID
-FROM learningmaterials_author lma 
-JOIN instructor_courses ic ON lma.instructor_courseID = ic.instructor_courseID 
-JOIN users i ON ic.instructorID = i.userID 
-JOIN courses c ON ic.courseID = c.courseID 
-JOIN course_learningmaterials clm ON lma.course_lmID = clm.course_lmID 
-WHERE clm.status = 'pending';");
+$query = $conn->query("SELECT CONCAT(i.firstName, ' ', i.lastName) AS Instructor_Name, 
+       CONCAT(c.courseCode, ' - ', c.courseName) AS Course_Name, 
+       clm.name, clm.file_path, clm.youtube_url, 
+       lma.lmID
+        FROM learningmaterials_author lma 
+        JOIN instructor_courses ic ON lma.instructor_courseID = ic.instructor_courseID 
+        JOIN users i ON ic.instructorID = i.userID 
+        JOIN courses c ON ic.courseID = c.courseID 
+        JOIN course_learningmaterials clm ON lma.course_lmID = clm.course_lmID 
+        WHERE clm.status = 'pending';");
 ?>
 
 <div class="home-content">
@@ -37,10 +40,17 @@ WHERE clm.status = 'pending';");
                                 <td><?php echo htmlspecialchars($row['Instructor_Name']); ?></td>
                                 <td><?php echo htmlspecialchars($row['Course_Name']); ?></td>
                                 <td><?php echo htmlspecialchars($row['name']); ?></td>
-                                <td><?php if (!empty($row['file_path'])): ?>
-                                        <a href="<?= htmlspecialchars($row['file_path']) ?>" target="_blank" class="home-contentBtn lm-link btn-light-bg">Preview</a>
-                                    <?php else: ?>
-                                        <span>No file</span>
+                                <td>
+                                    <?php if (!empty($row['file_path'])): ?>
+                                        <a href="<?= htmlspecialchars($row['file_path']) ?>" target="_blank" class="home-contentBtn lm-link btn-light-bg">Preview File</a><br>
+                                    <?php endif; ?>
+
+                                    <?php if (!empty($row['youtube_url'])): ?>
+                                        <a href="<?= htmlspecialchars($row['youtube_url']) ?>" target="_blank" class="home-contentBtn lm-link btn-light-bg">Watch Video</a>
+                                    <?php endif; ?>
+
+                                    <?php if (empty($row['file_path']) && empty($row['youtube_url'])): ?>
+                                        <span>No preview available</span>
                                     <?php endif; ?>
                                 </td>
                                 <td>

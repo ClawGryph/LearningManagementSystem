@@ -63,7 +63,7 @@ session_start();
 
                 <!-- CREATE ASSIGNMENT -->
                 <div class="create-class-container">
-                    <form class="form-content" action="../action/addNewMaterials.php" method="POST" enctype="multipart/form-data">
+                    <form class="form-content" id="upload-lm-form" action="../action/addNewMaterials.php" method="POST" enctype="multipart/form-data">
                         <h2>Upload Materials</h2>
                             <label for="">File</label>
 
@@ -72,7 +72,7 @@ session_start();
                             <p id="fileNameDisplay">No file chosen</p>
 
                             <!-- Hidden file input -->
-                            <input type="file" name="assignmentFile" id="assignmentFile" accept=".doc,.docx,.pdf,.ppt,.pptx" style="display: none;" required>
+                            <input type="file" name="assignmentFile" id="assignmentFile" accept=".doc,.docx,.pdf,.ppt,.pptx" style="display: none;">
 
                             <!-- Button to trigger the file input -->
                             <button type="button" onclick="document.getElementById('assignmentFile').click();">

@@ -20,6 +20,16 @@ function initMaterials(){
         });
     }
 
+    document.getElementById("upload-lm-form").addEventListener("submit", function(e) {
+        const fileInput = document.getElementById("assignmentFile");
+        const youtubeInput = document.querySelector("input[name='youtubeUrl']");
+
+        if (!fileInput.files.length && !youtubeInput.value.trim()) {
+            e.preventDefault(); // Stop form submission
+            alert("Please upload a file or provide a YouTube URL.");
+        }
+    });
+
     // Handle Edit and Delete actions in the Class Table
     document.querySelectorAll('.editBtn').forEach(function(btn) {
         btn.addEventListener('click', function handler() {
