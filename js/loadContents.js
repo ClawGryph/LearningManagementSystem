@@ -14,7 +14,8 @@ document.addEventListener("DOMContentLoaded", function() {
         'instructor-create-activity.php' : 'Instructor | Activity',
         'instructor-upload-lm.php' : 'Instructor | Upload',
         'subject-landingpage.php' : 'Subject | Overview',
-        'subject-task-progress.php' : 'Subject | Task Progress'
+        'subject-task-progress.php' : 'Subject | Task Progress',
+        'subject-submitted-assignment.php' : 'Subject | Assignment'
     };
 
     const mainContent = document.getElementById('main-content');
@@ -97,7 +98,7 @@ document.addEventListener("DOMContentLoaded", function() {
                 }, 0);
             }
             if(normalizedUrl === 'instructor-upload-lm.php' && typeof initMaterials === 'function'){
-                initMaterials();
+                initMaterials(); //09537747921
                 setTimeout(() => {
                     if (typeof initHideSidebarOnClick === 'function') initHideSidebarOnClick();
                     if (typeof initShowAssignmentFile === 'function') initShowAssignmentFile();

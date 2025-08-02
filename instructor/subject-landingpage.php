@@ -69,12 +69,12 @@ $_SESSION['courseID'] = $courseID;
 
             <!-- 3 -->
             <li>
-                <a href="#" data-content="instructor-create-assignment.php">
+                <a href="#" data-content="subject-submitted-assignment.php">
                     <i class="fa-solid fa-file"></i>
                     <span class="link_name">Assignment Score</span>
                 </a>
                 <ul class="sub-menu blank">
-                    <li><a href="#" data-content="instructor-create-assignment.php" class="link_name">Assignment Score</a></li>
+                    <li><a href="#" data-content="subject-submitted-assignment.php" class="link_name">Assignment Score</a></li>
                 </ul>
             </li>
 

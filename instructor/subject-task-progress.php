@@ -16,7 +16,7 @@
                     <div id="searchMessage" class="search-message"></div>
                 </div>
 
-                <div class="card-tasks">
+                <div class="card-tasks"> 
                     <!-- Cards -->
                     <div>
                         <span id="completedCount">0</span>
