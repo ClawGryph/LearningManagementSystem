@@ -50,10 +50,7 @@
                         <div class="filter-group">
                             <label for="taskTypeFilter">Filter:</label>
                             <select id="taskTypeFilter">
-                                <option value="all">All (Quiz + Activity + Assignment)</option>
-                                <option value="quiz">Quiz Only</option>
-                                <option value="activity">Activity Only</option>
-                                <option value="assignment">Assignment Only</option>
+                                
                             </select>
                         </div>
                         <canvas id="taskTypeDonutChart"></canvas>

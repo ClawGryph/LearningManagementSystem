@@ -272,8 +272,14 @@ function initScoreBar() {
                         assignments: 'assignment'
                     };
 
-                    selectedType = filterSelect.value === 'all' ? 'all' : (labelMap[groupLabel] || 'all');
-                    selectedTitle = filterSelect.value === 'all' ? 'all' : filterSelect.options[filterSelect.selectedIndex].textContent;
+                    if (filterSelect.value === 'all') {
+                        selectedType = 'all';
+                        selectedTitle = 'all';
+                    } else {
+                        const parsed = JSON.parse(filterSelect.value);
+                        selectedType = parsed.type;
+                        selectedTitle = parsed.title;
+                    }
 
                     updateDonutChart(filterSelect.value);
                     updateTabsOpenBarChart(filterSelect.value);
@@ -287,7 +293,15 @@ function initScoreBar() {
                     if (name === '') {
                         searchMessage.innerText = 'Please enter a student name.';
                     } else {
-                        searchMessage.innerText = '';
+                        const hasResults = studentTasks.some(task => 
+                            task.studentName.toLowerCase().includes(name.toLowerCase())
+                        );
+
+                        if (!hasResults) {
+                            searchMessage.innerText = `No student found with name "${name}".`;
+                        } else {
+                            searchMessage.innerText = '';
+                        }
                     }
                     updateStudentTable();
                     updateDonutChart(selectedType, searchQuery);
@@ -350,7 +364,7 @@ function initScoreBar() {
                 group.label = label;
                 tasks.forEach(task => {
                     const opt = document.createElement('option');
-                    opt.value = type;
+                    opt.value = JSON.stringify({ type, title: task.title });
                     opt.textContent = task.title;
                     group.appendChild(opt);
                 });
