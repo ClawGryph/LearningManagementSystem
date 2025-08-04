@@ -18,6 +18,14 @@ if ($userId) {
     }
     $stmt->close();
 }
+
+$notif = $conn->prepare("SELECT COUNT(*) AS notif_count FROM student_assessments 
+                         WHERE status = 'assigned' AND student_id = ? AND is_read = 0");
+$notif->bind_param('i', $userId);
+$notif->execute();
+$result = $notif->get_result();
+$row = $result->fetch_assoc();
+$notifCount = $row['notif_count'];
 ?>
 
 <!DOCTYPE html>
@@ -25,7 +33,7 @@ if ($userId) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Instructor | Dashboard</title>
+    <title>Student | Dashboard</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
     <link rel="stylesheet" href="../css/normalize.css">
     <link rel="stylesheet" href="../css/styles.css">
@@ -41,7 +49,7 @@ if ($userId) {
             <li>
                 <a href="#" data-content="instructor-classes.php">
                     <i class="fa-solid fa-person-chalkboard"></i>
-                    <span class="link_name">My class</span>
+                    <span class="link_name">My courses</span>
                 </a>
                 <ul class="sub-menu blank">
                     <li><a href="#" data-content="instructor-classes.php" class="link_name">My class</a></li>
@@ -50,47 +58,23 @@ if ($userId) {
 
             <!-- 2 -->
             <li>
-                <a href="#" data-content="instructor-create-quiz.php">
-                    <i class="fa-solid fa-clipboard"></i>
-                    <span class="link_name">Create Quiz</span>
+                <a href="#" data-content="student-notification.php" class="notif">
+                    <i class="fa-solid fa-bell"></i>
+
+                    <!-- Notification Badge -->
+                    <?php if ($notifCount > 0): ?>
+                        <span class="notif-badge"><?= $notifCount ?></span>
+                    <?php else: ?>
+                        <span class="notif-badge">0</span>
+                    <?php endif; ?>
+
+                    <span class="link_name">Notification</span>
                 </a>
                 <ul class="sub-menu blank">
-                    <li><a href="#" data-content="instructor-create-quiz.php" class="link_name">Create Quiz</a></li>
+                    <li><a href="#" data-content="student-notification.php" class="link_name">Notification</a></li> 
                 </ul>
             </li>
 
-            <!-- 3 -->
-            <li>
-                <a href="#" data-content="instructor-create-assignment.php">
-                    <i class="fa-solid fa-file"></i>
-                    <span class="link_name">Create Assignment</span>
-                </a>
-                <ul class="sub-menu blank">
-                    <li><a href="#" data-content="instructor-create-assignment.php" class="link_name">Create Assignment</a></li>
-                </ul>
-            </li>
-
-            <!-- 4 -->
-            <li>
-                <a href="#" data-content="instructor-create-activity.php">
-                    <i class="fa-solid fa-laptop-code"></i>
-                    <span class="link_name">Programming Activity</span>
-                </a>
-                <ul class="sub-menu blank">
-                    <li><a href="#" data-content="instructor-create-activity.php" class="link_name">Programming Activity</a></li>
-                </ul>
-            </li>
-
-            <!-- 5 -->
-            <li>
-                <a href="#" data-content="instructor-upload-lm.php">
-                    <i class="fa-solid fa-upload"></i>
-                    <span class="link_name">Upload Learning Materials</span>
-                </a>
-                <ul class="sub-menu blank">
-                    <li><a href="#" data-content="instructor-upload-lm.php" class="link_name">Upload Learning Materials</a></li>
-                </ul>
-            </li>
             <li>
                 <div class="profile-details">
                     <div class="profile-content">
@@ -127,11 +111,6 @@ if ($userId) {
     <script src="../js/imageUpload.js"></script>
     <script src="../js/linkView.js"></script>
     <script src="../js/hideSidebar.js"></script>
-    <script src="../js/quiz.js"></script>
-    <script src="../js/questionToggle.js"></script>
-    <script src="../js/assignment.js"></script>
-    <script src="../js/showAssignmentFile.js"></script>
-    <script src="../js/activity.js"></script>
-    <script src="../js/materials.js"></script>
+    <script src="../js/checkAll.js"></script>
 </body>
 </html>

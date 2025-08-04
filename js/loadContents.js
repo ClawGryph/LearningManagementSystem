@@ -17,7 +17,8 @@ document.addEventListener("DOMContentLoaded", function() {
         'subject-task-progress.php' : 'Subject | Task Progress',
         'subject-submitted-assignment.php' : 'Subject | Assignment',
         'subject-submitted-activity.php' : 'Subject | Activity',
-        'subject-submitted-quiz.php' : 'Subject | Quiz'
+        'subject-submitted-quiz.php' : 'Subject | Quiz',
+        'student-notification.php' : 'Student | Notification'
     };
 
     const mainContent = document.getElementById('main-content');
@@ -127,6 +128,17 @@ document.addEventListener("DOMContentLoaded", function() {
                     initHideSidebarOnClick();
                 }, 0);
             }
+            if(normalizedUrl === 'subject-submitted-quiz.php' && typeof initCheckAll === 'function'){
+                setTimeout(() => {
+                    initHideSidebarOnClick();
+                }, 0);
+            }
+            if(normalizedUrl === 'student-notification.php' && typeof initCheckAll === 'function') {
+                setTimeout(() => {
+                    initCheckAll();
+                    if (typeof initHideSidebarOnClick === 'function') initHideSidebarOnClick();
+                }, 0);
+            }
         });
     }
 
@@ -141,6 +153,9 @@ document.addEventListener("DOMContentLoaded", function() {
                 break;
             case 'instructor':
                 loadPage('instructor-classes.php');
+                break;
+            case 'student':
+                loadPage('student-notification.php');
                 break;
             default:
                 alert('Role not recognized or not set.');
