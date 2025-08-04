@@ -17,8 +17,8 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
     } else {
         // Step 1: Insert into assessment_author
         $stmt = $conn->prepare("
-            INSERT INTO assessment_author (instructor_courseID, assessment_type, assessment_refID) 
-            VALUES (?, ?, ?)
+            INSERT INTO assessment_author (instructor_courseID, assessment_type, assessment_refID, upload_date) 
+            VALUES (?, ?, ?, NOW())
         ");
         $stmt->bind_param("isi", $instructor_courseID, $assessmentType, $assignmentID);
 
