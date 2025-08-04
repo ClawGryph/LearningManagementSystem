@@ -113,13 +113,19 @@ document.addEventListener("DOMContentLoaded", function() {
                 }, 0);
             }
             if(normalizedUrl === 'subject-submitted-assignment.php' && typeof initHideSidebarOnClick === 'function'){
-                initHideSidebarOnClick();
+                setTimeout(() => {
+                    initHideSidebarOnClick();
+                }, 0);
             }
             if(normalizedUrl === 'subject-submitted-activity.php' && typeof initHideSidebarOnClick === 'function'){
-                initHideSidebarOnClick();
+                setTimeout(() => {
+                    initHideSidebarOnClick();
+                }, 0);
             }
             if(normalizedUrl === 'subject-submitted-quiz.php' && typeof initHideSidebarOnClick === 'function'){
-                initHideSidebarOnClick();
+                setTimeout(() => {
+                    initHideSidebarOnClick();
+                }, 0);
             }
         });
     }
