@@ -15,7 +15,9 @@ document.addEventListener("DOMContentLoaded", function() {
         'instructor-upload-lm.php' : 'Instructor | Upload',
         'subject-landingpage.php' : 'Subject | Overview',
         'subject-task-progress.php' : 'Subject | Task Progress',
-        'subject-submitted-assignment.php' : 'Subject | Assignment'
+        'subject-submitted-assignment.php' : 'Subject | Assignment',
+        'subject-submitted-activity.php' : 'Subject | Activity',
+        'subject-submitted-quiz.php' : 'Subject | Quiz'
     };
 
     const mainContent = document.getElementById('main-content');
@@ -109,6 +111,15 @@ document.addEventListener("DOMContentLoaded", function() {
                 setTimeout(() => {
                     if (typeof initHideSidebarOnClick === 'function') initHideSidebarOnClick();
                 }, 0);
+            }
+            if(normalizedUrl === 'subject-submitted-assignment.php' && typeof initHideSidebarOnClick === 'function'){
+                initHideSidebarOnClick();
+            }
+            if(normalizedUrl === 'subject-submitted-activity.php' && typeof initHideSidebarOnClick === 'function'){
+                initHideSidebarOnClick();
+            }
+            if(normalizedUrl === 'subject-submitted-quiz.php' && typeof initHideSidebarOnClick === 'function'){
+                initHideSidebarOnClick();
             }
         });
     }

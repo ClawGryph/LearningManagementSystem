@@ -80,23 +80,23 @@ $_SESSION['courseID'] = $courseID;
 
             <!-- 4 -->
             <li>
-                <a href="#" data-content="instructor-create-activity.php">
+                <a href="#" data-content="subject-submitted-activity.php">
                     <i class="fa-solid fa-laptop-code"></i>
                     <span class="link_name">Activity Score</span>
                 </a>
                 <ul class="sub-menu blank">
-                    <li><a href="#" data-content="instructor-create-activity.php" class="link_name">Activity Score</a></li>
+                    <li><a href="#" data-content="subject-submitted-activity.php" class="link_name">Activity Score</a></li>
                 </ul>
             </li>
 
             <!-- 5 -->
             <li>
-                <a href="#" data-content="instructor-upload-lm.php">
+                <a href="#" data-content="subject-submitted-quiz.php">
                     <i class="fa-solid fa-ranking-star"></i>
                     <span class="link_name">Quiz Score</span>
                 </a>
                 <ul class="sub-menu blank">
-                    <li><a href="#" data-content="instructor-upload-lm.php" class="link_name">Upload Learning Materials</a></li>
+                    <li><a href="#" data-content="subject-submitted-quiz.php" class="link_name">Upload Learning Materials</a></li>
                 </ul>
             </li>
             <li>
