@@ -24,7 +24,40 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
         $stmt->bind_param("isii", $instructor_courseID, $assessmentType, $quizID, $quizTime);
 
         if ($stmt->execute()) {
-            echo "<script>alert('Successfully added to class.'); window.location.href='../instructor/instructor-landingpage.php';</script>";
+            // Step 2: Get the inserted assessment_authorID
+            $assessment_authorID = $conn->insert_id;
+
+            // Step 3: Get all students enrolled in this class
+            $studentQuery = $conn->prepare("SELECT studentID FROM instructor_student_load WHERE instructor_courseID = ?");
+            $studentQuery->bind_param("i", $instructor_courseID);
+            $studentQuery->execute();
+            $studentsResult = $studentQuery->get_result();
+
+            if ($studentsResult->num_rows === 0) {
+                echo "<script>
+                    alert('Quiz uploaded, but no students are currently enrolled in this class. They will be assigned automatically once enrolled.');
+                    window.location.href='../instructor/instructor-landingpage.php';
+                </script>";
+                $studentQuery->close();
+                exit;
+            } else {
+                // Step 4: Insert for each student into student_assessments
+                $insertStmt = $conn->prepare("
+                    INSERT INTO student_assessments (student_id, assessment_authorID, status) 
+                    VALUES (?, ?, 'assigned')
+                ");
+
+                while ($row = $studentsResult->fetch_assoc()) {
+                    $studentID = $row['studentID'];
+                    $insertStmt->bind_param("ii", $studentID, $assessment_authorID);
+                    $insertStmt->execute();
+                }
+
+                $insertStmt->close();
+                echo "<script>alert('Successfully added to class and assigned to students.'); window.location.href='../instructor/instructor-landingpage.php';</script>";
+            }
+
+            $studentQuery->close();
         } else {
             echo "<script>alert('Failed to add the activity to class: " . htmlspecialchars($stmt->error) . "');</script>";
         }

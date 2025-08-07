@@ -47,12 +47,12 @@ $notifCount = $row['notif_count'];
         <ul class="nav-links">
             <!-- 1 -->
             <li>
-                <a href="#" data-content="instructor-classes.php">
+                <a href="#" data-content="student-courses.php">
                     <i class="fa-solid fa-person-chalkboard"></i>
                     <span class="link_name">My courses</span>
                 </a>
                 <ul class="sub-menu blank">
-                    <li><a href="#" data-content="instructor-classes.php" class="link_name">My class</a></li>
+                    <li><a href="#" data-content="student-courses.php" class="link_name">My courses</a></li>
                 </ul>
             </li>
 
