@@ -9,14 +9,16 @@
             <div>
                 <div class="search-container">
                     <div class="search-box">
-                        <input type="text" id="searchInput" placeholder="Enter class code" autocomplete="off">
-                        <button id="searchButton"><i class="fa-solid fa-plus"></i> Join class</button>
+                        <input type="text" id="codeInput" placeholder="Enter class code" autocomplete="off">
+                        <button id="joinButton"><i class="fa-solid fa-plus"></i> Join class</button>
                     </div>
                     <div id="suggestions" class="suggestions-list"></div>
                     <div id="searchMessage" class="search-message"></div>
                 </div>
             </div>
+            <div class="course-card-container">
 
+            </div>
         </div>
     </div>
 </div>

@@ -112,5 +112,6 @@ $notifCount = $row['notif_count'];
     <script src="../js/linkView.js"></script>
     <script src="../js/hideSidebar.js"></script>
     <script src="../js/checkAll.js"></script>
+    <script src="../js/studentCourses.js"></script>
 </body>
 </html>

@@ -64,13 +64,3 @@ if ($instructorID) {
         </div>
     </div>
 </div>
-<!--
-<a href="subject-landingpage.php?courseID=<?= $course['courseID'] ?>" class="course-card">
-                            <div class="course-card-header">
-                                <h3><?= htmlspecialchars($course['courseCode']) ?></h3>
-                                <h4><?= htmlspecialchars($course['courseName']) ?></h4>
-                            </div>
-                            <p><span>Number of Students Enrolled:</span> <?= htmlspecialchars($course['Number_of_students_enrolled'])?></p>
-                            <p><span>Class Code:</span> <?= htmlspecialchars($course['code']) ?></p>
-                        </a>
--->

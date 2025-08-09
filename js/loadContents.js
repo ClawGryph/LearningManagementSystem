@@ -18,7 +18,8 @@ document.addEventListener("DOMContentLoaded", function() {
         'subject-submitted-assignment.php' : 'Subject | Assignment',
         'subject-submitted-activity.php' : 'Subject | Activity',
         'subject-submitted-quiz.php' : 'Subject | Quiz',
-        'student-notification.php' : 'Student | Notification'
+        'student-notification.php' : 'Student | Notification',
+        'student-courses.php' : 'Student | Courses',
     };
 
     const mainContent = document.getElementById('main-content');
@@ -136,6 +137,12 @@ document.addEventListener("DOMContentLoaded", function() {
             if(normalizedUrl === 'student-notification.php' && typeof initCheckAll === 'function') {
                 setTimeout(() => {
                     initCheckAll();
+                    if (typeof initHideSidebarOnClick === 'function') initHideSidebarOnClick();
+                }, 0);
+            }
+            if(normalizedUrl === 'student-courses.php' && typeof initStudentCourses === 'function') {
+                initStudentCourses();
+                setTimeout(() => {
                     if (typeof initHideSidebarOnClick === 'function') initHideSidebarOnClick();
                 }, 0);
             }
