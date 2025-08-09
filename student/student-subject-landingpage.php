@@ -19,6 +19,12 @@ if ($userId) {
     $stmt->close();
 }
 
+$instructorCourseID = $_POST['instructor_courseID'] ?? $_SESSION['instructor_courseID'] ?? null;
+if (!$instructorCourseID) {
+    die("No course selected.");
+}
+
+$_SESSION['instructor_courseID'] = $instructorCourseID;
 ?>
 
 <!DOCTYPE html>
@@ -140,5 +146,7 @@ if ($userId) {
     <script src="../js/imageUpload.js"></script>
     <script src="../js/linkView.js"></script>
     <script src="../js/hideSidebar.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="../js/progressBars.js"></script>
 </body>
 </html>

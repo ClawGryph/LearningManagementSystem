@@ -147,6 +147,12 @@ document.addEventListener("DOMContentLoaded", function() {
                     if (typeof initHideSidebarOnClick === 'function') initHideSidebarOnClick();
                 }, 0);
             }
+            if(normalizedUrl === 'student-subject-myProgess.php' && typeof initProgressBars === 'function') {
+                initProgressBars();
+                setTimeout(() => {
+                    if (typeof initHideSidebarOnClick === 'function') initHideSidebarOnClick();
+                }, 0);
+            }
         });
     }
 

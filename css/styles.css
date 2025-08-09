@@ -1600,3 +1600,24 @@ form.signup-form{
 .home-section .home-content .content-container .first-page .task-status-filter .table-container{
     margin-top: 20px;
 }
+
+/* STUDENT PROGRESS BAR */
+.home-section .home-content .content-container .first-page .progress-section{
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+    padding: 20px;
+    background: #fff;
+    border-radius: 15px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+.home-section .home-content .content-container .first-page .progress-section .donut-chart{
+    text-align: center;
+    width: 150px;
+}
+.home-section .home-content .content-container .first-page .progress-section .donut-chart p{
+   margin-top: 10px;
+    font-weight: bold;
+    color: #333;
+    font-size: 16px;
+}
