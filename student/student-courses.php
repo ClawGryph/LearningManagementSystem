@@ -50,7 +50,7 @@ if($studentID) {
             </div>
             <div class="course-card-container">
                 <?php foreach ($courses as $course): ?>
-                        <form action="" method="POST" class="course-card-form">
+                        <form action="student-subject-landingpage.php" method="POST" class="course-card-form">
                             <input type="hidden" name="instructor_courseID" value="<?= $course['instructor_courseID'] ?>">
                             <button type="submit" class="course-card">
                                 <div class="course-card-header">

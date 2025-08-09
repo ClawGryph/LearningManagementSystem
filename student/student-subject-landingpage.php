@@ -19,13 +19,6 @@ if ($userId) {
     $stmt->close();
 }
 
-$courseID = $_POST['courseID'] ?? $_SESSION['courseID'] ?? null;
-
-if (!$courseID) {
-    die("No course selected.");
-}
-
-$_SESSION['courseID'] = $courseID;
 ?>
 
 <!DOCTYPE html>
@@ -33,7 +26,7 @@ $_SESSION['courseID'] = $courseID;
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin | Dashboard</title>
+    <title>Student | Dashboard</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
     <link rel="stylesheet" href="../css/normalize.css">
     <link rel="stylesheet" href="../css/styles.css">
@@ -47,23 +40,23 @@ $_SESSION['courseID'] = $courseID;
         <ul class="nav-links">
             <!-- 1 -->
             <li>
-                <a href="instructor-landingpage.php">
+                <a href="student-landingpage.php">
                     <i class="fa-solid fa-arrow-left"></i>
                     <span class="link_name">Back</span>
                 </a>
                 <ul class="sub-menu blank">
-                    <li><a href="#" data-content="instructor-landingpage.php" class="link_name">Back</a></li>
+                    <li><a href="#" data-content="student-landingpage.php" class="link_name">Back</a></li>
                 </ul>
             </li>
 
             <!-- 2 -->
             <li>
-                <a href="#" data-content="subject-task-progress.php">
+                <a href="#" data-content="#">
                     <i class="fa-solid fa-bars-progress"></i>
-                    <span class="link_name">Task Progress</span>
+                    <span class="link_name">My Progress</span>
                 </a>
                 <ul class="sub-menu blank">
-                    <li><a href="#" data-content="subject-task-progress.php?courseID=<?= $_GET['courseID'] ?? '' ?>" class="link_name">Task Progress</a></li>
+                    <li><a href="#" data-content="#" class="link_name">My Progress</a></li>
                 </ul>
             </li>
 
@@ -71,10 +64,10 @@ $_SESSION['courseID'] = $courseID;
             <li>
                 <a href="#" data-content="subject-submitted-assignment.php">
                     <i class="fa-solid fa-file"></i>
-                    <span class="link_name">Assignment Score</span>
+                    <span class="link_name">Assignment</span>
                 </a>
                 <ul class="sub-menu blank">
-                    <li><a href="#" data-content="subject-submitted-assignment.php" class="link_name">Assignment Score</a></li>
+                    <li><a href="#" data-content="subject-submitted-assignment.php" class="link_name">Assignment</a></li>
                 </ul>
             </li>
 
@@ -82,10 +75,10 @@ $_SESSION['courseID'] = $courseID;
             <li>
                 <a href="#" data-content="subject-submitted-activity.php">
                     <i class="fa-solid fa-laptop-code"></i>
-                    <span class="link_name">Activity Score</span>
+                    <span class="link_name">Activity</span>
                 </a>
                 <ul class="sub-menu blank">
-                    <li><a href="#" data-content="subject-submitted-activity.php" class="link_name">Activity Score</a></li>
+                    <li><a href="#" data-content="subject-submitted-activity.php" class="link_name">Activity</a></li>
                 </ul>
             </li>
 
@@ -93,12 +86,24 @@ $_SESSION['courseID'] = $courseID;
             <li>
                 <a href="#" data-content="subject-submitted-quiz.php">
                     <i class="fa-solid fa-ranking-star"></i>
-                    <span class="link_name">Quiz Score</span>
+                    <span class="link_name">Quiz</span>
                 </a>
                 <ul class="sub-menu blank">
-                    <li><a href="#" data-content="subject-submitted-quiz.php" class="link_name">Quiz Score</a></li>
+                    <li><a href="#" data-content="subject-submitted-quiz.php" class="link_name">Quiz</a></li>
                 </ul>
             </li>
+
+            <!-- 6 -->
+            <li>
+                <a href="#" data-content="subject-submitted-quiz.php">
+                    <i class="fa-solid fa-book"></i>
+                    <span class="link_name">Learning Materials</span>
+                </a>
+                <ul class="sub-menu blank">
+                    <li><a href="#" data-content="subject-submitted-quiz.php" class="link_name">Learning Materials</a></li>
+                </ul>
+            </li>
+
             <li>
                 <div class="profile-details">
                     <div class="profile-content">
@@ -131,11 +136,9 @@ $_SESSION['courseID'] = $courseID;
     <script>
         const currentUserRole = "<?= $_SESSION['role'] ?? '' ?>";
     </script>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="../js/loadContents.js"></script>
     <script src="../js/imageUpload.js"></script>
     <script src="../js/linkView.js"></script>
     <script src="../js/hideSidebar.js"></script>
-    <script src="../js/studentCourseBar.js"></script>
 </body>
 </html>

@@ -20,6 +20,7 @@ document.addEventListener("DOMContentLoaded", function() {
         'subject-submitted-quiz.php' : 'Subject | Quiz',
         'student-notification.php' : 'Student | Notification',
         'student-courses.php' : 'Student | Courses',
+        'student-subject-myProgess.php' : 'Student | My Progress',
     };
 
     const mainContent = document.getElementById('main-content');
@@ -152,8 +153,9 @@ document.addEventListener("DOMContentLoaded", function() {
 
     //Auto-load notification page when successully logged in (Admin, Instructor, Student)
     const isOnSubjectLandingPage = window.location.pathname.includes("subject-landingpage.php");
+    const isOnStudentSubjectLandingPage = window.location.pathname.includes("student-subject-landingpage.php");
 
-    if (!isOnSubjectLandingPage) {
+    if (!isOnSubjectLandingPage && !isOnStudentSubjectLandingPage) {
         switch(currentUserRole) {
             case 'admin':
                 loadPage('admin-notification.php');
@@ -168,8 +170,10 @@ document.addEventListener("DOMContentLoaded", function() {
                 alert('Role not recognized or not set.');
                 break;
         }
-    }else{
+    }else if (isOnSubjectLandingPage && currentUserRole === 'instructor') {
         loadPage('subject-task-progress.php');
+    }else if (isOnStudentSubjectLandingPage && currentUserRole === 'student') {
+        loadPage('student-subject-myProgess.php');
     }
 
     document.addEventListener('click', function(e){
