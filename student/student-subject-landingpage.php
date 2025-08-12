@@ -58,23 +58,23 @@ $_SESSION['instructor_courseID'] = $instructorCourseID;
 
             <!-- 2 -->
             <li>
-                <a href="#" data-content="#">
+                <a href="#" data-content="student-subject-myProgess.php">
                     <i class="fa-solid fa-bars-progress"></i>
                     <span class="link_name">My Progress</span>
                 </a>
                 <ul class="sub-menu blank">
-                    <li><a href="#" data-content="#" class="link_name">My Progress</a></li>
+                    <li><a href="#" data-content="student-subject-myProgress.php" class="link_name">My Progress</a></li>
                 </ul>
             </li>
 
             <!-- 3 -->
             <li>
-                <a href="#" data-content="subject-submitted-assignment.php">
+                <a href="#" data-content="student-subject-assignment.php">
                     <i class="fa-solid fa-file"></i>
                     <span class="link_name">Assignment</span>
                 </a>
                 <ul class="sub-menu blank">
-                    <li><a href="#" data-content="subject-submitted-assignment.php" class="link_name">Assignment</a></li>
+                    <li><a href="#" data-content="student-subject-assignment.php" class="link_name">Assignment</a></li>
                 </ul>
             </li>
 
@@ -151,5 +151,6 @@ $_SESSION['instructor_courseID'] = $instructorCourseID;
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
     <script src="../js/progressBars.js"></script>
+    <script src="../js/showAssignmentFile.js"></script>
 </body>
 </html>

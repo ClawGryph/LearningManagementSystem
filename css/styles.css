@@ -1366,13 +1366,16 @@ form.signup-form{
     padding: 5px 15px;
     box-shadow: var(--box-shadow);
 }
-.home-section .home-content .content-container .first-page .table-container .table-content .statusGroup.pending{
+.home-section .home-content .content-container .first-page .table-container .table-content .statusGroup.pending,
+.home-section .home-content .content-container .first-page .table-container .table-content .statusGroup.assigned{
     background: #8e9aaf;
 }
-.home-section .home-content .content-container .first-page .table-container .table-content .statusGroup.approved{
+.home-section .home-content .content-container .first-page .table-container .table-content .statusGroup.approved,
+.home-section .home-content .content-container .first-page .table-container .table-content .statusGroup.submitted{
     background-color: #6a994e;
 }
-.home-section .home-content .content-container .first-page .table-container .table-content .statusGroup.rejected{
+.home-section .home-content .content-container .first-page .table-container .table-content .statusGroup.rejected,
+.home-section .home-content .content-container .first-page .table-container .table-content .statusGroup.late{
     background-color: #ba181b;
 }
 .home-section .home-content .content-container .first-page .form-content .divider-label{

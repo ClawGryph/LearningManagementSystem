@@ -21,6 +21,7 @@ document.addEventListener("DOMContentLoaded", function() {
         'student-notification.php' : 'Student | Notification',
         'student-courses.php' : 'Student | Courses',
         'student-subject-myProgess.php' : 'Student | My Progress',
+        'student-subject-assignment.php' : 'Student | Assignment',
     };
 
     const mainContent = document.getElementById('main-content');
@@ -149,6 +150,12 @@ document.addEventListener("DOMContentLoaded", function() {
             }
             if(normalizedUrl === 'student-subject-myProgess.php' && typeof initProgressBars === 'function') {
                 initProgressBars();
+                setTimeout(() => {
+                    if (typeof initHideSidebarOnClick === 'function') initHideSidebarOnClick();
+                }, 0);
+            }
+            if(normalizedUrl === 'student-subject-assignment.php' && typeof initShowAssignmentFile === 'function') {
+                initShowAssignmentFile();
                 setTimeout(() => {
                     if (typeof initHideSidebarOnClick === 'function') initHideSidebarOnClick();
                 }, 0);
