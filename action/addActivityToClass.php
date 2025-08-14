@@ -11,7 +11,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $checkStmt = $conn->prepare("
         SELECT aa.instructor_courseID, aa.assessment_refID, aa.assessment_type 
         FROM assessment_author aa 
-        JOIN programming_activity pa ON aa.assessment_refID = pa.activityID 
         WHERE instructor_courseID = ? AND assessment_refID = ? AND assessment_type = ?
     ");
     $checkStmt->bind_param("iis", $instructor_courseID, $activityID, $assessmentType);

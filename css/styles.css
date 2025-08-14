@@ -1627,3 +1627,18 @@ form.signup-form{
 .home-section .home-content .content-container .first-page .table-container{
     margin-top: 50px;
 }
+
+/* STUDENT TAKING QUIZ */
+#quizForm .progress-container {
+    background-color: #eee;
+    border-radius: 5px;
+    overflow: hidden;
+    height: 15px;
+    margin: 8px 0 16px;
+}
+
+#quizForm .progress-bar {
+    background-color: #4caf50; /* green */
+    height: 100%;
+    transition: width 0.3s ease;
+}

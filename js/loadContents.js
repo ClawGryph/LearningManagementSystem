@@ -22,6 +22,7 @@ document.addEventListener("DOMContentLoaded", function() {
         'student-courses.php' : 'Student | Courses',
         'student-subject-myProgess.php' : 'Student | My Progress',
         'student-subject-assignment.php' : 'Student | Assignment',
+        'student-subject-quiz.php' : 'Student | Quiz',
     };
 
     const mainContent = document.getElementById('main-content');

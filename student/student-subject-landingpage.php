@@ -91,12 +91,12 @@ $_SESSION['instructor_courseID'] = $instructorCourseID;
 
             <!-- 5 -->
             <li>
-                <a href="#" data-content="subject-submitted-quiz.php">
+                <a href="#" data-content="student-subject-quiz.php">
                     <i class="fa-solid fa-ranking-star"></i>
                     <span class="link_name">Quiz</span>
                 </a>
                 <ul class="sub-menu blank">
-                    <li><a href="#" data-content="subject-submitted-quiz.php" class="link_name">Quiz</a></li>
+                    <li><a href="#" data-content="student-subject-quiz.php" class="link_name">Quiz</a></li>
                 </ul>
             </li>
 
