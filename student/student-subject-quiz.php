@@ -33,6 +33,9 @@ while ($row = $result->fetch_assoc()) {
     </div>
     <div class="content-container">
         <div class="first-page">
+            <div class="page-header">
+                    <h2>Quizzes</h2>
+                </div>
             <div class="table-container">
                 <table class="table-content">
                     <thead>

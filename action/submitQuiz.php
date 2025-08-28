@@ -9,16 +9,23 @@ if (!isset($_POST['quizID'])) {
 $quizID = intval($_POST['quizID']);
 $studentID = $_SESSION['user_id'];
 $tabSwitchCount = isset($_POST['tab_switch_count']) ? intval($_POST['tab_switch_count']) : 0;
+$submitType = isset($_POST['submit_type']) ? $_POST['submit_type'] : 'manual';
 
-// Detect if answers came from JSON (beacon/back-button) or normal form
+// Parse answers safely
 $answers = [];
 if (isset($_POST['answer'])) {
-    $answers = is_array($_POST['answer']) 
-        ? $_POST['answer'] 
-        : json_decode($_POST['answer'], true);
+    $raw = $_POST['answer'];
+    if (is_array($raw)) {
+        $answers = $raw;
+    } else {
+        $decoded = json_decode($raw, true);
+        if ($decoded === null) {
+            $decoded = json_decode(urldecode($raw), true);
+        }
+        $answers = is_array($decoded) ? $decoded : [];
+    }
 }
 
-// Helper: normalize text for comparison
 function normalize($str) {
     return strtolower(trim(preg_replace('/\s+/', ' ', $str)));
 }
@@ -37,7 +44,7 @@ if (!$row = $res->fetch_assoc()) {
 }
 $assessment_authorID = $row['assessment_authorID'];
 
-// Prevent multiple submissions
+// Check if already submitted
 $checkStmt = $conn->prepare("
     SELECT status 
     FROM student_assessments 
@@ -46,14 +53,20 @@ $checkStmt = $conn->prepare("
 $checkStmt->bind_param("ii", $studentID, $assessment_authorID);
 $checkStmt->execute();
 $checkRes = $checkStmt->get_result()->fetch_assoc();
+
 if ($checkRes && $checkRes['status'] === 'submitted') {
-    // Already submitted — always redirect to results
-    echo "<script>
-        localStorage.removeItem('quiz_{$quizID}_answers');
-        localStorage.removeItem('quiz_{$quizID}_currentIndex');
-        window.location.href = '../student/student-subject-landingpage.php';
-    </script>";
-    exit;
+    if ($submitType === 'auto') {
+        exit; 
+    } else {
+        echo "<script>
+            localStorage.removeItem('quiz_{$quizID}_answers');
+            localStorage.removeItem('quiz_{$quizID}_currentIndex');
+            localStorage.removeItem('quiz_{$quizID}_tabSwitchCount');
+            localStorage.removeItem('quiz_{$quizID}_warnedOnce');
+            window.location.href = '../student/student-subject-landingpage.php';
+        </script>";
+        exit;
+    }
 }
 
 // Fetch quiz questions
@@ -73,57 +86,84 @@ while ($r = $qRes->fetch_assoc()) {
     ];
 }
 
+$conn->begin_transaction();
+
+// Remove old submissions
+$delStmt = $conn->prepare("
+    DELETE FROM student_submissions
+    WHERE student_id = ? AND assessment_authorID = ?
+");
+$delStmt->bind_param("ii", $studentID, $assessment_authorID);
+$delStmt->execute();
+$delStmt->close();
+
 $totalQuestions = count($questions);
 $correctCount = 0;
 
 // Save answers
 foreach ($questions as $questionID => $qdata) {
-    $studentAnswer = isset($answers[$questionID]) ? trim($answers[$questionID]) : "";
+    $studentAnswer = isset($answers[$questionID]) ? trim($answers[$questionID]) : null;
     $selectedChoiceID = null;
     $answerText = null;
 
-    if ($qdata['type'] === 'multiple') {
-        if (is_numeric($studentAnswer)) {
-            $selectedChoiceID = intval($studentAnswer);
-            $choiceStmt = $conn->prepare("SELECT option_label FROM quiz_choices WHERE choiceID = ?");
-            $choiceStmt->bind_param("i", $selectedChoiceID);
-            $choiceStmt->execute();
-            $choiceRes = $choiceStmt->get_result()->fetch_assoc();
-            $answerText = $choiceRes ? $choiceRes['option_label'] : "";
+    if ($studentAnswer !== null && $studentAnswer !== "") {
+        if ($qdata['type'] === 'multiple') {
+            if (is_numeric($studentAnswer)) {
+                $selectedChoiceID = intval($studentAnswer);
+                $choiceStmt = $conn->prepare("SELECT option_label FROM quiz_choices WHERE choiceID = ?");
+                $choiceStmt->bind_param("i", $selectedChoiceID);
+                $choiceStmt->execute();
+                $choiceRes = $choiceStmt->get_result()->fetch_assoc();
+                $choiceStmt->close();
+                $answerText = $choiceRes ? $choiceRes['option_label'] : $studentAnswer;
+            } else {
+                $answerText = $studentAnswer;
+            }
+
+            if ($answerText !== null && normalize($qdata['correct']) === normalize($answerText)) {
+                $correctCount++;
+            }
+
+        } elseif ($qdata['type'] === 'truefalse') {
+            if ($studentAnswer === "True" || $studentAnswer === "False") {
+                $answerText = $studentAnswer;
+            }
+
+            if ($answerText !== null && normalize($answerText) === normalize($qdata['correct'])) {
+                $correctCount++;
+            }
+
         } else {
+            // Identification / free-text
             $answerText = $studentAnswer;
-        }
-        if (normalize($qdata['correct']) === normalize($answerText)) {
-            $correctCount++;
-        }
-    } else {
-        $answerText = $studentAnswer;
-        if (normalize($studentAnswer) === normalize($qdata['correct'])) {
-            $correctCount++;
+            if (normalize($studentAnswer) === normalize($qdata['correct'])) {
+                $correctCount++;
+            }
         }
     }
 
-    // Insert answer only once
-    $subCheckStmt = $conn->prepare("
-        SELECT 1 FROM student_submissions 
-        WHERE student_id = ? AND assessment_authorID = ? AND questionID = ? LIMIT 1
+    // Insert submission
+    $ins = $conn->prepare("
+        INSERT INTO student_submissions 
+        (student_id, assessment_authorID, questionID, answer_text, selected_choiceID, submitted_at)
+        VALUES (?, ?, ?, ?, ?, NOW())
     ");
-    $subCheckStmt->bind_param("iii", $studentID, $assessment_authorID, $questionID);
-    $subCheckStmt->execute();
-    if (!$subCheckStmt->get_result()->fetch_assoc()) {
-        $insStmt = $conn->prepare("
-            INSERT INTO student_submissions 
-            (student_id, assessment_authorID, questionID, answer_text, selected_choiceID, submitted_at)
-            VALUES (?, ?, ?, ?, ?, NOW())
-        ");
-        $insStmt->bind_param("iiisi", $studentID, $assessment_authorID, $questionID, $answerText, $selectedChoiceID);
-        $insStmt->execute();
+
+    // Correct handling of NULL
+    if ($selectedChoiceID === null) {
+        $ins->bind_param("iiiss", $studentID, $assessment_authorID, $questionID, $answerText, $selectedChoiceID);
+        $selectedChoiceID = null;
+    } else {
+        $ins->bind_param("iiisi", $studentID, $assessment_authorID, $questionID, $answerText, $selectedChoiceID);
     }
+
+    $ins->execute();
+    $ins->close();
 }
 
 $score = (float)$correctCount;
 
-// Update assessment record
+// Finalize assessment
 $updateStmt = $conn->prepare("
     UPDATE student_assessments
     SET status = 'submitted', submission_date = NOW(), score = ?, tabs_open = ?
@@ -131,13 +171,21 @@ $updateStmt = $conn->prepare("
 ");
 $updateStmt->bind_param("diii", $score, $tabSwitchCount, $studentID, $assessment_authorID);
 $updateStmt->execute();
+$updateStmt->close();
+$conn->commit();
 
-// Always clear localStorage and redirect to results page
-echo "<script>
-    localStorage.removeItem('quiz_{$quizID}_answers');
-    localStorage.removeItem('quiz_{$quizID}_currentIndex');
-    alert('Quiz submitted successfully!');
-    window.location.href = '../student/student-subject-landingpage.php';
-</script>";
-exit;
+// Response
+if ($submitType === 'auto') {
+    exit;
+} else {
+    echo "<script>
+        localStorage.removeItem('quiz_{$quizID}_answers');
+        localStorage.removeItem('quiz_{$quizID}_currentIndex');
+        localStorage.removeItem('quiz_{$quizID}_tabSwitchCount');
+        localStorage.removeItem('quiz_{$quizID}_warnedOnce');
+        alert('Quiz submitted successfully!');
+        window.location.href = '../student/student-subject-landingpage.php';
+    </script>";
+    exit;
+}
 ?>

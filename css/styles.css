@@ -1629,6 +1629,35 @@ form.signup-form{
 }
 
 /* STUDENT TAKING QUIZ */
+.fullPageContainer{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    background-color: #f0f0f0;
+    overflow: hidden;
+}
+.fullPageContent{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: #fff;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    max-width: 600px;
+    width: 100%;
+    overflow: hidden;
+}
+.fullPageHeader{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    padding: 20px;
+    background: linear-gradient(135deg, #282fb8, #8e9aaf);
+}
 #quizForm .progress-container {
     background-color: #eee;
     border-radius: 5px;
@@ -1641,4 +1670,117 @@ form.signup-form{
     background-color: #4caf50; /* green */
     height: 100%;
     transition: width 0.3s ease;
+}
+
+#quizTitle{
+    font-size: 2.3rem;
+    color: var(--primary-color);
+}
+#timer{
+    font-size: 2rem;
+    letter-spacing: 1px;
+    color: #f1c40f;
+}
+/* Quiz Form Container */
+.takeQuizForm {
+  width: 100%;
+  margin: auto;
+  background: #fff;
+  padding: 25px 30px;
+  border-radius: 12px;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
+}
+
+/* Question Block */
+#question-container p {
+  font-size: 2rem;
+  margin: 10px 0;
+}
+#question-container .question{
+    text-align: center;
+    margin-top: 20px;
+    font-weight: 500;
+    font-size: 2.5rem;
+    color: var(--heading-color);
+}
+#question-container .question span{
+    font-weight: 600;
+    color: var(--secondary-color);
+}
+
+#question-container label {
+  display: block;
+  background: #f3f4f6;
+  padding: 10px 12px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.2s ease;
+  color: var(--heading-color);
+}
+
+#question-container label:hover {
+  background: #e2e8f0;
+}
+
+#question-container input[type="radio"],
+#question-container input[type="checkbox"] {
+  margin-right: 8px;
+}
+
+#question-container input[type="text"] {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #cbd5e0;
+  border-radius: 6px;
+  font-size: 1rem;
+}
+
+/* Progress Bar */
+.progress-container {
+  background: #edf2f7;
+  border-radius: 8px;
+  overflow: hidden;
+  height: 10px;
+  margin: 12px 0 18px 0;
+}
+
+.progress-bar {
+  height: 100%;
+  background: linear-gradient(90deg, #3182ce, #63b3ed);
+  transition: width 0.3s ease;
+}
+
+/* Buttons */
+#quizForm button {
+  padding: 10px 20px;
+  font-size: 1.2rem;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  margin: 5px;
+  transition: transform 0.1s ease, background 0.2s ease;
+}
+
+#quizForm button:disabled {
+  background: #e2e8f0;
+  cursor: not-allowed;
+}
+
+#prevBtn {
+  background: #718096;
+  color: white;
+}
+
+#nextBtn {
+  background: #3182ce;
+  color: white;
+}
+
+#submitBtn {
+  background: #38a169;
+  color: white;
+}
+
+#quizForm button:hover:not(:disabled) {
+  transform: scale(1.05);
 }
