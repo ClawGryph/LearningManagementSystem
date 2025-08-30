@@ -1784,3 +1784,90 @@ form.signup-form{
 #quizForm button:hover:not(:disabled) {
   transform: scale(1.05);
 }
+
+/* LEARNING MATERIALS */
+.home-section .home-content .content-container .first-page .materials-list .material-card{
+    display: flex;
+    align-items: flex-start;
+    margin-bottom: 10px;
+    gap: 10px;
+    background: #ffffff;
+    border-radius: 14px;
+    padding: 18px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.home-section .home-content .content-container .first-page .materials-list .material-card:hover{
+    transform: translateY(-4px);
+    box-shadow: 0 6px 18px rgba(0,0,0,0.12);
+}
+.home-section .home-content .content-container .first-page .materials-list .material-card .material-icon{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+}
+.home-section .home-content .content-container .first-page .materials-list .material-card .material-icon i{
+    color: #38b000;
+}
+.home-section .home-content .content-container .first-page .materials-list .material-card .material-content{
+     flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+.home-section .home-content .content-container .first-page .materials-list .material-card .material-content .material-header{
+    margin-bottom: 10px;
+}
+.home-section .home-content .content-container .first-page .materials-list .material-card .material-content .material-author{
+    font-weight: 600;
+    color: #2c3e50;
+    display: inline;
+}
+.home-section .home-content .content-container .first-page .materials-list .material-card .material-content .material-note{
+    display: inline;
+    color: #555;
+}
+.home-section .home-content .content-container .first-page .materials-list .material-card .material-content .material-title{
+    font-weight: 700;
+    color: #34495e;
+    display: inline;
+}
+.home-section .home-content .content-container .first-page .materials-list .material-card .material-content .material-desc{
+    color: #666;
+    line-height: 1.5;
+    display: inline;
+}
+.home-section .home-content .content-container .first-page .materials-list .material-card .material-content .material-actions{
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+.home-section .home-content .content-container .first-page .materials-list .material-card .material-actions a{
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #0056b3;
+    color: #fff;
+    padding: 8px 14px;
+    border-radius: 8px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    transition: background 0.3s ease, transform 0.2s ease;
+}
+.home-section .home-content .content-container .first-page .materials-list .material-card .material-actions a i{
+    font-size: 2rem;
+    color: #fff;
+    margin: 0 8px 0 0;
+}
+.home-section .home-content .content-container .first-page .materials-list .material-card .material-actions a:hover,
+.home-section .home-content .content-container .first-page .materials-list .material-card .material-actions a:focus{
+    background: #217dbb;
+    transform: scale(1.05);
+}
+.home-section .home-content .content-container .first-page .materials-list .material-card small{
+    margin-top: 10px;
+    font-size: 1rem;
+    color: #888;
+}
