@@ -80,12 +80,12 @@ $_SESSION['instructor_courseID'] = $instructorCourseID;
 
             <!-- 4 -->
             <li>
-                <a href="#" data-content="subject-submitted-activity.php">
+                <a href="#" data-content="student-subject-activity.php">
                     <i class="fa-solid fa-laptop-code"></i>
                     <span class="link_name">Activity</span>
                 </a>
                 <ul class="sub-menu blank">
-                    <li><a href="#" data-content="subject-submitted-activity.php" class="link_name">Activity</a></li>
+                    <li><a href="#" data-content="student-subject-activity.php" class="link_name">Activity</a></li>
                 </ul>
             </li>
 

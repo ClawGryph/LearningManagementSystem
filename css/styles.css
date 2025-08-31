@@ -1871,3 +1871,207 @@ form.signup-form{
     font-size: 1rem;
     color: #888;
 }
+
+/* COMPILER */
+.activity-container {
+    display: grid;
+    grid-template-columns: 1fr 1.5fr;
+    gap: 24px;
+    align-items: start;
+    max-width: 100%; /* span full screen */
+    font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+    color: #111827;
+}
+
+.activity-container .compiler-header{
+    display:flex; 
+    justify-content:space-between; 
+    align-items:center;
+    padding: 10px 0;
+}
+
+#toggleFullscreen {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 38px;
+    height: 38px;
+    padding: 6px;
+    border-radius: 8px;
+    border: none;
+    background: transparent;
+    color: #0b3a66;
+    cursor: pointer;
+    transition: background .12s ease, transform .08s ease, box-shadow .12s ease;
+    font-size: 14px;
+}
+
+#toggleFullscreen i {
+    pointer-events: none;
+    font-size: 20px;
+}
+
+#toggleFullscreen:hover {
+    background: #eef6ff;
+    transform: translateY(-1px);
+    box-shadow: 0 6px 18px rgba(11,58,102,0.06);
+}
+
+#toggleFullscreen:active {
+    transform: translateY(0);
+}
+
+#toggleFullscreen:focus {
+    outline: 3px solid rgba(59,130,246,0.18);
+    outline-offset: 2px;
+}
+
+.instructions {
+    background: #ffffff;
+    border: 1px solid #e6e9ef;
+    border-radius: 10px;
+    padding: 18px;
+    box-shadow: 0 6px 18px rgba(15, 23, 42, 0.04);
+    border-left: 5px solid #3b82f6;
+}
+
+.instructions h2 {
+    margin: 0 0 8px;
+    font-size: 20px;
+    color: #0b3a66;
+}
+
+.instructions h3 {
+    margin: 14px 0 6px;
+    font-size: 15px;
+    color: #1f2937;
+}
+
+.instructions p {
+    margin: 6px 0;
+    line-height: 1.5;
+    color: #374151;
+    font-size: 14px;
+}
+
+.instructions pre {
+    background: #0f1724;
+    color: #e6eef8;
+    padding: 12px;
+    border-radius: 8px;
+    overflow: auto;
+    font-family: "Courier New", Courier, monospace;
+    font-size: 13px;
+    margin: 8px 0;
+}
+
+/* Compiler column */
+.compiler {
+    background: linear-gradient(180deg,#ffffff,#fbfdff);
+    border: 1px solid #e6e9ef;
+    border-radius: 10px;
+    padding: 0 16px 16px 16px;
+    box-shadow: 0 6px 18px rgba(15, 23, 42, 0.04);
+}
+
+.compiler.fullscreen {
+    grid-column: 1 / -1; /* spans all grid columns */
+    width: 100%;
+    min-height: 90vh; /* almost full screen height */
+}
+
+.activity-container:has(.compiler.fullscreen) .instructions {
+    display: none;
+}
+
+.compiler h2 {
+    font-size: 18px;
+    color: #0b3a66;
+}
+
+/* Form & editor */
+#compilerForm {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+#compilerInput {
+    min-height: 350px;
+    resize: none;
+    width: 100%;
+    padding: 12px;
+    border-radius: 8px;
+    border: 1px solid #dbe4ee;
+    background: #0b1220; /* dark editor background for contrast */
+    color: #e6eef8;
+    font-family: "Fira Code", Menlo, Monaco, "Courier New", monospace;
+    font-size: 13px;
+    line-height: 1.45;
+    box-sizing: border-box;
+    outline: none;
+}
+
+#compilerInput:focus {
+    box-shadow: 0 6px 18px rgba(6, 78, 190, 0.08);
+    border-color: #3b82f6;
+}
+
+#compilerForm .compiler-controls {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+/* Run button */
+.compiler-btn {
+    width: 200px;
+    align-self: flex-start;
+    padding: 8px 14px;
+    border: none;
+    border-radius: 14px;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 14px;
+    transition: transform .08s ease, box-shadow .08s ease, opacity .08s ease;
+}
+
+.compiler-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 20px }
+.compiler-btn:active { transform: translateY(0); }
+.compiler-btn:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
+
+/* Output box */
+.output-box {
+    margin-top: 12px;
+    min-height: 120px;
+    background: #0b1220;
+    color: #e6eef8;
+    border-radius: 8px;
+    border: 1px solid #122034;
+    padding: 12px;
+    font-family: "Courier New", Courier, monospace;
+    white-space: pre-wrap;
+    overflow: auto;
+    font-size: 13px;
+}
+
+/* small meta */
+.instructions h4, .instructions #lang {
+    margin-top: 12px;
+    font-size: 13px;
+    color: #374151;
+    font-weight: 600;
+}
+
+/* Responsive: stack on narrow screens */
+@media (max-width: 880px) {
+    .activity-container {
+        grid-template-columns: 1fr;
+        padding: 16px;
+        gap: 16px;
+    }
+
+    #codeInput { min-height: 220px; }
+    .compiler { order: 2; }
+    .instructions { order: 1; }
+}

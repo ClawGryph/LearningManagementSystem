@@ -88,24 +88,9 @@ while($row = $query->fetch_assoc()){
                             <textarea name="instructions" required></textarea>
                         </div>
 
-                        <label>Sample Input</label>
-                        <div>
-                            <textarea name="sample_input"></textarea>
-                        </div>
-
-                        <label>Sample Output</label>
-                        <div>
-                            <textarea name="sample_output"></textarea>
-                        </div>
-
                         <label>Expected Output</label>
                         <div>
                             <textarea name="expected_output" required></textarea>
-                        </div>
-
-                        <label>Score</label>
-                        <div>
-                            <input type="number" name="maxScore" required>
                         </div>
 
                         <label>Deadline</label>
