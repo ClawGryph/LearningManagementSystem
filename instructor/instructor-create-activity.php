@@ -93,6 +93,11 @@ while($row = $query->fetch_assoc()){
                             <textarea name="expected_output" required></textarea>
                         </div>
 
+                        <label>Overall Score</label>
+                        <div>
+                            <input type="number" name="max_score" required>
+                        </div>
+
                         <label>Deadline</label>
                         <div>
                             <input type="datetime-local" name="activityDeadline" required>

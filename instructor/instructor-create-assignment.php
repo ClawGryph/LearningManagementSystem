@@ -86,6 +86,9 @@ session_start();
                             <input type="text" name="assignmentDescription" placeholder="Description" required>
                         </div>
                         <div>
+                            <input type="number" name="max_score" placeholder="Overall Score" required>
+                        </div>
+                        <div>
                             <input type="datetime-local" name="assignmentDeadline" placeholder="Deadline" required>
                         </div>
                        
