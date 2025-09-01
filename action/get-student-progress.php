@@ -13,7 +13,7 @@ if (!$studentID || !$instructorCourseID) {
 $sql = "
 SELECT 
     aa.assessment_type,
-    ROUND((SUM(CASE WHEN sa.status IN ('submitted', 'graded') THEN 1 ELSE 0 END) / COUNT(*)) * 100, 0) AS percent
+    ROUND((SUM(CASE WHEN sa.status IN ('submitted', 'graded', 'late') THEN 1 ELSE 0 END) / COUNT(*)) * 100, 0) AS percent
 FROM student_assessments sa
 JOIN assessment_author aa ON sa.assessment_authorID = aa.assessment_authorID
 WHERE sa.student_id = ? 
