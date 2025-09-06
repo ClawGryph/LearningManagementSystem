@@ -4,7 +4,7 @@ include '../db.php';
 
 // Fetch submitted assignments
 $submittedAssignments = [];
-$stmt = $conn->prepare("SELECT CONCAT(s.firstName, ' ', s.lastName) AS Student_Name, s.profileImage, a.max_score, ss.submitted_at, ss.file_path 
+$stmt = $conn->prepare("SELECT CONCAT(s.firstName, ' ', s.lastName) AS Student_Name, s.profileImage, a.title, a.max_score, ss.submitted_at, ss.file_path 
                         FROM student_submissions ss 
                         JOIN assessment_author aa ON ss.assessment_authorID = aa.assessment_authorID 
                         JOIN users s ON ss.student_id = s.userID 
@@ -34,6 +34,7 @@ $stmt->close();
                     <table class="table-content">
                         <thead>
                             <th></th>
+                            <th>Title</th>
                             <th>Submitted by</th>
                             <th>Date Submitted</th>
                             <th>Download</th>
@@ -49,13 +50,16 @@ $stmt->close();
                                             <?php if (!empty($submission['profileImage'])): ?>
                                                 <img src="../uploads/<?php echo htmlspecialchars($submission['profileImage']); ?>" 
                                                     alt="Profile" 
-                                                    style="width:40px; height:40px; border-radius:50%; object-fit:cover;">
+                                                    class="profile-img">
                                             <?php else: ?>
                                                 <img src="../assets/default-profile.png" 
                                                     alt="Default Profile" 
-                                                    style="width:40px; height:40px; border-radius:50%; object-fit:cover;">
+                                                    class="profile-img">
                                             <?php endif; ?>
                                         </td>
+
+                                        <!-- TITLE -->
+                                        <td><?php echo htmlspecialchars($submission['title']); ?></td>
 
                                         <!-- Student Name -->
                                         <td><?php echo htmlspecialchars($submission['Student_Name']); ?></td>
@@ -69,7 +73,7 @@ $stmt->close();
                                                 <a href="<?php echo htmlspecialchars($submission['file_path']); ?>" 
                                                 download 
                                                 class="btn btn-download">
-                                                    Download
+                                                    <i class="fa-solid fa-download"></i>
                                                 </a>
                                             <?php else: ?>
                                                 No file
@@ -92,8 +96,8 @@ $stmt->close();
                                             <button type="submit" 
                                                     name="saveScore" 
                                                     value="<?php echo htmlspecialchars($submission['Student_Name']); ?>" 
-                                                    class="btn btn-save">
-                                                Save
+                                                    class="home-contentBtn btn-save btn-accent-bg">
+                                                <i class='fa-solid fa-floppy-disk'></i>
                                             </button>
                                         </td>
                                     </tr>
