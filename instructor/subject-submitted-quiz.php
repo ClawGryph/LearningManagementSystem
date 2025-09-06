@@ -4,7 +4,7 @@ include '../db.php';
 
 // Fetch submitted quizzes
 $submittedQuizzes = [];
-$sql = "SELECT CONCAT(s.firstName, ' ', s.lastName) AS Student_Name, s.profileImage, sq.title, sq.max_score, sa.submission_date, sa.score, sa.student_id, sa.assessment_authorID
+$sql = "SELECT CONCAT(s.firstName, ' ', s.lastName) AS Student_Name, s.profileImage, sq.title, sq.max_score, sa.submission_date, sa.score, sa.tabs_open, sa.student_id, sa.assessment_authorID
         FROM student_assessments sa 
         JOIN assessment_author aa ON sa.assessment_authorID = aa.assessment_authorID
         JOIN users s ON sa.student_id = s.userID
@@ -38,6 +38,7 @@ $conn->close();
                             <th>Submitted by</th>
                             <th>Date Submitted</th>
                             <th>View</th>
+                            <th>Tabs open</th>
                             <th>Score</th>
                             <th>Action</th>
                         </thead>
@@ -50,23 +51,24 @@ $conn->close();
                                             <?php if (!empty($submission['profileImage'])): ?>
                                                 <img src="../uploads/<?php echo htmlspecialchars($submission['profileImage']); ?>" 
                                                     alt="Profile" 
-                                                    style="width:40px; height:40px; border:1px solid black; border-radius:50%; object-fit:cover;">
+                                                    class="profile-img">
                                             <?php else: ?>
                                                 <img src="../assets/default-profile.png" 
                                                     alt="Default Profile" 
-                                                    style="width:40px; height:40px; border-radius:50%; object-fit:cover;">
+                                                    class="profile-img">
                                             <?php endif; ?>
                                         </td>
                                         <td><?php echo htmlspecialchars($submission['title']); ?></td>
                                         <td><?php echo htmlspecialchars($submission['Student_Name']); ?></td>
                                         <td><?php echo htmlspecialchars(date('F j, Y, g:i a', strtotime($submission['submission_date']))); ?></td>
                                         <td>
-                                            <button type="button" class="view-btn"
+                                            <button type="button" class="home-contentBtn view-btn btn-accent2-bg"
                                                 data-student-id="<?php echo htmlspecialchars($submission['student_id']); ?>"
                                                 data-assessment-id="<?php echo htmlspecialchars($submission['assessment_authorID']); ?>">
                                                 View
                                             </button>
                                         </td>
+                                        <td><?php echo htmlspecialchars($submission['tabs_open']); ?></td>
                                         <td>
                                             <?php echo isset($submission['score']) 
                                                 ? htmlspecialchars($submission['score']) . ' / ' . htmlspecialchars($submission['max_score']) 

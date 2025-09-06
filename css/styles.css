@@ -6,6 +6,7 @@
  --background-color: #d9d9d9;
  --border-color: #727980;
  --box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
+ --accent2-color: #00a6fb;
 }
 *, *::after, *::before{
     box-sizing: border-box;
@@ -147,6 +148,10 @@ h4{
     background-color: var(--accent-color);
     color: var(--primary-color);
 }
+.btn-accent2-bg{
+    background-color: var(--accent2-color);
+    color: var(--primary-color);
+}
 .btn-drk-bg:hover{
     background-color: #c62828;
 }
@@ -155,6 +160,9 @@ h4{
 }
 .btn-accent-bg:hover{
     background-color: #fb8b24;
+}
+.btn-accent2-bg:hover{
+    background-color: #008cce;
 }
 @media (max-width: 600px) {
   .role-card {
@@ -922,7 +930,13 @@ form.signup-form{
     word-break: break-word;
     overflow-wrap: break-word;
 }
-
+.home-section .home-content .first-page .table-container .table-content .table-body tr td .profile-img{
+    width:45px; 
+    height:45px; 
+    border:1px solid black; 
+    border-radius:50%; 
+    object-fit:cover;
+}
 .home-section .home-content .first-page .table-container .table-content th,
 .home-section .home-content .second-page .table-container .table-content th{
     font-weight: 600;
