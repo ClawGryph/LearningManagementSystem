@@ -916,11 +916,13 @@ form.signup-form{
 .home-section .home-content .second-page .table-container .table-content th,
 .home-section .home-content .second-page .table-container .table-content td{
     padding: 1rem;
-    text-align: left;
+    text-align: center;
+    vertical-align: middle;
     word-wrap: break-word;
     word-break: break-word;
     overflow-wrap: break-word;
 }
+
 .home-section .home-content .first-page .table-container .table-content th,
 .home-section .home-content .second-page .table-container .table-content th{
     font-weight: 600;
