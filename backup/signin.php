@@ -5,9 +5,16 @@ include '../db.php';
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $email = strtolower(trim($_POST['eMail']));
     $password = $_POST['password'];
+    $role = strtolower(trim($_SESSION['selected_role'] ?? ''));
 
-    $stmt = $conn->prepare("SELECT * FROM users WHERE email = ?");
-    $stmt->bind_param("s", $email);
+    // Validation
+    if (!$role) {
+        echo "<script>alert('No role selected. Please go back to select a role.'); window.location.href='../index.php';</script>";
+        exit;
+    }
+
+    $stmt = $conn->prepare("SELECT * FROM users WHERE email = ? AND role = ?");
+    $stmt->bind_param("ss", $email, $role);
     $stmt->execute();
     $result = $stmt->get_result();
 
