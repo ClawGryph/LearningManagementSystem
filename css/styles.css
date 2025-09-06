@@ -768,6 +768,8 @@ form.signup-form{
 .home-section .home-content .first-page .home-contentBtn,
 .home-section .home-content .second-page .home-contentBtn{
     width: auto;
+    height: 40px;
+    text-decoration: none;
     display: inline-flex;
     align-items: center;
     text-transform: uppercase;

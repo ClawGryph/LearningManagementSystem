@@ -4,7 +4,7 @@ include '../db.php';
 
 // Fetch submitted activities
 $submittedActivities = [];
-$sql = "SELECT CONCAT(s.firstName, ' ', s.lastName) AS Student_Name, s.profileImage, pa.max_score, ss.submitted_at, ss.code_submission, sa.tabs_open, sa.score
+$sql = "SELECT CONCAT(s.firstName, ' ', s.lastName) AS Student_Name, s.profileImage,pa.title, pa.max_score, ss.submitted_at, ss.code_submission, sa.tabs_open, sa.score
         FROM student_submissions ss 
         JOIN assessment_author aa ON ss.assessment_authorID = aa.assessment_authorID 
         JOIN users s ON ss.student_id = s.userID 
@@ -37,6 +37,7 @@ $conn->close();
                     <table class="table-content">
                         <thead>
                             <th></th>
+                            <th>Title</th>
                             <th>Submitted by</th>
                             <th>Date Submitted</th>
                             <th>View</th>
@@ -53,13 +54,16 @@ $conn->close();
                                             <?php if (!empty($submission['profileImage'])): ?>
                                                 <img src="../uploads/<?php echo htmlspecialchars($submission['profileImage']); ?>" 
                                                     alt="Profile" 
-                                                    style="width:40px; height:40px; border-radius:50%; object-fit:cover;">
+                                                    class="profile-img">
                                             <?php else: ?>
                                                 <img src="../assets/default-profile.png" 
                                                     alt="Default Profile" 
-                                                    style="width:40px; height:40px; border-radius:50%; object-fit:cover;">
+                                                    class="profile-img">
                                             <?php endif; ?>
                                         </td>
+
+                                        <!-- TITLE -->
+                                        <td><?php echo htmlspecialchars($submission['title']); ?></td>
 
                                         <!-- Student Name -->
                                         <td><?php echo htmlspecialchars($submission['Student_Name']); ?></td>
@@ -70,7 +74,7 @@ $conn->close();
                                         <!-- View Code Submission -->
                                         <td>
                                             <?php if (!empty($submission['code_submission'])): ?>
-                                                <a href="#" class="view-code-btn" data-code="<?php echo htmlspecialchars($submission['code_submission']); ?>">View Code</a>
+                                                <a href="#" class="home-contentBtn view-code-btn btn-accent2-bg" data-code="<?php echo htmlspecialchars($submission['code_submission']); ?>">View</a>
                                             <?php else: ?>
                                                 N/A
                                             <?php endif; ?>
