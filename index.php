@@ -1,7 +1,7 @@
 <?php
 session_start();
 $signinError = $_SESSION['signin_error'] ?? '';
-unset($_SESSION['signin_error']); // Clear it after displaying
+unset($_SESSION['signin_error']);
 ?>
 
 <!DOCTYPE html>
@@ -38,7 +38,7 @@ unset($_SESSION['signin_error']); // Clear it after displaying
                             <div class="input-field">
                                 <i class="fa-solid fa-lock"></i>
                                 <input type="password" id="password" name="password" placeholder="Password" required>
-                                <i class="fa-regular fa-eye toggle-password" toggle="#password"></i>
+                                <i class="fa-regular fa-eye-slash toggle-password" toggle="#password"></i>
                             </div>
                             
                             <button type="submit" class="btn-drk-bg">Sign in</button>
@@ -47,33 +47,113 @@ unset($_SESSION['signin_error']); // Clear it after displaying
                         </form>
                     </div>
                     <!-- SIGN UP !-->
-                    <form action="./action/signup.php" method="POST" class="signup-form form-body" id="signup">
-                        <h2 class="title">Create Account</h2>
-                        <span class="error-message"></span>
-                        <div class="input-field">
-                            <i class="fa-regular fa-user"></i>
-                            <input type="text" id="firstName" name="firstname" placeholder="First Name" required maxlength="20">
+                    <form class="signup-form form-body" id="signup">
+                        <div class="signup-header">
+                            <ul>
+                                <li class="active form_1_progress">
+                                    <div>
+                                        <p>1</p>
+                                    </div>
+                                </li>
+                                <li class="form_2_progress">
+                                    <div>
+                                        <p>2</p>
+                                    </div>
+                                </li>
+                                <li class="form_3_progress">
+                                    <div>
+                                        <p>3</p>
+                                    </div>
+                                </li>
+                            </ul>
                         </div>
-                        <div class="input-field">
-                            <i class="fa-regular fa-user"></i>
-                            <input type="text" id="lastName" name="lastName" placeholder="Last Name" required maxlength="20">
+
+                        <div class="progress-content">
+                            <!-- PROGRESS 1 -->
+                            <div class="progress1">
+                                <h2>Enter account details</h2>
+                                    <div class="form-step1">
+                                        <span class="error-message"></span>
+                                        <div class="input-field">
+                                            <i class="fa-regular fa-envelope"></i>
+                                            <input type="email" id="email" name="email" placeholder="E-mail" required>
+                                        </div>
+                                        <div class="input-field">
+                                            <i class="fa-solid fa-lock"></i>
+                                            <input type="password" id="signup-password" name="signup-password" placeholder="Password" required>
+                                            <i class="fa-regular fa-eye-slash toggle-password" toggle="#signup-password"></i>
+                                        </div>
+                                        <div class="input-field">
+                                            <i class="fa-solid fa-lock"></i>
+                                            <input type="password" id="confirmPass" name="confirmPass" placeholder="Re-enter Password" required>
+                                            <i class="fa-regular fa-eye-slash toggle-password" toggle="#confirmPass"></i>
+                                        </div>
+                                    </div>
+                            </div>
+
+                            <!-- PROGRESS 2 -->
+                            <div class="progress2" style="display: none;">
+                                <h2>Just a few more things...</h2>
+                                    <div class="form-step2">
+                                        <div class="role-selection">
+                                            <input type="hidden" name="role" id="roleInput">
+                                            <button type="button" class="btn-transparent-bg roleBtn"><i class="fa-solid fa-user-tie"></i>Instructor</button>
+                                            <button type="button" class="btn-transparent-bg roleBtn"><i class="fa-solid fa-user"></i>Student</button>
+                                        </div>
+                                        
+                                        <div class="input-field">
+                                            <i class="fa-regular fa-user"></i>
+                                            <input type="text" id="firstName" name="firstname" placeholder="First Name" maxlength="20">
+                                        </div>
+                                        <div class="input-field">
+                                            <i class="fa-regular fa-user"></i>
+                                            <input type="text" id="lastName" name="lastName" placeholder="Last Name" maxlength="20">
+                                        </div>
+
+                                        <!-- Privacy Policy Checkbox -->
+                                        <div class="terms-field">
+                                            <input type="checkbox" id="agreePrivacy" name="agreePrivacy" required>
+                                            <label for="agreePrivacy">
+                                                I agree to the <a href="https://www.termsfeed.com/live/8120927a-a5af-40d3-851e-7e362446399d" target="_blank">Privacy Policy</a>
+                                            </label>
+                                        </div>
+                                    </div>
+                            </div>
+
+                            <!-- PROGRESS 3 -->
+                            <div class="progress3" style="display: none;">
+                                <h2>Verify your email</h2>
+                                    <div class="form-step3">
+                                        <p>
+                                            We've sent a verification code to your email address. Please enter the code below to verify your account.
+                                        </p>
+                                        <div class="input-field">
+                                            <i class="fa-solid fa-envelope-open-text"></i>
+                                            <input type="text" id="emailCode" name="emailCode" placeholder="Enter code" maxlength="6">
+                                        </div>
+                                    </div>
+                            </div>
                         </div>
-                        <div class="input-field">
-                            <i class="fa-regular fa-envelope"></i>
-                            <input type="email" id="email" name="email" placeholder="E-mail" required>
-                        </div>
-                        <div class="input-field">
-                            <i class="fa-solid fa-lock"></i>
-                            <input type="password" id="signup-password" name="signup-password" placeholder="Password" required>
-                            <i class="fa-regular fa-eye toggle-password" toggle="#signup-password"></i>
-                        </div>
-                        <div class="input-field">
-                            <i class="fa-solid fa-lock"></i>
-                            <input type="password" id="confirmPass" name="confirmPass" placeholder="Re-enter Password" required>
-                            <i class="fa-regular fa-eye toggle-password" toggle="#confirmPass"></i>
-                        </div>
+
+                        <!-- BUTTONS -->
+                         <div class="progress-btns">
+                            <!-- PROGRESS 1 BUTTON -->
+                            <div class="common-btns progress1-btns">
+                                <button type="button" class="btn-drk-bg next-btn">Next</button>
+                            </div>
+
+                            <!-- PROGRESS 2 BUTTONS -->
+                            <div class="common-btns progress2-btns" style="display: none;">
+                                <button type="submit" class="btn-drk-bg submit-btn">Sign up</button>
+                            </div>
+
+                            <!-- PROGRESS 3 BUTTONS -->
+                            <div class="common-btns progress3-btns" style="display: none;">
+                                <button type="submit" class="btn-drk-bg verify-btn" id="verifyBtn">Verify</button>
+                            </div>
+                         </div>
                             
-                        <button type="submit" class="btn-drk-bg">Sign up</button>
+                        <!-- <button type="submit" class="btn-drk-bg">Sign up</button> -->
                         <p class="account-text">Already have an account? <a href="#" id="signin-btn2">Sign in</a></p>
                     </form>
                 </div>
@@ -92,6 +172,10 @@ unset($_SESSION['signin_error']); // Clear it after displaying
                             <button class="btn-light-bg" id="signup-btn">Sign up</button>
                         </div>
                     </div> 
+                </div>
+
+                <div class="overlay" id="loadingOverlay">
+                    <div class="spinner">⏳ Loading...</div>
                 </div>
             </div>
         </div>

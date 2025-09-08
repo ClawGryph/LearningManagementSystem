@@ -1,46 +1,36 @@
 <?php
 session_start();
 include '../db.php';
+require 'emailConfig.php';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $firstName = trim($_POST['firstname']);
-    $lastName = trim($_POST['lastName']);
-    $email = trim($_POST['email']);
-    $password = $_POST['signup-password'];
-    $confirmPass = $_POST['confirmPass'];
-    $role = strtolower(trim($_SESSION['selected_role'] ?? null));
+    $enteredCode = trim($_POST['emailCode']);
 
-    // Validation
-    if (!$role) {
-        echo "<script>alert('No role selected. Please go back to select a role.'); window.location.href='../index.php';</script>";
+    if (!isset($_SESSION['verification_code']) || $enteredCode != $_SESSION['verification_code']) {
+        echo json_encode(["status" => "error", "message" => "Invalid verification code"]);
         exit;
     }
 
-    // Check if user already exists
-    $stmt = $conn->prepare("SELECT * FROM users WHERE email = ?");
-    $stmt->bind_param("s", $email);
-    $stmt->execute();
-    if ($stmt->get_result()->num_rows > 0) {
-        echo "<script>alert('User already exists.'); window.history.back();</script>";
-        exit;
-    }
+    // Get stored signup data
+    $data = $_SESSION['signup_data'];
 
-    // Insert into DB
+    $role = strtolower(trim($data['role']));
+    $firstName = $data['firstname'];
+    $lastName = $data['lastName'];
+    $hashedEmail = $data['email'];
+    $password = $data['password'];
+
     $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
+
     $stmt = $conn->prepare("INSERT INTO users (role, firstName, lastName, email, password) VALUES (?, ?, ?, ?, ?)");
-    $stmt->bind_param("sssss", $role, $firstName, $lastName, $email, $hashedPassword);
+    $stmt->bind_param("sssss", $role, $firstName, $lastName, $hashedEmail, $hashedPassword);
 
     if ($stmt->execute()) {
-        //unset($_SESSION['selected_role']); // Clear the role after using it
-        echo "<script>
-                alert('Registration successful!');
-                document.addEventListener('DOMContentLoaded', function () {
-                    document.getElementById('signup').reset();
-                });
-                window.location.href='../access.php';
-            </script>";
+        unset($_SESSION['verification_code']);
+        unset($_SESSION['signup_data']);
+        echo json_encode(["status" => "success", "message" => "Registration successful"]);
     } else {
-        echo "<script>alert('Something went wrong.'); window.history.back();</script>";
+        echo json_encode(["status" => "error", "message" => "Database error: " . $stmt->error]);
     }
 }
 ?>

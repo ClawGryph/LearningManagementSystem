@@ -34,11 +34,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 
     $_SESSION['signin_error'] = "Incorrect email or password.";
-    if($role === 'admin') {
-        header("Location: ../adminAccess.php");
-    } else {
-        header("Location: ../access.php");
-    }
+    header("Location: ../index.php");
     exit;
 }
 ?>
