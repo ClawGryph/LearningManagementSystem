@@ -1,4 +1,4 @@
-function initHideSidebarOnClick(){
+document.addEventListener('DOMContentLoaded', () => {
     const sidebar = document.querySelector('.sidebar');
     const sidebarBtn = document.querySelector('.fa-bars');
     const logoContainer = document.querySelector('.logo-details');
@@ -21,4 +21,4 @@ function initHideSidebarOnClick(){
             sidebar.classList.remove('close');
         }
     });
-}
+});

@@ -44,38 +44,21 @@ document.addEventListener("DOMContentLoaded", function() {
             });
 
             // Initialize specific functions after loading the page
+            // ADMIN PAGES
             if(normalizedUrl === 'admin-create-class.php' && typeof initClass === 'function'){
                 initClass();
             }
             if(normalizedUrl === 'admin-create-courses.php' && typeof initCourse === 'function') {
                 initCourse();
-                setTimeout(() => {
-                    if (typeof initHideSidebarOnClick === 'function') initHideSidebarOnClick();
-                }, 0);
-            }
-            if(normalizedUrl === 'admin-instructor-courses.php' && typeof initHideSidebarOnClick === 'function') {
-                setTimeout(() => {
-                    initHideSidebarOnClick();
-                }, 0);
             }
             if(normalizedUrl === 'admin-lm-lists.php' && typeof initLMLists === 'function') {
                 initLMLists();
-                setTimeout(() => {
-                    if (typeof initHideSidebarOnClick === 'function') initHideSidebarOnClick();
-                }, 0);
             }
             if(normalizedUrl === 'admin-instructor-load.php' && typeof initInstructorLoad === 'function') {
                 initInstructorLoad();
-                setTimeout(() => {
-                    if (typeof initHideSidebarOnClick === 'function') initHideSidebarOnClick();
-                }, 0);
             }
-            if(normalizedUrl === 'admin-notification.php' && typeof initCheckAll === 'function') {
-                setTimeout(() => {
-                    initCheckAll();
-                    if (typeof initHideSidebarOnClick === 'function') initHideSidebarOnClick();
-                }, 0);
-            }
+
+            // INSTRUCTOR PAGES
             if(normalizedUrl === 'instructor-classes.php' && typeof initHideSidebarOnClick === 'function') {
                 setTimeout(() => {
                     initHideSidebarOnClick();
@@ -134,6 +117,8 @@ document.addEventListener("DOMContentLoaded", function() {
                     initHideSidebarOnClick();
                 }, 0);
             }
+
+            // STUDENT PAGES
             if(normalizedUrl === 'student-notification.php' && typeof initCheckAll === 'function') {
                 setTimeout(() => {
                     initCheckAll();
