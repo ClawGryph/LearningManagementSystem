@@ -24,15 +24,9 @@ while($row = $classStmt->fetch_assoc()){
 ?>
 
 <div class="home-content">
-    <div class="sidebar-toggle">
-        <i class="fa-solid fa-bars"></i>
-        <span class="menu-text">Drop Down Sidebar</span>
-    </div>
     <div class="content-container">
         <div class="first-page">
-            <div class="page-header">
-                <h2>Instructor Subjects</h2>
-            </div>
+            <h2>Instructor Subjects</h2>
             <div class="table-container">
                 <table class="table-content" id="instructor-load-table">
                     <thead>
