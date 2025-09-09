@@ -11,10 +11,6 @@ while($row = $query->fetch_assoc()){
 ?>
 
 <div class="home-content">
-    <div class="sidebar-toggle">
-        <i class="fa-solid fa-bars"></i>
-        <span class="menu-text">Drop Down Sidebar</span>
-    </div>
     <div class="content-container">
         <!-- FIRST PAGE -->
         <div class="first-page">
@@ -22,8 +18,7 @@ while($row = $query->fetch_assoc()){
                 <h2>Programming Activity</h2>
                 <button type="submit" class="home-contentBtn btn-accent-bg" id="addActivityToClass"><i class="fa-solid fa-circle-plus"></i>Add activity to class</button>
             </div>
-            <div class="class-management-container">
-                <div class="activity-list-container">
+                <div class="class-list-container">
 
                     <!-- ASSIGNMENT TABLE -->
                     <div class="table-container">
@@ -31,6 +26,8 @@ while($row = $query->fetch_assoc()){
                             <thead>
                                 <th>Title</th>
                                 <th>Language</th>
+                                <th>Status</th>
+                                <th>Section</th>
                                 <th>Deadline</th>
                                 <th>Actions</th>
                             </thead>
@@ -39,8 +36,16 @@ while($row = $query->fetch_assoc()){
                                     include '../db.php';
                                     $instructorID = $_SESSION['user_id'];
 
-                                    $stmt = $conn->prepare("SELECT activityID, instructor_ID, title, language, deadline FROM programming_activity WHERE instructor_id = ?");
-                                    $stmt->bind_param("i", $instructorID);
+                                    $stmt = $conn->prepare("SELECT pa.activityID, pa.title, pa.language, pa.deadline, c.section, 
+                                                                CASE WHEN aa.assessment_authorID IS NOT NULL 
+                                                                    AND aa.assessment_type = 'activity' 
+                                                                    THEN 'assigned' ELSE 'not_assigned' 
+                                                                END AS status 
+                                                            FROM programming_activity pa 
+                                                                LEFT JOIN assessment_author aa ON aa.assessment_refID = pa.activityID 
+                                                                    AND aa.assessment_type = 'activity' 
+                                                                LEFT JOIN instructor_courses ic ON ic.instructor_courseID = aa.instructor_courseID 
+                                                                LEFT JOIN class c ON c.classID = ic.classID;");
                                     $stmt->execute();
                                     $result = $stmt->get_result();
 
@@ -49,6 +54,8 @@ while($row = $query->fetch_assoc()){
                                             echo "<tr data-activity-id='{$row['activityID']}'>
                                                     <td>{$row['title']}</td>
                                                     <td>{$row['language']}</td>
+                                                    <td><div class='assessment {$row['status']}'>{$row['status']}</div></td>
+                                                    <td>{$row['section']}</td>
                                                     <td>{$row['deadline']}</td>
                                                     <td>
                                                         <button type='button' class='home-contentBtn editBtn btn-accent-bg'><i class='fa-solid fa-pen-to-square'></i></button>
@@ -64,7 +71,6 @@ while($row = $query->fetch_assoc()){
                             </tbody>
                         </table>
                     </div>
-                </div>
 
                 <!-- CREATE ASSIGNMENT -->
                 <div class="create-activity-container">

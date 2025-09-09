@@ -27,8 +27,8 @@ function initActivity(){
             var activityID = row.getAttribute('data-activity-id');
             var titleCell = row.children[0];
             var languageCell = row.children[1];
-            var deadlineCell = row.children[2];
-            var actionsCell = row.children[3];
+            var deadlineCell = row.children[4];
+            var actionsCell = row.children[5];
 
             if (btn.classList.contains("editBtn")) {
                 // Remove the Delete button
