@@ -1,13 +1,7 @@
 <div class="home-content">
-    <div class="sidebar-toggle">
-        <i class="fa-solid fa-bars"></i>
-        <span class="menu-text">Drop Down Sidebar</span>
-    </div>
     <div class="content-container">
         <div class="first-page" id="courseModal">
             <h2>Course</h2>
-            <div class="class-management-container">
-                <!-- COURSE LIST -->
                 <div class="class-list-container">
                     <div class="table-container">
                         <table class="table-content" id="courseTable">
@@ -49,9 +43,8 @@
                             </tbody>
                         </table>
                     </div>
-                </div>
 
-                <!-- COURSE FORM -->
+                    <!-- COURSE FORM -->
                 <div class="create-class-container">
                     <form action="../action/addNewCourse.php" class="form-content" method="POST">
                         <h2>Create Course</h2>
@@ -65,6 +58,7 @@
                         </div>
                         <button type="submit" id="submitCourse" class="home-contentBtn btn-accent-bg">Create Course</button>
                     </form>
+                </div>
                 </div>
             </div>
         </div>
