@@ -3,10 +3,6 @@ session_start();
 ?>
 
 <div class="home-content">
-    <div class="sidebar-toggle">
-        <i class="fa-solid fa-bars"></i>
-        <span class="menu-text">Drop Down Sidebar</span>
-    </div>
     <div class="content-container">
         <!-- FIRST PAGE -->
         <div class="first-page">
@@ -14,7 +10,6 @@ session_start();
                 <h2>Learning Materials</h2>
                 <button type="submit" class="home-contentBtn btn-accent-bg" id="addMaterialsToClass"><i class="fa-solid fa-circle-plus"></i>Add materials to class</button>
             </div>
-            <div class="class-management-container">
                 <div class="class-list-container">
 
                     <!-- ASSIGNMENT TABLE -->
@@ -25,6 +20,7 @@ session_start();
                                 <th>Description</th>
                                 <th>Created at</th>
                                 <th>Status</th>
+                                <th>Section</th>
                                 <th>Action</th>
                             </thead>
                             <tbody class="table-body">
@@ -33,7 +29,12 @@ session_start();
 
                                     $instructorID = $_SESSION['user_id'];
 
-                                    $stmt = $conn->prepare("SELECT * FROM course_learningmaterials WHERE instructor_ID = ?");
+                                    $stmt = $conn->prepare("SELECT lm.course_lmID, lm.name, lm.description, la.request_date, lm.status, cl.section
+                                                            FROM course_learningmaterials lm
+                                                            JOIN learningmaterials_author la ON lm.course_lmID = la.course_lmID
+                                                            JOIN instructor_courses ic ON la.instructor_courseID = ic.instructor_courseID
+                                                            JOIN class cl ON ic.classID = cl.classID
+                                                            WHERE instructor_ID = ?;");
                                     $stmt->bind_param("i", $instructorID);
                                     $stmt->execute();
                                     $result = $stmt->get_result();
@@ -43,8 +44,9 @@ session_start();
                                             echo "<tr data-lm-id='{$row['course_lmID']}'>
                                                     <td>{$row['name']}</td>
                                                     <td>{$row['description']}</td>
-                                                    <td>{$row['uploaded_at']}</td>
+                                                    <td>{$row['request_date']}</td>
                                                     <td><div class='statusGroup {$row["status"]}'>{$row['status']}</div></td>
+                                                    <td>{$row['section']}</td>
                                                     <td>
                                                         <button type='button' class='home-contentBtn editBtn btn-accent-bg'><i class='fa-solid fa-pen-to-square'></i></button>
                                                         <button type='button' class='home-contentBtn deleteBtn btn-drk-bg'><i class='fa-solid fa-trash'></i></button>
@@ -59,7 +61,6 @@ session_start();
                             </tbody>
                         </table>
                     </div>
-                </div>
 
                 <!-- CREATE ASSIGNMENT -->
                 <div class="create-class-container">

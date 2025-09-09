@@ -37,7 +37,7 @@ function initMaterials(){
             var lmID = row.getAttribute('data-lm-id');
             var titleCell = row.children[0];
             var descriptionCell = row.children[1];
-            var actionsCell = row.children[4];
+            var actionsCell = row.children[5];
 
             if (btn.classList.contains("editBtn")) {
                 // Remove the Delete button
