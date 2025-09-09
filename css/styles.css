@@ -1343,13 +1343,14 @@ form.signup-form{
 }
 
 /* CLASS CONTAINER */
-.home-section .home-content .content-container .first-page .class-management-container{
-    display: flex;
-    gap: 20px;
-    width: 100%;
-}
 .home-section .home-content .content-container .first-page .class-list-container{
+    width: 100%;
+    display: flex;
+    gap: 10px;
+}
+.home-section .home-content .content-container .first-page .class-list-container .table-container{
     width: 70%;
+    align-self: flex-start;
 }
 .home-section .home-content .content-container .first-page .activity-list-container{
     width: 60%;
@@ -1840,9 +1841,6 @@ form.signup-form{
     font-weight: bold;
     color: #333;
     font-size: 16px;
-}
-.home-section .home-content .content-container .first-page .table-container{
-    margin-top: 50px;
 }
 
 /* STUDENT TAKING QUIZ */

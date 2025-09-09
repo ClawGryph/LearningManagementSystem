@@ -2,9 +2,9 @@
     <div class="content-container">
         <div class="first-page">
             <h2>Class</h2>
-            <div class="class-management-container">
-                <!-- CLASS LIST -->
                 <div class="class-list-container">
+
+                    <!-- TABLE -->
                     <div class="table-container">
                         <table class="table-content" id="classTable">
                             <thead>
@@ -47,28 +47,27 @@
                             </tbody>
                         </table>
                     </div>
-                </div>
 
-                <!-- CREATE CLASS -->
-                <div class="create-class-container">
-                    <form action="../action/addNewClass.php" class="form-content" method="POST">
-                        <h2>Create Class</h2>
-                        <select name="classYear" id="classYear">
-                            <option value="">Select Year</option>
-                            <option value="1">1</option>
-                        </select>
-                        <div>
-                            <i class="fa-solid fa-chalkboard-user"></i>
-                            <input type="text" name="classSection" maxlength="10" placeholder="Section name">
-                        </div>
-                        <div>
-                            <i class="fa-solid fa-users"></i>
-                            <input type="number" name="classMaxStudent" min="1" max="100" placeholder="maximum number of students">
-                        </div>
-                        <button type="submit" class="home-contentBtn btn-accent-bg">Create Class</button>
-                    </form>
+                    <!-- CREATE CLASS -->
+                    <div class="create-class-container">
+                        <form action="../action/addNewClass.php" class="form-content" method="POST">
+                            <h2>Create Class</h2>
+                            <select name="classYear" id="classYear">
+                                <option value="">Select Year</option>
+                                <option value="1">1</option>
+                            </select>
+                            <div>
+                                <i class="fa-solid fa-chalkboard-user"></i>
+                                <input type="text" name="classSection" maxlength="10" placeholder="Section name">
+                            </div>
+                            <div>
+                                <i class="fa-solid fa-users"></i>
+                                <input type="number" name="classMaxStudent" min="1" max="100" placeholder="maximum number of students">
+                            </div>
+                            <button type="submit" class="home-contentBtn btn-accent-bg">Create Class</button>
+                        </form>
+                    </div>
                 </div>
-            </div>
         </div>
     </div>
 </div>
