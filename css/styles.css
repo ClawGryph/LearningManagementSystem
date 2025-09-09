@@ -595,23 +595,54 @@ form.signup-form{
 .sidebar.close{
     width: 78px;
 }
+
 .sidebar .logo-details{
     height: 60px;
     width: 100%;
     display: flex;
     align-items: center;
+    justify-content: space-between;
+    padding-left: 15px;
 }
-.sidebar .logo-details i{
+.sidebar .logo-details .logo_img{
+    display: none;
+    font-family: monospace;
+    position: relative;
+    height: 80px;
+    width: 80px;
+    object-fit: contain;
+}
+.sidebar.close .logo-details{
+    padding: 0;
+}
+.sidebar.close .logo_img{
+    display: block;
+}
+.sidebar.close .fa-bars {
+    display: none;
+    position: absolute;
+    transform: rotate(180deg);
+}
+
+.sidebar.close:hover .fa-bars {
+    display: block;
+}
+.sidebar.close:hover .logo_img {
+    display: none;
+}
+.sidebar .logo-details span{
     font-size: 30px;
     color: var(--background-color);
     height: 60px;
     min-width: 78px;
     text-align: center;
     line-height: 60px;
+    cursor: pointer;
 }
 .sidebar .logo-details .logo_name{
-    font-size: 22px;
-    color: var(--background-color);
+    font-family: "Asimovian", sans-serif;
+    font-size: 3rem;
+    color: #0d3b25;
     font-weight: 600;
     transition: all 0.3s ease;
     transition-delay: 0.1s;
@@ -830,6 +861,25 @@ form.signup-form{
     font-size: 12px;
 }
 
+/* @media screen and (max-width: 768px){
+    .sidebar{
+        left: -100%;
+    }
+    .sidebar.close{
+        left: 0;
+        width: 78px;
+    }
+    .home-section{
+        left: 0;
+        width: 100%;
+    }
+    .sidebar.close ~ .home-section{
+        left: 78px;
+        width: calc(100% - 78px);
+    }
+    
+} */
+
 /*******************************/
 /******** HOME SECTION ********/
 /******************************/
@@ -880,11 +930,7 @@ form.signup-form{
     display: flex;
     justify-content: center;
     flex-direction: column;
-    background: var(--background-color);
     margin: 20px;
-    padding: 20px;
-    border-radius: 16px;
-    box-shadow: var(--box-shadow);
 }
 .home-section .home-content .second-page{
     display: none;

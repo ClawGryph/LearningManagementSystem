@@ -13,10 +13,6 @@ WHERE lma.is_read = 0 AND clm.status = 'pending';
 ?>
 
 <div class="home-content">
-    <div class="sidebar-toggle">
-        <i class="fa-solid fa-bars"></i>
-        <span class="menu-text">Drop Down Sidebar</span>
-    </div>
     <div class="content-container">
         <!-- FIRST PAGE -->
         <div class="first-page">
