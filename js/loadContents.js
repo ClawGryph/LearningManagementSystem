@@ -46,9 +46,6 @@ document.addEventListener("DOMContentLoaded", function() {
             // Initialize specific functions after loading the page
             if(normalizedUrl === 'admin-create-class.php' && typeof initClass === 'function'){
                 initClass();
-                setTimeout(() => {
-                    if (typeof initHideSidebarOnClick === 'function') initHideSidebarOnClick();
-                }, 0);
             }
             if(normalizedUrl === 'admin-create-courses.php' && typeof initCourse === 'function') {
                 initCourse();

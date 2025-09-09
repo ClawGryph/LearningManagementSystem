@@ -1,8 +1,4 @@
 <div class="home-content">
-    <div class="sidebar-toggle">
-        <i class="fa-solid fa-bars"></i>
-        <span class="menu-text">Drop Down Sidebar</span>
-    </div>
     <div class="content-container">
         <div class="first-page">
             <h2>Class</h2>

@@ -101,12 +101,12 @@ $notifCount = $row['notif_count'];
             <li>
                 <div class="profile-details">
                     <div class="profile-content">
-                        <div class="overlay-text"><i class="fa-solid fa-camera"></i></div>
 
                         <!-- Image preview area -->
                         <img src="../uploads/<?= $profileImage ?>" id="profileImagePreview" alt="Profile Image">
+                        <div class="overlay-text"><i class="fa-solid fa-camera"></i></div>
 
-                        <!-- Trigger file input on click (optional, for UX) -->
+                        <!-- Trigger file input on click -->
                         <input type="file" id="profileImageInput" style="display: none;" accept="image/*">
 
                         <!-- Actual form used for uploading -->
@@ -119,7 +119,7 @@ $notifCount = $row['notif_count'];
                         <div class="profile_name"><?= $userFullName ?: 'User' ?></div>
                         <div class="job"><?= $userRole ?: 'Role' ?></div>
                     </div>
-                    <a href="../index.php"><i class="fa-solid fa-right-from-bracket"></i></a>
+                    <a href="../index.php"><i class="fa-solid fa-right-from-bracket logout"></i></a>
                 </div>
             </li>
         </ul>
