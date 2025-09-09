@@ -3,7 +3,6 @@
         <div class="first-page">
             <h2>Class</h2>
                 <div class="class-list-container">
-
                     <!-- TABLE -->
                     <div class="table-container">
                         <table class="table-content" id="classTable">

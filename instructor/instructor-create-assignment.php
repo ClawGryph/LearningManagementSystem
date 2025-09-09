@@ -3,10 +3,6 @@ session_start();
 ?>
 
 <div class="home-content">
-    <div class="sidebar-toggle">
-        <i class="fa-solid fa-bars"></i>
-        <span class="menu-text">Drop Down Sidebar</span>
-    </div>
     <div class="content-container">
         <!-- FIRST PAGE -->
         <div class="first-page">
@@ -14,15 +10,14 @@ session_start();
                 <h2>Assignment</h2>
                 <button type="submit" class="home-contentBtn btn-accent-bg" id="addAssignmentToClass"><i class="fa-solid fa-circle-plus"></i>Add assignment to class</button>
             </div>
-            <div class="class-management-container">
                 <div class="class-list-container">
-
                     <!-- ASSIGNMENT TABLE -->
                     <div class="table-container">
                         <table class="table-content" id="assignmentTable">
                             <thead>
                                 <th>Title</th>
-                                <th>Description</th>
+                                <th>Status</th>
+                                <th>Section</th>
                                 <th>Deadline</th>
                                 <th>Actions</th>
                             </thead>
@@ -32,8 +27,18 @@ session_start();
 
                                     $instructorID = $_SESSION['user_id'];
 
-                                    $stmt = $conn->prepare("SELECT * FROM assignment WHERE instructor_ID = ?");
-                                    $stmt->bind_param("i", $instructorID);
+                                    $stmt = $conn->prepare("
+                                                            SELECT a.assignmentID, a.title, a.deadline, c.section, 
+                                                                CASE WHEN aa.assessment_authorID IS NOT NULL 
+                                                                    AND aa.assessment_type = 'assignment' 
+                                                                    THEN 'assigned' ELSE 'not_assigned' 
+                                                                END AS status 
+                                                            FROM assignment a 
+                                                                LEFT JOIN assessment_author aa ON aa.assessment_refID = a.assignmentID 
+                                                                    AND aa.assessment_type = 'assignment' 
+                                                                LEFT JOIN instructor_courses ic ON ic.instructor_courseID = aa.instructor_courseID 
+                                                                LEFT JOIN class c ON c.classID = ic.classID;
+                                                            ");
                                     $stmt->execute();
                                     $result = $stmt->get_result();
 
@@ -41,7 +46,8 @@ session_start();
                                         while ($row = $result->fetch_assoc()) {
                                             echo "<tr data-assignment-id='{$row['assignmentID']}'>
                                                     <td>{$row['title']}</td>
-                                                    <td>{$row['description']}</td>
+                                                    <td><div class='assessment {$row['status']}'>{$row['status']}</div></td>
+                                                    <td>{$row['section']}</td>
                                                     <td>{$row['deadline']}</td>
                                                     <td>
                                                         <button type='button' class='home-contentBtn editBtn btn-accent-bg'><i class='fa-solid fa-pen-to-square'></i></button>
@@ -57,7 +63,6 @@ session_start();
                             </tbody>
                         </table>
                     </div>
-                </div>
 
                 <!-- CREATE ASSIGNMENT -->
                 <div class="create-class-container">
@@ -95,7 +100,6 @@ session_start();
                         <button type="submit" class="home-contentBtn btn-accent-bg">Create</button>
                     </form>
                 </div>
-            </div>
         </div>
 
         <!-- SECOND PAGE -->

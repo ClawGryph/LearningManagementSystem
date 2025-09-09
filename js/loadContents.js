@@ -59,89 +59,45 @@ document.addEventListener("DOMContentLoaded", function() {
             }
 
             // INSTRUCTOR PAGES
-            if(normalizedUrl === 'instructor-classes.php' && typeof initHideSidebarOnClick === 'function') {
-                setTimeout(() => {
-                    initHideSidebarOnClick();
-                }, 0);
-            }
             if(normalizedUrl === 'instructor-create-quiz.php' && typeof initQuiz === 'function'){
                 initQuiz();
                 setTimeout(() => {
                     if (typeof initQuestionToggle === 'function') initQuestionToggle();
-                    if (typeof initHideSidebarOnClick === 'function') initHideSidebarOnClick();
                 }, 0);
             }
-            if(normalizedUrl === 'instructor-create-assignment.php' && typeof initAssignment === 'function' && typeof initHideSidebarOnClick === 'function'){
+            if(normalizedUrl === 'instructor-create-assignment.php' && typeof initAssignment === 'function'){
                 initAssignment();
                 setTimeout(() => {
-                    initHideSidebarOnClick();
                     if (typeof initShowAssignmentFile === 'function') initShowAssignmentFile();
                 }, 0);
             }
             if(normalizedUrl === 'instructor-create-activity.php' && typeof initActivity === 'function') {
                 initActivity();
-                setTimeout(() => {
-                    if (typeof initHideSidebarOnClick === 'function') initHideSidebarOnClick();
-                }, 0);
             }
             if(normalizedUrl === 'instructor-upload-lm.php' && typeof initMaterials === 'function'){
                 initMaterials(); //09537747921
                 setTimeout(() => {
-                    if (typeof initHideSidebarOnClick === 'function') initHideSidebarOnClick();
                     if (typeof initShowAssignmentFile === 'function') initShowAssignmentFile();
                 }, 0);
             }
             if(normalizedUrl === 'subject-task-progress.php' && typeof initScoreBar === 'function'){
                 initScoreBar();
-                setTimeout(() => {
-                    if (typeof initHideSidebarOnClick === 'function') initHideSidebarOnClick();
-                }, 0);
-            }
-            if(normalizedUrl === 'subject-submitted-assignment.php' && typeof initHideSidebarOnClick === 'function'){
-                setTimeout(() => {
-                    initHideSidebarOnClick();
-                }, 0);
-            }
-            if(normalizedUrl === 'subject-submitted-activity.php' && typeof initHideSidebarOnClick === 'function'){
-                setTimeout(() => {
-                    initHideSidebarOnClick();
-                }, 0);
-            }
-            if(normalizedUrl === 'subject-submitted-quiz.php' && typeof initHideSidebarOnClick === 'function'){
-                setTimeout(() => {
-                    initHideSidebarOnClick();
-                }, 0);
-            }
-            if(normalizedUrl === 'subject-submitted-quiz.php' && typeof initCheckAll === 'function'){
-                setTimeout(() => {
-                    initHideSidebarOnClick();
-                }, 0);
             }
 
             // STUDENT PAGES
             if(normalizedUrl === 'student-notification.php' && typeof initCheckAll === 'function') {
                 setTimeout(() => {
                     initCheckAll();
-                    if (typeof initHideSidebarOnClick === 'function') initHideSidebarOnClick();
                 }, 0);
             }
             if(normalizedUrl === 'student-courses.php' && typeof initStudentCourses === 'function') {
                 initStudentCourses();
-                setTimeout(() => {
-                    if (typeof initHideSidebarOnClick === 'function') initHideSidebarOnClick();
-                }, 0);
             }
             if(normalizedUrl === 'student-subject-myProgess.php' && typeof initProgressBars === 'function') {
                 initProgressBars();
-                setTimeout(() => {
-                    if (typeof initHideSidebarOnClick === 'function') initHideSidebarOnClick();
-                }, 0);
             }
             if(normalizedUrl === 'student-subject-assignment.php' && typeof initShowAssignmentFile === 'function') {
                 initShowAssignmentFile();
-                setTimeout(() => {
-                    if (typeof initHideSidebarOnClick === 'function') initHideSidebarOnClick();
-                }, 0);
             }
         });
     }
