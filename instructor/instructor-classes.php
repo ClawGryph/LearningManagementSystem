@@ -13,12 +13,15 @@ if ($instructorID) {
             c.courseCode, 
             c.courseName, 
             ic.courseID,
-            ic.code 
+            ic.code,
+            cl.section
             FROM instructor_courses ic 
             LEFT JOIN instructor_student_load isl 
             ON ic.instructor_courseID = isl.instructor_courseID 
             JOIN courses c 
             ON ic.courseID = c.courseID 
+            JOIN class cl 
+            ON ic.classID = cl.classID
             WHERE ic.instructorID = ?
             GROUP BY c.courseCode, c.courseName, ic.code;
     ");
@@ -35,10 +38,6 @@ if ($instructorID) {
 ?>
 
 <div class="home-content">
-    <div class="sidebar-toggle">
-        <i class="fa-solid fa-bars"></i>
-        <span class="menu-text">Drop Down Sidebar</span>
-    </div>
     <div class="content-container">
         <!-- FIRST PAGE -->
         <div class="first-page">
@@ -50,10 +49,16 @@ if ($instructorID) {
                             <button type="submit" class="course-card">
                                 <div class="course-card-header">
                                     <h3><?= htmlspecialchars($course['courseCode']) ?></h3>
-                                    <h4><?= htmlspecialchars($course['courseName']) ?></h4>
+                                    <p class="card-tag"><?= htmlspecialchars($course['section']) ?></p>
                                 </div>
-                                <p><span>Number of Students Enrolled:</span> <?= htmlspecialchars($course['Number_of_students_enrolled']) ?></p>
-                                <p><span>Class Code:</span> <?= htmlspecialchars($course['code']) ?></p>
+                                <div class="card-details">
+                                    <h4><?= htmlspecialchars($course['courseName']) ?></h4>
+                                    <p>Number of Students Enrolled: <span><?= htmlspecialchars($course['Number_of_students_enrolled']) ?></span></p>
+
+                                    <div class="card-footer">
+                                        <p>Class Code: <span><?= htmlspecialchars($course['code']) ?></span></p>
+                                    </div>
+                                </div>
                             </button>
                         </form>
                 <?php endforeach; ?>
