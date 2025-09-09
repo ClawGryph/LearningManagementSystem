@@ -14,10 +14,6 @@ $query = $conn->query("SELECT CONCAT(i.firstName, ' ', i.lastName) AS Instructor
 ?>
 
 <div class="home-content">
-    <div class="sidebar-toggle">
-        <i class="fa-solid fa-bars"></i>
-        <span class="menu-text">Drop Down Sidebar</span>
-    </div>
     <div class="content-container">
         <!-- FIRST PAGE -->
         <div class="first-page">
@@ -59,11 +55,11 @@ $query = $conn->query("SELECT CONCAT(i.firstName, ' ', i.lastName) AS Instructor
                                 </td>
                             </tr>
                         <?php endwhile; ?>
+                        <?php else: ?>
+                            <p>No pending files.</p>
+                        <?php endif; ?>
                     </tbody>
                 </table>
-                <?php else: ?>
-                    <p>No pending files.</p>
-                <?php endif; ?>
             </div>
         </div>
     </div>
