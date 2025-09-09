@@ -32,6 +32,7 @@ while($row = $classStmt->fetch_assoc()){
                     <thead>
                         <tr>
                             <th>No.</th>
+                            <th></th>
                             <th>Course</th>
                             <th>Instructor</th>
                             <th>Class</th>
@@ -43,7 +44,7 @@ while($row = $classStmt->fetch_assoc()){
                         <?php
                         include '../db.php';
 
-                        $stmt = $conn->prepare("SELECT c.courseCode, c.courseName, CONCAT(i.firstName, ' ', i.lastName) AS 'Instructors_Name', cl.year, cl.section, ic.code, ic.instructor_courseID from instructor_courses ic JOIN courses c ON ic.courseID = c.courseID JOIN class cl ON ic.classID = cl.classID JOIN users i ON ic.instructorID = i.userID;");
+                        $stmt = $conn->prepare("SELECT c.courseCode, c.courseName, CONCAT(i.firstName, ' ', i.lastName) AS 'Instructors_Name', i.profileImage, cl.year, cl.section, ic.code, ic.instructor_courseID from instructor_courses ic JOIN courses c ON ic.courseID = c.courseID JOIN class cl ON ic.classID = cl.classID JOIN users i ON ic.instructorID = i.userID;");
                         $stmt->execute();
                         $result = $stmt->get_result();
 
@@ -52,6 +53,7 @@ while($row = $classStmt->fetch_assoc()){
                             while ($row = $result->fetch_assoc()) {
                                 echo "<tr data-instructor_course-id='{$row['instructor_courseID']}'>
                                         <td>{$count}</td> 
+                                        <td><img src='../uploads/{$row['profileImage']}' alt='Profile Image' class='profile-img'></td>
                                         <td>{$row['courseCode']} - {$row['courseName']}</td>
                                         <td>{$row['Instructors_Name']}</td>
                                         <td>{$row['year']} - {$row['section']}</td>
