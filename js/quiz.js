@@ -59,9 +59,8 @@ function initQuiz(){
             var row = btn.closest('tr');
             var quizID = row.getAttribute('data-quiz-id');
             var titleCell = row.children[0];
-            var descriptionCell = row.children[1];
-            var deadlineCell = row.children[2];
-            var actionsCell = row.children[4];
+            var deadlineCell = row.children[3];
+            var actionsCell = row.children[5];
 
             if (btn.classList.contains("editBtn")) {
                 // Remove the Delete button
@@ -72,17 +71,14 @@ function initQuiz(){
 
                 // Save current values BEFORE replacing with inputs
                 var oldTitle = titleCell.textContent.trim();
-                var oldDescription = descriptionCell.textContent.trim();
                 var oldDeadline = deadlineCell.textContent.trim();
 
                 // Store oldUsername as a data attribute on the button
                 btn.dataset.oldTitle = oldTitle;
-                btn.dataset.oldDescription = oldDescription;
                 btn.dataset.oldDeadline = oldDeadline;
 
                 // Replace with input fields
                 titleCell.innerHTML = "<input type='text' value='" + oldTitle + "' required>";
-                descriptionCell.innerHTML = "<input type='text' value='" + oldDescription + "' required>";
                 deadlineCell.innerHTML = "<input type='datetime-local' value='" + oldDeadline + "' required>";
 
                 // Change Edit to Save
@@ -92,7 +88,6 @@ function initQuiz(){
             } else {
                 // On Save
                 var newTitle = titleCell.querySelector("input").value.trim();
-                var newDescription = descriptionCell.querySelector("input").value.trim();
                 var newDeadline = deadlineCell.querySelector("input").value.trim();
 
                 // AJAX to update
@@ -102,7 +97,6 @@ function initQuiz(){
                 xhr.onload = function() {
                     if (xhr.status === 200) {
                         titleCell.textContent = newTitle;
-                        descriptionCell.textContent = newDescription;
                         deadlineCell.textContent = newDeadline;
                         btn.innerHTML = "<i class='fa-solid fa-pen-to-square'></i>";
                         btn.classList.add("editBtn");
@@ -123,7 +117,6 @@ function initQuiz(){
                 };
                 xhr.send("quiz_Id=" + encodeURI(quizID) +
                          "&title=" + encodeURIComponent(newTitle) +
-                         "&description=" + encodeURIComponent(newDescription) +
                          "&deadline=" + encodeURIComponent(newDeadline));
             }
         });

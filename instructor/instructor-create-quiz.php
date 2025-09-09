@@ -17,8 +17,9 @@ session_start();
                 <table class="table-content" id="quizTable">
                     <thead>
                         <tr>
-                            <th>Quiz Name</th>
-                            <th>Quiz Description</th>
+                            <th>Title</th>
+                            <th>Status</th>
+                            <th>Section</th>
                             <th>Deadline</th>
                             <th>Questions</th>
                             <th>Actions</th>
@@ -30,8 +31,18 @@ session_start();
 
                             $instructorID = $_SESSION['user_id'];
 
-                            $query = $conn->prepare("SELECT * FROM quizzes WHERE instructor_ID = ?");
-                            $query->bind_param("i", $instructorID);
+                            $query = $conn->prepare("
+                                                            SELECT q.quizID, q.title, q.deadline, c.section, 
+                                                                CASE WHEN aa.assessment_authorID IS NOT NULL 
+                                                                    AND aa.assessment_type = 'quiz' 
+                                                                    THEN 'assigned' ELSE 'not_assigned' 
+                                                                END AS status 
+                                                            FROM quizzes q 
+                                                                LEFT JOIN assessment_author aa ON aa.assessment_refID = q.quizID 
+                                                                    AND aa.assessment_type = 'quiz' 
+                                                                LEFT JOIN instructor_courses ic ON ic.instructor_courseID = aa.instructor_courseID 
+                                                                LEFT JOIN class c ON c.classID = ic.classID;
+                                                            ");
                             $query->execute();
                             $result = $query->get_result();
 
@@ -39,7 +50,8 @@ session_start();
                                 while($row = $result->fetch_assoc()){
                                     echo "<tr data-quiz-id='{$row['quizID']}'>
                                             <td>{$row['title']}</td>
-                                            <td>{$row['description']}</td>
+                                            <td><div class='assessment {$row['status']}'>{$row['status']}</div></td>
+                                            <td>{$row['section']}</td>
                                             <td>{$row['deadline']}</td>
                                             <td><a href='#' class='view-questions' data-id={$row['quizID']}>Questions</a></td>
                                             <td>
