@@ -75,10 +75,10 @@ $notifCount = $row['notif_count'];
             <li>
                 <a href="#" data-content="admin-lm-lists.php">
                     <i class="fa-solid fa-book-open"></i>
-                    <span class="link_name">Learning Materials Lists</span>
+                    <span class="link_name">Approval Queue</span>
                 </a>
                 <ul class="sub-menu blank">
-                    <li><a href="#" data-content="admin-lm-lists.php" class="link_name">Learning Materials Lists</a></li>
+                    <li><a href="#" data-content="admin-lm-lists.php" class="link_name">Approval Queue</a></li>
                 </ul>
             </li>
             <li>
