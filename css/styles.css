@@ -1019,6 +1019,10 @@ form.signup-form{
     padding: 0;
     line-height: 1;
 }
+.home-section .home-content .first-page .page-header h3{
+    font-size: 1.8rem;
+    color: var(--border-color);
+}
 .home-section .home-content .first-page .page-header a,
 .home-section .home-content .second-page .page-header a{
     text-decoration: none;

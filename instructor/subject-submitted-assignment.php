@@ -20,10 +20,6 @@ $stmt->close();
 ?>
 
 <div class="home-content">
-    <div class="sidebar-toggle">
-        <i class="fa-solid fa-bars"></i>
-        <span class="menu-text">Drop Down Sidebar</span>
-    </div>
     <div class="content-container">
         <div class="first-page">
             <div class="page-header">
@@ -52,7 +48,7 @@ $stmt->close();
                                                     alt="Profile" 
                                                     class="profile-img">
                                             <?php else: ?>
-                                                <img src="../assets/default-profile.png" 
+                                                <img src="../uploads/default.png" 
                                                     alt="Default Profile" 
                                                     class="profile-img">
                                             <?php endif; ?>
@@ -72,7 +68,7 @@ $stmt->close();
                                             <?php if (!empty($submission['file_path'])): ?>
                                                 <a href="<?php echo htmlspecialchars($submission['file_path']); ?>" 
                                                 download 
-                                                class="btn btn-download">
+                                                class="home-contentBtn btn-save btn-accent-bg">
                                                     <i class="fa-solid fa-download"></i>
                                                 </a>
                                             <?php else: ?>
