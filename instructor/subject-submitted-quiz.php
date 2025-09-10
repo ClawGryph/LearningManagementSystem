@@ -21,14 +21,11 @@ $conn->close();
 ?>
 
 <div class="home-content">
-    <div class="sidebar-toggle">
-        <i class="fa-solid fa-bars"></i>
-        <span class="menu-text">Drop Down Sidebar</span>
-    </div>
     <div class="content-container">
         <div class="first-page">
             <div class="page-header">
                 <h2><?php echo htmlspecialchars($courseName ?? 'Unknown Course'); ?></h2>
+                <h3>Submitted Quizzes</h3>
             </div>
                 <form class="table-container" action="">
                     <table class="table-content">
@@ -71,7 +68,7 @@ $conn->close();
                                         <td><?php echo htmlspecialchars($submission['tabs_open']); ?></td>
                                         <td>
                                             <?php echo isset($submission['score']) 
-                                                ? htmlspecialchars($submission['score']) . ' / ' . htmlspecialchars($submission['max_score']) 
+                                                ? (int)htmlspecialchars($submission['score']) . ' / ' . htmlspecialchars($submission['max_score']) 
                                                 : 'Not graded'; ?>
                                         </td>
                                         <td>
