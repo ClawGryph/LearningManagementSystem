@@ -18,6 +18,12 @@ if ($userId) {
     }
     $stmt->close();
 }
+
+$notif = $conn->query("SELECT COUNT(*) AS notif_count FROM learningmaterials_author lma
+                        JOIN course_learningmaterials clm ON lma.course_lmID = clm.course_lmID
+                        WHERE clm.status = 'rejected' OR clm.status = 'approved'");
+$row = $notif->fetch_assoc();
+$notifCount = $row['notif_count'];
 ?>
 
 <!DOCTYPE html>
@@ -57,10 +63,10 @@ if ($userId) {
             <li>
                 <a href="#" data-content="instructor-create-quiz.php">
                     <i class="fa-solid fa-clipboard"></i>
-                    <span class="link_name">Create Quiz</span>
+                    <span class="link_name">Manage Quiz</span>
                 </a>
                 <ul class="sub-menu blank">
-                    <li><a href="#" data-content="instructor-create-quiz.php" class="link_name">Create Quiz</a></li>
+                    <li><a href="#" data-content="instructor-create-quiz.php" class="link_name">Manage Quiz</a></li>
                 </ul>
             </li>
 
@@ -68,10 +74,10 @@ if ($userId) {
             <li>
                 <a href="#" data-content="instructor-create-assignment.php">
                     <i class="fa-solid fa-file"></i>
-                    <span class="link_name">Create Assignment</span>
+                    <span class="link_name">Manage Assignment</span>
                 </a>
                 <ul class="sub-menu blank">
-                    <li><a href="#" data-content="instructor-create-assignment.php" class="link_name">Create Assignment</a></li>
+                    <li><a href="#" data-content="instructor-create-assignment.php" class="link_name">Manage Assignment</a></li>
                 </ul>
             </li>
 
@@ -79,10 +85,10 @@ if ($userId) {
             <li>
                 <a href="#" data-content="instructor-create-activity.php">
                     <i class="fa-solid fa-laptop-code"></i>
-                    <span class="link_name">Programming Activity</span>
+                    <span class="link_name">Manage Activity</span>
                 </a>
                 <ul class="sub-menu blank">
-                    <li><a href="#" data-content="instructor-create-activity.php" class="link_name">Programming Activity</a></li>
+                    <li><a href="#" data-content="instructor-create-activity.php" class="link_name">Manage Activity</a></li>
                 </ul>
             </li>
 
@@ -90,12 +96,32 @@ if ($userId) {
             <li>
                 <a href="#" data-content="instructor-upload-lm.php">
                     <i class="fa-solid fa-upload"></i>
-                    <span class="link_name">Upload Learning Materials</span>
+                    <span class="link_name">Add Resources</span>
                 </a>
                 <ul class="sub-menu blank">
-                    <li><a href="#" data-content="instructor-upload-lm.php" class="link_name">Upload Learning Materials</a></li>
+                    <li><a href="#" data-content="instructor-upload-lm.php" class="link_name">Add Resources</a></li>
                 </ul>
             </li>
+
+            <!-- 6 -->
+             <li>
+                <a href="#" data-content="admin-notification.php" class="notif">
+                    <i class="fa-solid fa-bell"></i>
+
+                    <!-- Notification Badge -->
+                    <?php if ($notifCount > 0): ?>
+                        <span class="notif-badge"><?= $notifCount ?></span>
+                    <?php else: ?>
+                        <span class="notif-badge">0</span>
+                    <?php endif; ?>
+
+                    <span class="link_name">Notification</span>
+                </a>
+                <ul class="sub-menu blank">
+                    <li><a href="#" data-content="admin-notification.php" class="link_name">Notification</a></li> 
+                </ul>
+            </li>
+
             <li>
                 <div class="profile-details">
                     <div class="profile-content">
