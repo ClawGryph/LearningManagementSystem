@@ -1,8 +1,4 @@
 <div class="home-content">
-    <div class="sidebar-toggle">
-        <i class="fa-solid fa-bars"></i>
-        <span class="menu-text">Drop Down Sidebar</span>
-    </div>
     <div class="content-container">
         <div class="first-page">
             <h2 id="courseTitle"></h2>
@@ -79,6 +75,7 @@
                     <table class="table-content" id="studentTaskTable">
                         <thead>
                         <tr>
+                            <th></th>
                             <th>Student Name</th>
                             <th>Assessment Title</th>
                             <th>Type</th>

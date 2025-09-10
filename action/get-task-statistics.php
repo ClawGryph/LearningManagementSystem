@@ -144,14 +144,13 @@ try {
             aa.assessment_refID,
             COUNT(sa.assessment_authorID) AS count,
             SUM(sa.tabs_open) AS tabs_open,
-            CASE 
-                WHEN aa.assessment_type = 'quiz' THEN (SELECT q.title FROM quizzes q WHERE q.quizID = aa.assessment_refID)
-                WHEN aa.assessment_type = 'activity' THEN (SELECT a.title FROM programming_activity a WHERE a.activityID = aa.assessment_refID)
-                WHEN aa.assessment_type = 'assignment' THEN (SELECT asg.title FROM assignment asg WHERE asg.assignmentID = aa.assessment_refID)
-                ELSE 'Unknown'
-            END AS title
+            COALESCE(q.title, a.title, asg.title, 'Unknown') AS title,
+            COALESCE(q.max_score, a.max_score, asg.max_score, NULL) AS max_score
         FROM student_assessments sa
         JOIN assessment_author aa ON sa.assessment_authorID = aa.assessment_authorID
+        LEFT JOIN quizzes q ON aa.assessment_type = 'quiz' AND q.quizID = aa.assessment_refID
+        LEFT JOIN programming_activity a ON aa.assessment_type = 'activity' AND a.activityID = aa.assessment_refID
+        LEFT JOIN assignment asg ON aa.assessment_type = 'assignment' AND asg.assignmentID = aa.assessment_refID
         WHERE aa.instructor_courseID = ?
         GROUP BY aa.assessment_type, aa.assessment_refID
     ");
@@ -165,11 +164,13 @@ try {
         $title = $row['title'] ?? 'Untitled';
         $count = (int)$row['count'];
         $tabs_open = (int) $row['tabs_open'];
+        $max_score = (int) $row['max_score'];
 
         $taskBreakdown[$type][] = [
             'title' => $title,
             'count' => $count,
-            'tabs_open' => $tabs_open
+            'tabs_open' => $tabs_open,
+            'max_score' => $max_score
         ];
     }
     $stmt->close();
@@ -181,19 +182,19 @@ try {
     $stmt = $conn->prepare("
         SELECT 
             CONCAT(u.firstName, ' ', u.lastName) AS studentName,
+            u.profileImage,
             sa.status,
             sa.score,
             aa.assessment_type,
             aa.assessment_refID,
-            CASE 
-                WHEN aa.assessment_type = 'quiz' THEN (SELECT q.title FROM quizzes q WHERE q.quizID = aa.assessment_refID)
-                WHEN aa.assessment_type = 'activity' THEN (SELECT a.title FROM programming_activity a WHERE a.activityID = aa.assessment_refID)
-                WHEN aa.assessment_type = 'assignment' THEN (SELECT asg.title FROM assignment asg WHERE asg.assignmentID = aa.assessment_refID)
-                ELSE 'Unknown'
-            END AS title
+            COALESCE(q.title, a.title, asg.title, 'Unknown') AS title,
+            COALESCE(q.max_score, a.max_score, asg.max_score, NULL) AS max_score
         FROM student_assessments sa
         JOIN users u ON sa.student_id = u.userID
         JOIN assessment_author aa ON sa.assessment_authorID = aa.assessment_authorID
+        LEFT JOIN quizzes q ON aa.assessment_type = 'quiz' AND q.quizID = aa.assessment_refID
+        LEFT JOIN programming_activity a ON aa.assessment_type = 'activity' AND a.activityID = aa.assessment_refID
+        LEFT JOIN assignment asg ON aa.assessment_type = 'assignment' AND asg.assignmentID = aa.assessment_refID
         WHERE aa.instructor_courseID = ?
     ");
 
@@ -204,8 +205,10 @@ try {
     while ($row = $result->fetch_assoc()) {
         $studentTaskStatus[] = [
             'studentName' => $row['studentName'],
+            'profile_image' => $row['profileImage'],
             'status' => $row['status'],
             'score' => is_null($row['score']) ? '-' : round($row['score'], 2),
+            'max_score' => $row['max_score'],
             'type' => $row['assessment_type'],
             'title' => $row['title']
         ];

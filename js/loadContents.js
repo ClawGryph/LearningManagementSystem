@@ -75,7 +75,7 @@ document.addEventListener("DOMContentLoaded", function() {
                 initActivity();
             }
             if(normalizedUrl === 'instructor-upload-lm.php' && typeof initMaterials === 'function'){
-                initMaterials(); //09537747921
+                initMaterials();
                 setTimeout(() => {
                     if (typeof initShowAssignmentFile === 'function') initShowAssignmentFile();
                 }, 0);

@@ -41,19 +41,13 @@ function initScoreBar() {
                     options: {
                         responsive: true,
                         scales: {
-                            x: {
-                                ticks: { color: '#fffcf2' },
-                                grid: { color: '#ccc' }
-                            },
                             y: {
                                 beginAtZero: true,
-                                max: 100,
-                                ticks: { color: '#fffcf2' },
-                                grid: { color: '#ccc' }
+                                max: 100
                             }
                         },
                         plugins: {
-                            legend: { labels: { color: '#fffcf2' } }
+                            legend: { labels: { color: '#018143ff' } }
                         }
                     }
                 });
@@ -112,8 +106,7 @@ function initScoreBar() {
                         responsive: true,
                         plugins: {
                             legend: {
-                                position: 'bottom',
-                                labels: { color: '#fffcf2' }
+                                position: 'bottom'
                             }
                         }
                     }
@@ -185,14 +178,10 @@ function initScoreBar() {
                         scales: {
                             y: {
                                 beginAtZero: true,
-                                title: { display: true, text: 'Number of Tabs Opened', color: '#fffcf2' },
-                                ticks: { color: '#fffcf2' },
-                                grid: { color: '#ccc' }
+                                title: { display: true, text: 'Number of Tabs Opened'}
                             },
                             x: {
-                                title: { display: true, text: 'Assessment Title', color: '#fffcf2' },
-                                ticks: { color: '#fffcf2' },
-                                grid: { color: '#ccc' }
+                                title: { display: true, text: 'Assessment Title'}
                             }
                         }
                     }
@@ -236,7 +225,7 @@ function initScoreBar() {
 
                 if (filtered.length === 0) {
                     const tr = document.createElement('tr');
-                    tr.innerHTML = '<td colspan="5">No matching records</td>';
+                    tr.innerHTML = '<td colspan="6">No matching records</td>';
                     tbody.appendChild(tr);
                     return;
                 }
@@ -244,11 +233,15 @@ function initScoreBar() {
                 filtered.forEach(task => {
                     const tr = document.createElement('tr');
                     tr.innerHTML = `
+                        <td><img src="../uploads/${task.profileImage || 'default.png'}" 
+                            alt="Profile" 
+                            class="profile-img">
+                        </td>
                         <td>${task.studentName}</td>
                         <td>${task.title}</td>
                         <td>${task.type}</td>
                         <td>${statusMap[task.status]}</td>
-                        <td>${task.score}</td>
+                        <td>${task.score} / ${task.max_score ?? '-'}</td>
                     `;
                     tbody.appendChild(tr);
                 });
