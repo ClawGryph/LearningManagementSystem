@@ -82,6 +82,9 @@ document.addEventListener("DOMContentLoaded", function() {
             }
             if(normalizedUrl === 'subject-task-progress.php' && typeof initScoreBar === 'function'){
                 initScoreBar();
+                setTimeout(() => {
+                    if(typeof initOpenModal === 'function') initOpenModal();
+                }, 0);
             }
 
             // STUDENT PAGES

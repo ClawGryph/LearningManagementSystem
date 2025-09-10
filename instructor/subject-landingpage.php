@@ -143,5 +143,6 @@ $_SESSION['courseID'] = $courseID;
     <script src="../js/linkView.js"></script>
     <script src="../js/hideSidebar.js"></script>
     <script src="../js/studentCourseBar.js"></script>
+    <script src="../js/openModal.js"></script>
 </body>
 </html>

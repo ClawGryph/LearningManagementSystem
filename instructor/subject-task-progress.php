@@ -1,7 +1,34 @@
+<?php
+    include '../db.php';
+    session_start();
+
+    $courseID = $_SESSION['courseID'];
+    $instructorID = $_SESSION['user_id'];
+
+    $enrolees = [];
+
+    $query = ("SELECT CONCAT(s.firstName, ' ', s.lastName) AS Student_Name, s.profileImage 
+                            FROM instructor_courses ic 
+                            JOIN instructor_student_load isl ON ic.instructor_courseID = isl.instructor_courseID 
+                            JOIN users s ON isl.studentID = s.userID 
+                            WHERE ic.instructorID = ? AND ic.courseID = ?");
+    $stmt = $conn->prepare($query);
+    $stmt->bind_param("ii", $instructorID, $courseID);
+    $stmt->execute();
+    $result = $stmt->get_result();
+
+    while ($row = $result->fetch_assoc()) {
+        $enrolees[] = $row;
+    }
+?>
+
 <div class="home-content">
     <div class="content-container">
         <div class="first-page">
-            <h2 id="courseTitle"></h2>
+            <div class="page-header">
+                <h2 id="courseTitle"></h2>
+                <button type="submit" class="home-contentBtn btn-accent-bg" id="showEnrolees"><i class="fa-solid fa-list-ol"></i>Students Enrolled</button>
+            </div>
             <div>
                 <div class="search-container">
                     <div class="search-box">
@@ -89,6 +116,37 @@
                     </table>
                 </div>
             </div>
+
+            <!-- STUDENTS ENROLLED LISTS -->
+             <div class="overlay" id="loadingOverlay">
+                <div class="popup-box" id="enrolee">
+                    <div class="popup-box-content">
+                        <div class="page-header">
+                            <h2>Students Enrolled</h2>
+                            <i class="fa-solid fa-xmark" id="closeBtn"></i>
+                        </div>
+                        <ol class="enrolees-list">
+                            <?php foreach ($enrolees as $en): ?>
+                                <li>
+                                        <?php if (!empty($submission['profileImage'])): ?>
+                                            <img src="../uploads/<?php echo htmlspecialchars($en['profileImage']); ?>" 
+                                                    alt="Profile" 
+                                                    class="profile-img">
+                                        <?php else: ?>
+                                            <img src="../uploads/default.png" 
+                                                    alt="Default Profile" 
+                                                    class="profile-img">
+                                        <?php endif; ?> 
+                                        <span><?= htmlspecialchars($en['Student_Name']) ?></span>
+                                </li>
+                            <?php endforeach; ?>
+                            <?php if (empty($enrolees)): ?>
+                                <span>No students are enrolled</span>
+                            <?php endif; ?> 
+                        </ol>
+                    </div>
+                </div>
+             </div>
         </div>
     </div>
 </div>
