@@ -33,7 +33,9 @@ $_SESSION['instructor_courseID'] = $instructorCourseID;
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Student | Dashboard</title>
+    <link href="https://fonts.googleapis.com/css2?family=Asimovian&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0&icon_names=left_panel_close" />
     <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
     <link rel="stylesheet" href="../css/normalize.css">
     <link rel="stylesheet" href="../css/styles.css">
@@ -41,8 +43,11 @@ $_SESSION['instructor_courseID'] = $instructorCourseID;
 <body>
     <nav class="sidebar">
         <div class="logo-details">
-            <i class="fa-solid fa-school-flag"></i>
-            <span class="logo_name">CTU - LMS</span>
+            <img src="../images/logo.png" alt="Open book logo" class="logo_img">
+            <span class="logo_name">CogniCore</span>
+            <span class="fa-bars material-symbols-outlined">
+                left_panel_close
+            </span>
         </div>
         <ul class="nav-links">
             <!-- 1 -->
@@ -132,7 +137,7 @@ $_SESSION['instructor_courseID'] = $instructorCourseID;
                         <div class="profile_name"><?= $userFullName ?: 'User' ?></div>
                         <div class="job"><?= $userRole ?: 'Role' ?></div>
                     </div>
-                    <a href="../index.php"><i class="fa-solid fa-right-from-bracket"></i></a>
+                    <a href="../index.php"><i class="fa-solid fa-right-from-bracket logout"></i></a>
                 </div>
             </li>
         </ul>
