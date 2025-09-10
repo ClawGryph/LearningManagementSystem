@@ -1057,6 +1057,7 @@ form.signup-form{
     overflow: hidden;
     text-decoration: none;
     border-radius: 16px;
+    margin-bottom: 20px;
 }
 .home-section .home-content .first-page .notification-item::before{
     content: "";
@@ -1065,7 +1066,7 @@ form.signup-form{
     right: 0;
     width: 0;
     height: 100%;
-    background-color:  #f0f0f0; /* your hover color */
+    background-color:  #f0f0f0;
     transition: width 0.4s ease;
     z-index: 0;
     border-radius: 16px; 
@@ -1077,7 +1078,7 @@ form.signup-form{
 }
 .home-section .home-content .first-page .notification-item{
     padding: 20px;
-    background-color: var(--primary-color);
+    background-color: var(--background-color);
     box-shadow: var(--box-shadow);
     border-radius: 16px;
     transition: color 0.3s ease;

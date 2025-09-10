@@ -105,7 +105,7 @@ $notifCount = $row['notif_count'];
 
             <!-- 6 -->
              <li>
-                <a href="#" data-content="admin-notification.php" class="notif">
+                <a href="#" data-content="instructor-notification.php" class="notif">
                     <i class="fa-solid fa-bell"></i>
 
                     <!-- Notification Badge -->
@@ -118,7 +118,7 @@ $notifCount = $row['notif_count'];
                     <span class="link_name">Notification</span>
                 </a>
                 <ul class="sub-menu blank">
-                    <li><a href="#" data-content="admin-notification.php" class="link_name">Notification</a></li> 
+                    <li><a href="#" data-content="instructor-notification.php" class="link_name">Notification</a></li> 
                 </ul>
             </li>
 
