@@ -64,12 +64,12 @@ $_SESSION['courseID'] = $courseID;
 
             <!-- 2 -->
             <li>
-                <a href="#" data-content="admin-lm-lists.php">
+                <a href="#" data-content="subject-approval.php">
                     <i class="fa-solid fa-book-open"></i>
                     <span class="link_name">Approval Queue</span>
                 </a>
                 <ul class="sub-menu blank">
-                    <li><a href="#" data-content="admin-lm-lists.php" class="link_name">Approval Queue</a></li>
+                    <li><a href="#" data-content="subject-approval.php" class="link_name">Approval Queue</a></li>
                 </ul>
             </li>
 
@@ -155,6 +155,7 @@ $_SESSION['courseID'] = $courseID;
     <script src="../js/linkView.js"></script>
     <script src="../js/hideSidebar.js"></script>
     <script src="../js/studentCourseBar.js"></script>
+    <script src="../js/enroleesQueue.js"></script>
     <script src="../js/openModal.js"></script>
 </body>
 </html>

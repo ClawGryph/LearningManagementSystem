@@ -54,16 +54,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     echo json_encode(["success" => true, "message" => "Join request sent! Waiting for instructor approval."]);
 
-    // // 3. Enroll the student
-    // $enroll = $conn->prepare("INSERT INTO instructor_student_load (instructor_courseID, studentID) VALUES (?, ?)");
-    // $enroll->bind_param("ii", $instructor_courseID, $studentID);
 
-    // if (!$enroll->execute()) {
-    //     echo json_encode(["success" => false, "message" => "Failed to enroll. Please try again."]);
-    //     exit;
-    // }
-
-    // // 4. Assign all existing assessments in that class
+    // 4. Assign all existing assessments in that class
     // $assessments = $conn->prepare("SELECT assessment_authorID FROM assessment_author WHERE instructor_courseID = ?");
     // $assessments->bind_param("i", $instructor_courseID);
     // $assessments->execute();
@@ -77,6 +69,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // }
     // $assignStmt->close();
 
-    // echo json_encode(["success" => true, "message" => "Successfully joined the class and assessments assigned."]);
+    // message
 }
 ?>

@@ -13,6 +13,7 @@ document.addEventListener("DOMContentLoaded", function() {
         'instructor-create-assignment.php' : 'Instructor | Assignment',
         'instructor-create-activity.php' : 'Instructor | Activity',
         'instructor-upload-lm.php' : 'Instructor | Upload',
+        'subject-approval.php' : 'Subject | Enrolee',
         'subject-landingpage.php' : 'Subject | Overview',
         'subject-task-progress.php' : 'Subject | Task Progress',
         'subject-submitted-assignment.php' : 'Subject | Assignment',
@@ -79,6 +80,9 @@ document.addEventListener("DOMContentLoaded", function() {
                 setTimeout(() => {
                     if (typeof initShowAssignmentFile === 'function') initShowAssignmentFile();
                 }, 0);
+            }
+            if(normalizedUrl === 'subject-approval.php' && typeof initEnroleesQueue === 'function'){
+                initEnroleesQueue();
             }
             if(normalizedUrl === 'subject-task-progress.php' && typeof initScoreBar === 'function'){
                 initScoreBar();

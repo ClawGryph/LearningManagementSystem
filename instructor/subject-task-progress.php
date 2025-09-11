@@ -11,7 +11,7 @@
                             FROM instructor_courses ic 
                             JOIN instructor_student_load isl ON ic.instructor_courseID = isl.instructor_courseID 
                             JOIN users s ON isl.studentID = s.userID 
-                            WHERE ic.instructorID = ? AND ic.courseID = ?");
+                            WHERE ic.instructorID = ? AND ic.courseID = ? AND isl.status='approved'");
     $stmt = $conn->prepare($query);
     $stmt->bind_param("ii", $instructorID, $courseID);
     $stmt->execute();

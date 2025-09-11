@@ -9,7 +9,7 @@ $courses = [];
 if ($instructorID) {
     $stmt = $conn->prepare("
         SELECT 
-            COUNT(isl.studentID) AS Number_of_students_enrolled, 
+            COUNT(CASE WHEN isl.status = 'approved' THEN isl.studentID END) AS Number_of_students_enrolled, 
             c.courseCode, 
             c.courseName, 
             ic.courseID,

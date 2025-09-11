@@ -10,6 +10,19 @@ JOIN class cl ON ic.classID = cl.classID
 JOIN course_learningmaterials clm ON lma.course_lmID = clm.course_lmID 
 WHERE clm.status = 'rejected' OR clm.status = 'approved';
 ");
+
+$joinQuery = $conn->query("
+    SELECT isl.instructor_student_loadID AS request_id, isl.status, isl.request_date, isl.decision_date,
+           s.firstName, s.lastName,
+           c.courseCode, c.courseName, cl.section
+    FROM instructor_student_load isl
+    JOIN users s ON isl.studentID = s.userID
+    JOIN instructor_courses ic ON isl.instructor_courseID = ic.instructor_courseID
+    JOIN courses c ON ic.courseID = c.courseID
+    JOIN class cl ON ic.classID = cl.classID
+    WHERE isl.status = 'pending'
+    ORDER BY isl.request_date DESC
+");
 ?>
 
 <div class="home-content">
@@ -50,9 +63,38 @@ WHERE clm.status = 'rejected' OR clm.status = 'approved';
                             </div>
                         </a>
                     <?php endwhile; ?>
+                    <?php endif; ?>
+                    <!-- STUDENT JOIN NOTIF -->
+                     <?php if ($joinQuery->num_rows > 0): ?>
+                        <?php while ($join = $joinQuery->fetch_assoc()): ?>
+                            <a href="#" class="notification-link">
+                                <div class="notification-item">
+                                    <label class="notification-label">
+                                        <input type="checkbox" name="notifications[]" 
+                                            value="<?= htmlspecialchars($join['request_id']) ?>" 
+                                            class="notification-checkbox">
+                                        <div class="notification-content">
+                                            <p class="page-header">
+                                                Student&nbsp; <strong><?= htmlspecialchars($join['firstName'] . " " . $join['lastName']) ?>&nbsp;</strong>
+                                                request 
+                                                to join&nbsp; <strong><?= htmlspecialchars($join['courseCode'] . " - " . $join['courseName']) ?>&nbsp;</strong>
+                                                section&nbsp; <strong><?= htmlspecialchars($join['section']) ?></strong>
+                                            </p>
+                                            <p class="notif-date">
+                                                <span><i class="fa-solid fa-calendar-days"></i>
+                                                    <?= date("F j, Y g:i A", strtotime($join['status'] === 'pending' ? $join['request_date'] : $join['decision_date'])) ?>
+                                                </span>
+                                            </p>
+                                        </div>
+                                    </label>
+                                </div>
+                            </a>
+                        <?php endwhile; ?>
                     <?php else: ?>
                         <p>No new notifications.</p>
                     <?php endif; ?>
+
+
                 </form>
         </div>
     </div>
