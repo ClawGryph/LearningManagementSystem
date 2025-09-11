@@ -94,7 +94,9 @@ document.addEventListener("DOMContentLoaded", function() {
                 }, 0);
             }
             if(normalizedUrl === 'student-courses.php' && typeof initStudentCourses === 'function') {
-                initStudentCourses();
+                setTimeout(() => {
+                    initStudentCourses();
+                }, 0);
             }
             if(normalizedUrl === 'student-subject-myProgess.php' && typeof initProgressBars === 'function') {
                 initProgressBars();

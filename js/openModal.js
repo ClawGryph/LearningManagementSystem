@@ -1,6 +1,5 @@
 function initOpenModal(){
     const overlay = document.getElementById("loadingOverlay");
-    const enroleeModal = document.getElementById("enrolee");
     const showBtn = document.getElementById("showEnrolees");
     const closeBtn = document.getElementById("closeBtn");
 

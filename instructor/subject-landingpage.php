@@ -64,6 +64,17 @@ $_SESSION['courseID'] = $courseID;
 
             <!-- 2 -->
             <li>
+                <a href="#" data-content="admin-lm-lists.php">
+                    <i class="fa-solid fa-book-open"></i>
+                    <span class="link_name">Approval Queue</span>
+                </a>
+                <ul class="sub-menu blank">
+                    <li><a href="#" data-content="admin-lm-lists.php" class="link_name">Approval Queue</a></li>
+                </ul>
+            </li>
+
+            <!-- 3 -->
+            <li>
                 <a href="#" data-content="subject-task-progress.php">
                     <i class="fa-solid fa-bars-progress"></i>
                     <span class="link_name">Task Progress</span>
@@ -73,7 +84,7 @@ $_SESSION['courseID'] = $courseID;
                 </ul>
             </li>
 
-            <!-- 3 -->
+            <!-- 4 -->
             <li>
                 <a href="#" data-content="subject-submitted-assignment.php">
                     <i class="fa-solid fa-file"></i>
@@ -84,7 +95,7 @@ $_SESSION['courseID'] = $courseID;
                 </ul>
             </li>
 
-            <!-- 4 -->
+            <!-- 5 -->
             <li>
                 <a href="#" data-content="subject-submitted-activity.php">
                     <i class="fa-solid fa-laptop-code"></i>
@@ -95,7 +106,7 @@ $_SESSION['courseID'] = $courseID;
                 </ul>
             </li>
 
-            <!-- 5 -->
+            <!-- 6 -->
             <li>
                 <a href="#" data-content="subject-submitted-quiz.php">
                     <i class="fa-solid fa-ranking-star"></i>
@@ -105,6 +116,7 @@ $_SESSION['courseID'] = $courseID;
                     <li><a href="#" data-content="subject-submitted-quiz.php" class="link_name">Quiz Score</a></li>
                 </ul>
             </li>
+            
             <li>
                 <div class="profile-details">
                     <div class="profile-content">

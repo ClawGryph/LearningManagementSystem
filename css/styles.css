@@ -1225,6 +1225,7 @@ form.signup-form{
     opacity: 1;
     transform: translateY(0);
 }
+#loadingOverlay.active .popup-box 
 .home-section .home-content .first-page .popup-box .page-header i{
     transition: transform 0.3s ease;
 }
@@ -1238,6 +1239,8 @@ form.signup-form{
     margin: 0;
     padding: 0;
 }
+
+/* POP-UP ENROLEE */
 .home-section .home-content .first-page .popup-box .enrolees-list li{
     counter-increment: enrolee-counter;
     display: flex;
@@ -1255,11 +1258,6 @@ form.signup-form{
     min-width: 20px;
     text-align: right;
 }
-/* .home-section .home-content .first-page .popup-box .enrolees-list li > div {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-} */
 .home-section .home-content .first-page .popup-box .enrolees-list li:last-child{
     border-bottom: none;
 }
@@ -1274,6 +1272,19 @@ form.signup-form{
     padding: 1rem;
     color: #777;
     font-style: italic;
+}
+
+/* POP-UP CODE */
+.home-section .home-content .first-page .popup-box .code-content{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+}
+.home-section .home-content .first-page .popup-box .code-content button{
+    width: 40%;
+    margin-bottom: 20px;
 }
 /* SECTIONS - FORM */
 .form-widthmin500{
@@ -1441,7 +1452,17 @@ form.signup-form{
     text-align: left;
     border-top: 2px solid var(--primary-color);
 }
-
+.home-section .home-content .content-container .first-page .course-card-form .joinBtn{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: transparent;
+    border: 3px dashed var(--accent-color);
+    opacity: 0.7;
+}
+.home-section .home-content .content-container .first-page .course-card-form .joinBtn:hover{
+    opacity: 1;
+}
 @media screen and (max-width: 1010px) {
     .home-section .home-content .content-container .first-page .course-card .course-card-header h3{
         font-size: 2rem;
@@ -1540,14 +1561,20 @@ form.signup-form{
 .home-section .home-content .content-container .second-page .quizzes .home-contentBtn{
     width: 20%;
 }
-.home-section .home-content .content-container .second-page .inputGroup{
+.home-section .home-content .content-container .second-page .inputGroup,
+#loadingOverlay .inputGroup{
     width: 40%;
     position: relative;
+}
+#loadingOverlay .inputGroup{
+    width: 80%;
+    margin-top: 30px;
 }
 .home-section .home-content .content-container .second-page .inputGroup:first-child{
     margin-top: 30px;
 }
-.home-section .home-content .content-container .second-page .inputGroup input{
+.home-section .home-content .content-container .second-page .inputGroup input,
+#loadingOverlay .inputGroup input{
     font-size: 100%;
     padding: 1rem;
     outline: none;
@@ -1556,7 +1583,8 @@ form.signup-form{
     border-radius: 20px;
     width: 100%;
 }
-.home-section .home-content .content-container .second-page .inputGroup label{
+.home-section .home-content .content-container .second-page .inputGroup label,
+#loadingOverlay .inputGroup label{
     font-size: 100%;
     position: absolute;
     left: 0;
@@ -1566,15 +1594,19 @@ form.signup-form{
     transition: all 0.3s ease;
     color: rgb(100, 100, 100);
 }
-.home-section .home-content .content-container .second-page .inputGroup :is(input:focus, input:valid)~label{
+.home-section .home-content .content-container .second-page .inputGroup :is(input:focus, input:valid)~label,
+#loadingOverlay .inputGroup :is(input:focus, input:valid)~label{
     transform: translateY(-50%) scale(.9);
     font-size: 15px;
     margin: 0em;
     margin-left: 1.3em;
     padding: 0.4em;
-    background-color: var(--background-color);
 }
-.home-section .home-content .content-container .second-page .inputGroup :is(input:focus, input:valid){
+#loadingOverlay .inputGroup :is(input:focus, input:valid)~label{
+    background: #FAF1E6;
+}
+.home-section .home-content .content-container .second-page .inputGroup :is(input:focus, input:valid),
+#loadingOverlay .inputGroup :is(input:focus, input:valid){
     border-color: rgb(150, 150, 200);
 }
 .home-section .home-content .content-container .second-page .inputNoToggle{
@@ -1795,8 +1827,7 @@ form.signup-form{
     box-sizing: border-box;
 }
 
-#searchButton,
-#joinButton {
+#searchButton{
     padding: 0.8rem 1.2rem;
     font-size: 1.5rem;
     border: 1px solid #ccc;
@@ -1812,8 +1843,7 @@ form.signup-form{
     cursor: pointer;
 }
 
-#searchButton i,
-#joinButton i {
+#searchButton i{
     margin-right: 0.5rem;
     font-size: 1.4rem;
     color: var(--primary-color);

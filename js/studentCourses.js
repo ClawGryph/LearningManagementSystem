@@ -1,6 +1,20 @@
 function initStudentCourses(){
-    document.getElementById('joinButton').addEventListener('click', function() {
-    const classCode = document.getElementById('codeInput').value.trim();
+    // OPEN MODAL
+    const overlay = document.getElementById("loadingOverlay");
+    const closeBtn = document.getElementById("closeBtn");
+    const joinBtn = document.getElementById("joinButton");
+
+    joinBtn.addEventListener("click", () => {
+        overlay.classList.add("active");
+    })
+
+    closeBtn.addEventListener("click", () => {
+        overlay.classList.remove("active");
+    });
+
+    // SUBMITTING CODE TO PHP
+    document.getElementById('submitCode').addEventListener('click', function() {
+    const classCode = document.getElementById('inputCode').value.trim();
 
     if (classCode === '') {
         document.getElementById('searchMessage').textContent = "Please enter a class code.";

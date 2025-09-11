@@ -16,7 +16,7 @@ if($studentID) {
         JOIN courses c ON ic.courseID = c.courseID 
         JOIN users i ON ic.instructorID = i.userID 
         JOIN instructor_student_load isl ON ic.instructor_courseID = isl.instructor_courseID 
-        WHERE isl.studentID = ?;
+        WHERE isl.studentID = ? AND isl.status = 'approved';
     ");
     $stmt->bind_param("i", $studentID);
     $stmt->execute();
@@ -34,33 +34,45 @@ if($studentID) {
     <div class="content-container">
         <div class="first-page">
             <h2>Subjects</h2>
-            <div>
-                <div class="search-container">
-                    <div class="search-box">
-                        <input type="text" id="codeInput" placeholder="Enter class code" autocomplete="off">
-                        <button id="joinButton"><i class="fa-solid fa-plus"></i> Join class</button>
-                    </div>
-                    <div id="suggestions" class="suggestions-list"></div>
-                    <div id="searchMessage" class="search-message"></div>
-                </div>
-            </div>
             <div class="course-card-container">
+                <div class="course-card-form">
+                    <button class="course-card joinBtn" id="joinButton"><i class="fa-solid fa-plus"></i> Join class</button>
+                </div>
                 <?php foreach ($courses as $course): ?>
                         <form action="student-subject-landingpage.php" method="POST" class="course-card-form">
                             <input type="hidden" name="instructor_courseID" value="<?= $course['instructor_courseID'] ?>">
                             <button type="submit" class="course-card">
                                 <div class="course-card-header">
                                     <h3><?= htmlspecialchars($course['courseCode']) ?></h3>
-                                    <h4><?= htmlspecialchars($course['courseName']) ?></h4>
                                 </div>
-                                <p><span>Professor:</span> <?= htmlspecialchars($course['Instructor_Name']) ?></p>
+                                <div class="card-details">
+                                    <h4><?= htmlspecialchars($course['courseName']) ?></h4>
+                                    <p><span>Professor:</span> <?= htmlspecialchars($course['Instructor_Name']) ?></p>
+                                </div>
                             </button>
                         </form>
                 <?php endforeach; ?>
-                <?php if (empty($courses)): ?>
-                    <p>You are not enrolled in any class yet.</p>
-                <?php endif; ?>
             </div>
+
+            <!-- JOIN CLASS -->
+             <div class="overlay" id="loadingOverlay">
+                <div class="popup-box" id="classCode">
+                    <div class="popup-box-content">
+                        <div class="page-header">
+                            <h2>Enter class code...</h2>
+                            <i class="fa-solid fa-xmark" id="closeBtn"></i>
+                        </div>
+                        <form class="code-content">
+                            <div class="inputGroup">
+                                <input type="text" id="inputCode" name="inputCode" maxlength="10">
+                                <label for="inputCode">Class Code</label>
+                            </div>
+                            <span id="searchMessage"></span>
+                            <button type="button" class="home-contentBtn btn-drk-bg" id="submitCode">Confirm</button>
+                        </form>
+                    </div>
+                </div>
+             </div>
         </div>
     </div>
 </div>
