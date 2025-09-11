@@ -20,12 +20,14 @@ if ($userId) {
 }
 
 $courseID = $_POST['courseID'] ?? $_SESSION['courseID'] ?? null;
+$section = $_POST['classID'] ?? $_SESSION['classID'] ?? null;
 
 if (!$courseID) {
     die("No course selected.");
 }
 
 $_SESSION['courseID'] = $courseID;
+$_SESSION['classID'] = $section;
 ?>
 
 <!DOCTYPE html>

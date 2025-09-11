@@ -3,6 +3,7 @@
     session_start();
 
     $courseID = $_SESSION['courseID'];
+    $section = $_SESSION['classID'];
     $instructorID = $_SESSION['user_id'];
 
     $enrolees = [];
@@ -11,9 +12,10 @@
                             FROM instructor_courses ic 
                             JOIN instructor_student_load isl ON ic.instructor_courseID = isl.instructor_courseID 
                             JOIN users s ON isl.studentID = s.userID 
-                            WHERE ic.instructorID = ? AND ic.courseID = ? AND isl.status='approved'");
+                            JOIN class cl ON ic.classID = cl.classID
+                            WHERE ic.instructorID = ? AND ic.courseID = ? AND isl.status='approved' AND cl.classID = ?");
     $stmt = $conn->prepare($query);
-    $stmt->bind_param("ii", $instructorID, $courseID);
+    $stmt->bind_param("iii", $instructorID, $courseID, $section);
     $stmt->execute();
     $result = $stmt->get_result();
 

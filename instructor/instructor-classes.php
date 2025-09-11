@@ -14,6 +14,7 @@ if ($instructorID) {
             c.courseName, 
             ic.courseID,
             ic.code,
+            cl.classID,
             cl.section
             FROM instructor_courses ic 
             LEFT JOIN instructor_student_load isl 
@@ -46,6 +47,7 @@ if ($instructorID) {
                 <?php foreach ($courses as $course): ?>
                         <form action="subject-landingpage.php" method="POST" class="course-card-form">
                             <input type="hidden" name="courseID" value="<?= $course['courseID'] ?>">
+                            <input type="hidden" name="classID" value="<?= $course['classID'] ?>">
                             <button type="submit" class="course-card">
                                 <div class="course-card-header">
                                     <h3><?= htmlspecialchars($course['courseCode']) ?></h3>
