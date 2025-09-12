@@ -8,7 +8,7 @@ JOIN instructor_courses ic ON lma.instructor_courseID = ic.instructor_courseID
 JOIN courses c ON ic.courseID = c.courseID 
 JOIN class cl ON ic.classID = cl.classID
 JOIN course_learningmaterials clm ON lma.course_lmID = clm.course_lmID 
-WHERE clm.status = 'rejected' OR clm.status = 'approved';
+WHERE (clm.status = 'rejected' OR clm.status = 'approved') AND lma.instructor_read = 0;
 ");
 
 $joinQuery = $conn->query("
@@ -20,7 +20,7 @@ $joinQuery = $conn->query("
     JOIN instructor_courses ic ON isl.instructor_courseID = ic.instructor_courseID
     JOIN courses c ON ic.courseID = c.courseID
     JOIN class cl ON ic.classID = cl.classID
-    WHERE isl.status = 'pending'
+    WHERE isl.status = 'pending' AND isl.is_read = 0
     ORDER BY isl.request_date DESC
 ");
 ?>
@@ -30,7 +30,7 @@ $joinQuery = $conn->query("
         <!-- FIRST PAGE -->
         <div class="first-page">
             <h2>Welcome, Admin</h2>
-                <form action="../action/markNotificationsRead.php" method="POST">
+                <form action="../action/markRead.php" method="POST">
                     <div class="notification-controls">
                         <button type="submit" class="home-contentBtn btn-drk-bg"><i class="fa-regular fa-circle-check"></i>Read</button>
                         <div>
@@ -43,7 +43,7 @@ $joinQuery = $conn->query("
                         <a href="#" class="notification-link">
                             <div class="notification-item">
                                 <label class="notification-label">
-                                    <input type="checkbox" name="notifications[]" value="<?= htmlspecialchars($notif['lmID']) ?>" class="notification-checkbox">
+                                    <input type="checkbox" name="notifications[]" value="lm_<?= htmlspecialchars($notif['lmID']) ?>" class="notification-checkbox">
                                     <div class="notification-content">
                                         <p class="page-header">
                                             Admin&nbsp;
@@ -71,7 +71,7 @@ $joinQuery = $conn->query("
                                 <div class="notification-item">
                                     <label class="notification-label">
                                         <input type="checkbox" name="notifications[]" 
-                                            value="<?= htmlspecialchars($join['request_id']) ?>" 
+                                            value="join_<?= htmlspecialchars($join['request_id']) ?>" 
                                             class="notification-checkbox">
                                         <div class="notification-content">
                                             <p class="page-header">
@@ -90,11 +90,10 @@ $joinQuery = $conn->query("
                                 </div>
                             </a>
                         <?php endwhile; ?>
-                    <?php else: ?>
+                        <?php endif; ?>
+                    <?php if ($notifQuery->num_rows === 0 && $joinQuery->num_rows === 0): ?>
                         <p>No new notifications.</p>
                     <?php endif; ?>
-
-
                 </form>
         </div>
     </div>

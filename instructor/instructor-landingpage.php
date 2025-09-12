@@ -21,13 +21,13 @@ if ($userId) {
 
 $notif = $conn->query("SELECT COUNT(*) AS notif_count FROM learningmaterials_author lma
                         JOIN course_learningmaterials clm ON lma.course_lmID = clm.course_lmID
-                        WHERE clm.status = 'rejected' OR clm.status = 'approved'");
+                        WHERE (clm.status = 'rejected' OR clm.status = 'approved') AND lma.instructor_read = 0");
 $row = $notif->fetch_assoc();
 $notifCount = $row['notif_count'];
 
 $join = $conn->query("SELECT COUNT(*) AS join_count
     FROM instructor_student_load isl
-    WHERE isl.status = 'pending'");
+    WHERE isl.status = 'pending' AND isl.is_read = 0");
 $joinRow = $join->fetch_assoc();
 $joinCount = $joinRow['join_count'];
 ?>
@@ -115,11 +115,8 @@ $joinCount = $joinRow['join_count'];
                     <i class="fa-solid fa-bell"></i>
 
                     <!-- Notification Badge -->
-                    <?php if ($notifCount > 0 && $joinCount > 0): ?>
-                        <span class="notif-badge"><?= $notifCount + $joinCount ?></span>
-                    <?php else: ?>
-                        <span class="notif-badge">0</span>
-                    <?php endif; ?>
+                    <?php $totalCount = $notifCount + $joinCount; ?>
+                    <span class="notif-badge"><?= $totalCount ?></span>
 
                     <span class="link_name">Notification</span>
                 </a>
