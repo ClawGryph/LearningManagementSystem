@@ -26,6 +26,31 @@ $notif->execute();
 $result = $notif->get_result();
 $row = $result->fetch_assoc();
 $notifCount = $row['notif_count'];
+
+$joinNotif = $conn->prepare("SELECT COUNT(*) AS join_count
+    FROM instructor_student_load isl
+    WHERE (isl.status = 'approved' OR isl.status = 'rejected') AND isl.student_read = 0 AND isl.studentID = ?");
+$joinNotif->bind_param('i', $userId);
+$joinNotif->execute();
+$joinResult = $joinNotif->get_result();
+$joinRow = $joinResult->fetch_assoc();
+$joinCount = $joinRow['join_count'];
+
+$materialsNotif = $conn->prepare("
+    SELECT COUNT(*) AS materials_count
+    FROM learningmaterials_author lma
+    INNER JOIN course_learningmaterials cla ON lma.course_lmID = cla.course_lmID
+    INNER JOIN instructor_courses ic ON lma.instructor_courseID = ic.instructor_courseID
+    INNER JOIN instructor_student_load isl ON ic.instructor_courseID = isl.instructor_courseID
+    WHERE cla.status = 'approved'
+      AND isl.studentID = ?
+      AND lma.student_read = 0
+");
+$materialsNotif->bind_param('i', $userId);
+$materialsNotif->execute();
+$materialsResult = $materialsNotif->get_result();
+$materialsRow = $materialsResult->fetch_assoc();
+$materialsCount = $materialsRow['materials_count'];
 ?>
 
 <!DOCTYPE html>
@@ -67,11 +92,8 @@ $notifCount = $row['notif_count'];
                     <i class="fa-solid fa-bell"></i>
 
                     <!-- Notification Badge -->
-                    <?php if ($notifCount > 0): ?>
-                        <span class="notif-badge"><?= $notifCount ?></span>
-                    <?php else: ?>
-                        <span class="notif-badge">0</span>
-                    <?php endif; ?>
+                    <?php $totalCount = $notifCount + $joinCount + $materialsCount; ?>
+                    <span class="notif-badge"><?= $totalCount ?></span>
 
                     <span class="link_name">Notification</span>
                 </a>
