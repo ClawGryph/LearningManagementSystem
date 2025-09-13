@@ -41,23 +41,35 @@ function initProgressBars(){
         .catch(err => console.error(err));
 
         $('#studentTaskTable').DataTable({
-            paging: false,       // disable pagination
-            info: false,         // remove "Showing X of Y entries"
-            searching: false,
-            initComplete: function () {
-                this.api().columns(0).every(function () {
-                    var column = this;
-                    var select = $('<select><option value="">All</option></select>')
-                        .appendTo($(column.header()).empty())
-                        .on('change', function () {
-                            var val = $.fn.dataTable.util.escapeRegex($(this).val());
-                            column.search(val ? '^' + val + '$' : '', true, false).draw();
-                        });
-                    
-                    column.data().unique().sort().each(function (d) {
-                        select.append('<option value="' + d + '">' + d + '</option>')
+        paging: false,
+        info: false,
+        searching: false,
+        autoWidth: false,
+        columnDefs: [
+            { targets: '_all', defaultContent: '-' }
+        ],
+        initComplete: function () {
+            this.api().columns(0).every(function () {
+                var column = this;
+                var header = $(column.header());
+
+                // Save existing header text
+                var title = header.text();
+
+                // Clear and rebuild with title + filter
+                header.empty().append(title + '<br/>');
+
+                var select = $('<select><option value="">All</option></select>')
+                    .appendTo(header)
+                    .on('change', function () {
+                        var val = $.fn.dataTable.util.escapeRegex($(this).val());
+                        column.search(val ? '^' + val + '$' : '', true, false).draw();
                     });
+
+                column.data().unique().sort().each(function (d) {
+                    select.append('<option value="' + d + '">' + d + '</option>');
                 });
-            }
-        });
+            });
+        }
+    });
 }

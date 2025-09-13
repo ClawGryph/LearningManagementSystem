@@ -72,7 +72,12 @@ $result = $stmt->get_result();
                                 </tr>
                             <?php endwhile; ?>
                         <?php else: ?>
-                            <tr><td colspan="4">No assessments found.</td></tr>
+                            <tr>
+                                <td>No assessments found.</td>
+                                <td>-</td>
+                                <td>-</td>
+                                <td>-</td>
+                            </tr>
                         <?php endif; ?>
                     </tbody>
                 </table>
