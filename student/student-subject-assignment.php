@@ -41,7 +41,6 @@ while ($row = $result->fetch_assoc()) {
     <div class="content-container">
         <div class="first-page">
             <h2>Assignment</h2>
-            <div class="class-management-container">
                 <div class="class-list-container">
                     <div class="table-container">
                         <table class="table-content">
@@ -60,7 +59,7 @@ while ($row = $result->fetch_assoc()) {
                                             <td><?= htmlspecialchars($ass['description']) ?></td>
                                             <td><?= htmlspecialchars($ass['deadline']) ?></td>
                                             <td>
-                                                <a href="../uploads/assignments/<?= htmlspecialchars($ass['file_path']) ?>" download><i class="fa-solid fa-download"></i></a>
+                                                <a href="../uploads/assignments/<?= htmlspecialchars($ass['file_path']) ?>" download class="home-contentBtn btn-save btn-accent-bg" title="Save"><i class="fa-solid fa-download"></i></a>
                                             </td>
                                             <td>
                                                 <div class="statusGroup <?= strtolower(str_replace(' ', '-', htmlspecialchars($ass['status']))) ?>">
@@ -77,7 +76,6 @@ while ($row = $result->fetch_assoc()) {
                                 </tbody>
                         </table>
                     </div>
-                </div>
 
                 <div class="create-class-container">
                     <form action="../action/submitAssignment.php" class="form-content" method="POST" enctype="multipart/form-data">
@@ -110,7 +108,6 @@ while ($row = $result->fetch_assoc()) {
                 </form>
 
                 </div>
-            </div>
         </div>
     </div>
 </div>

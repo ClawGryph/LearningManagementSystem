@@ -93,7 +93,7 @@ $stmt->close();
                                                     name="saveScore" 
                                                     value="<?php echo htmlspecialchars($submission['Student_Name']); ?>" 
                                                     class="home-contentBtn btn-save btn-accent-bg">
-                                                <i class='fa-solid fa-floppy-disk'></i>
+                                                <i class="fa-solid fa-check"></i>
                                             </button>
                                         </td>
                                     </tr>
