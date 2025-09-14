@@ -41,23 +41,18 @@
                     <div id="searchMessage" class="search-message"></div>
                 </div>
 
-                <div class="card-tasks"> 
-                    <!-- Cards -->
-                    <div>
-                        <span id="completedCount">0</span>
-                        <span>Completed Task</span>
+                <div class="progress-section">
+                    <div class="donut-chart">
+                        <canvas id="quizChart"></canvas>
+                        <p>Quiz</p>
                     </div>
-                    <div>
-                        <span id="incompleteCount">0</span>
-                        <span>Incomplete Task</span>
+                    <div class="donut-chart">
+                        <canvas id="assignmentChart"></canvas>
+                        <p>Assignment</p>
                     </div>
-                    <div>
-                        <span id="overdueCount">0</span>
-                        <span>Overdue Task</span>
-                    </div>
-                    <div>
-                        <span id="totalCount">0</span>
-                        <span>Total Task</span>
+                    <div class="donut-chart">
+                        <canvas id="activityChart"></canvas>
+                        <p>Activity</p>
                     </div>
                 </div>
 

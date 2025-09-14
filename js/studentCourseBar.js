@@ -7,29 +7,33 @@ function initScoreBar() {
                 return;
             }
 
-            document.getElementById("courseTitle").innerText = data.courseName;
-            document.getElementById("completedCount").innerText = data.taskCounts.completed;
-            document.getElementById("incompleteCount").innerText = data.taskCounts.incomplete;
-            document.getElementById("overdueCount").innerText = data.taskCounts.overdue;
-            document.getElementById("totalCount").innerText = data.taskCounts.total;
+            // --- safe course title update (only if element exists)
+            const courseTitleElem = document.getElementById("courseTitle");
+            if (courseTitleElem) courseTitleElem.innerText = data.courseName || '';
 
+            const pb = data.progressBreakdown || { quiz: {}, assignment: {}, activity: {} };
+
+            // ================== SCORE CHART ==================
             let scoreChart;
             function updateScoreChart(filter = 'all', search = '') {
-                const studentScoreData = data.studentScoresByType[filter] || [];
+                const studentScoreData = (data.studentScoresByType && data.studentScoresByType[filter]) || [];
                 const filtered = search
-                    ? studentScoreData.filter(s => s.name.toLowerCase().includes(search.toLowerCase()))
+                    ? studentScoreData.filter(s => s.name && s.name.toLowerCase().includes(search.toLowerCase()))
                     : studentScoreData;
 
                 const labels = filtered.map(s => s.name);
                 const scores = filtered.map(s => s.score);
 
-                if (scoreChart) scoreChart.destroy();
+                const scoreCanvas = document.getElementById('scoreChart');
+                if (!scoreCanvas) return;
+                const barCtx = scoreCanvas.getContext('2d');
 
-                const barCtx = document.getElementById('scoreChart').getContext('2d');
+                if (scoreChart && typeof scoreChart.destroy === 'function') scoreChart.destroy();
+
                 scoreChart = new Chart(barCtx, {
                     type: 'bar',
                     data: {
-                        labels: labels,
+                        labels,
                         datasets: [{
                             label: 'Average Score',
                             data: scores,
@@ -41,10 +45,7 @@ function initScoreBar() {
                     options: {
                         responsive: true,
                         scales: {
-                            y: {
-                                beginAtZero: true,
-                                max: 100
-                            }
+                            y: { beginAtZero: true, max: 100 }
                         },
                         plugins: {
                             legend: { labels: { color: '#018143ff' } }
@@ -53,24 +54,110 @@ function initScoreBar() {
                 });
             }
 
-            updateScoreChart('all');
+            // ================== PROGRESS DONUTS (with % + completed/total inside, colored) ==================
+            const progressDonutCharts = {};
 
-            const donutCtx = document.getElementById('taskTypeDonutChart').getContext('2d');
+            // Custom plugin for center text
+            const centerTextPlugin = {
+                id: 'centerText',
+                beforeDraw(chart) {
+                    const { width, height, ctx } = chart;
+                    ctx.save();
+
+                    const dataset = chart.data.datasets[0].data;
+                    const completed = dataset[0] || 0;
+                    const total = completed + (dataset[1] || 0);
+                    const percent = total > 0 ? Math.round((completed / total) * 100) : 0;
+
+                    // Decide color based on percentage
+                    let color = '#e53935'; // red <30%
+                    if (percent > 50) {
+                        color = '#4caf50'; // green
+                    } else if (percent >= 30) {
+                        color = '#ff9800'; // orange
+                    }
+
+                    // Main percentage text
+                    ctx.font = 'bold 18px Arial';
+                    ctx.fillStyle = color;
+                    ctx.textAlign = 'center';
+                    ctx.textBaseline = 'middle';
+                    ctx.fillText(percent + '%', width / 2, height / 2 - 8);
+
+                    // Completed / Total text (below %)
+                    ctx.font = '14px Arial';
+                    ctx.fillStyle = '#666';
+                    ctx.fillText(`${completed}/${total}`, width / 2, height / 2 + 12);
+
+                    ctx.restore();
+                }
+            };
+
+            function createDonutChart(canvasId, completed = 0, total = 0) {
+                const canvas = document.getElementById(canvasId);
+                if (!canvas) return;
+                const ctx = canvas.getContext('2d');
+
+                // destroy previous chart
+                if (progressDonutCharts[canvasId] && typeof progressDonutCharts[canvasId].destroy === 'function') {
+                    progressDonutCharts[canvasId].destroy();
+                }
+
+                // compute percentage & arc color
+                const percent = total > 0 ? Math.round((completed / total) * 100) : 0;
+                let arcColor = '#e53935'; // red
+                if (percent > 50) {
+                    arcColor = '#4caf50'; // green
+                } else if (percent >= 30) {
+                    arcColor = '#ff9800'; // orange
+                }
+
+                progressDonutCharts[canvasId] = new Chart(ctx, {
+                    type: 'doughnut',
+                    data: {
+                        labels: ['Completed', 'Remaining'],
+                        datasets: [{
+                            data: [completed, Math.max(0, total - completed)],
+                            backgroundColor: [arcColor, '#e0e0e0'], // ✅ dynamic color
+                            borderWidth: 0
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        cutout: '70%',
+                        plugins: {
+                            legend: { display: false },
+                            tooltip: { enabled: false }
+                        }
+                    },
+                    plugins: [centerTextPlugin] // 👈 include plugin
+                });
+            }
+
+            function updateProgressCharts() {
+                createDonutChart("quizChart", pb.quiz?.completed || 0, pb.quiz?.total || 0);
+                createDonutChart("assignmentChart", pb.assignment?.completed || 0, pb.assignment?.total || 0);
+                createDonutChart("activityChart", pb.activity?.completed || 0, pb.activity?.total || 0);
+            }
+
+            // ================== TASK TYPE DONUT ==================
+            const taskTypeCanvas = document.getElementById('taskTypeDonutChart');
+            const donutCtx = taskTypeCanvas ? taskTypeCanvas.getContext('2d') : null;
             let donutChart;
-
             function updateDonutChart(filter = 'all', search = '') {
+                if (!donutCtx) return;
+
                 let rawData = [];
-                if (filter === 'quiz') rawData = data.taskBreakdown.quiz;
-                else if (filter === 'activity') rawData = data.taskBreakdown.activity;
-                else if (filter === 'assignment') rawData = data.taskBreakdown.assignment;
-                else rawData = [...data.taskBreakdown.quiz, ...data.taskBreakdown.activity, ...data.taskBreakdown.assignment];
+                if (filter === 'quiz') rawData = data.taskBreakdown.quiz || [];
+                else if (filter === 'activity') rawData = data.taskBreakdown.activity || [];
+                else if (filter === 'assignment') rawData = data.taskBreakdown.assignment || [];
+                else rawData = [...(data.taskBreakdown.quiz || []), ...(data.taskBreakdown.activity || []), ...(data.taskBreakdown.assignment || [])];
 
-                const titles = new Set();
                 const counts = {};
+                const titles = new Set();
 
-                // Only include tasks for the searched student
-                const relevantTasks = data.studentTaskStatus.filter(t => 
-                    (search === '' || t.studentName.toLowerCase().includes(search.toLowerCase())) &&
+                const relevantTasks = (data.studentTaskStatus || []).filter(t =>
+                    (search === '' || (t.studentName && t.studentName.toLowerCase().includes(search.toLowerCase()))) &&
                     (filter === 'all' || t.type === filter)
                 );
 
@@ -84,12 +171,11 @@ function initScoreBar() {
                 const chartData = chartLabels.map(title => counts[title]);
 
                 if (chartData.length === 0) {
-                    chartData.push(1);
                     chartLabels.push('No tasks yet');
+                    chartData.push(1);
                 }
 
-                if (donutChart) donutChart.destroy();
-
+                if (donutChart && typeof donutChart.destroy === 'function') donutChart.destroy();
                 donutChart = new Chart(donutCtx, {
                     type: 'doughnut',
                     data: {
@@ -102,55 +188,48 @@ function initScoreBar() {
                             borderWidth: 1
                         }]
                     },
-                    options: {
-                        responsive: true,
-                        plugins: {
-                            legend: {
-                                position: 'bottom'
-                            }
-                        }
-                    }
+                    options: { responsive: true, plugins: { legend: { position: 'bottom' } } }
                 });
             }
 
-
-            const barCtx2 = document.getElementById('tabsOpenBarChart').getContext('2d');
+            // ================== TABS OPEN BAR ==================
+            const tabsCanvas = document.getElementById('tabsOpenBarChart');
+            const barCtx2 = tabsCanvas ? tabsCanvas.getContext('2d') : null;
             let barChart;
-
             function updateTabsOpenBarChart(filter = 'all', search = '') {
+                if (!barCtx2) return;
+
                 let rawData = [];
-                if (filter === 'quiz') rawData = data.taskBreakdown.quiz;
-                else if (filter === 'activity') rawData = data.taskBreakdown.activity;
-                else if (filter === 'assignment') rawData = data.taskBreakdown.assignment;
-                else rawData = [...data.taskBreakdown.quiz, ...data.taskBreakdown.activity, ...data.taskBreakdown.assignment];
+                if (filter === 'quiz') rawData = data.taskBreakdown.quiz || [];
+                else if (filter === 'activity') rawData = data.taskBreakdown.activity || [];
+                else if (filter === 'assignment') rawData = data.taskBreakdown.assignment || [];
+                else rawData = [...(data.taskBreakdown.quiz || []), ...(data.taskBreakdown.activity || []), ...(data.taskBreakdown.assignment || [])];
 
                 const tabsCount = {};
                 const titles = new Set();
 
-                const relevantTasks = data.studentTaskStatus.filter(t => 
-                    (search === '' || t.studentName.toLowerCase().includes(search.toLowerCase())) &&
+                const relevantTasks = (data.studentTaskStatus || []).filter(t =>
+                    (search === '' || (t.studentName && t.studentName.toLowerCase().includes(search.toLowerCase()))) &&
                     (filter === 'all' || t.type === filter)
                 );
 
                 relevantTasks.forEach(task => {
                     const found = rawData.find(r => r.title === task.title);
                     if (found) {
-                        if (!tabsCount[task.title]) tabsCount[task.title] = 0;
-                        tabsCount[task.title] = found.tabs_open;  // Since it's grouped
+                        tabsCount[task.title] = found.tabs_open;
                         titles.add(task.title);
                     }
                 });
 
                 const chartLabels = [...titles];
-                const chartData = chartLabels.map(title => tabsCount[title]);
+                const chartData = chartLabels.map(title => tabsCount[title] || 0);
 
                 if (chartData.length === 0) {
-                    chartData.push(0);
                     chartLabels.push('No data');
+                    chartData.push(0);
                 }
 
-                if (barChart) barChart.destroy();
-
+                if (barChart && typeof barChart.destroy === 'function') barChart.destroy();
                 barChart = new Chart(barCtx2, {
                     type: 'bar',
                     data: {
@@ -167,28 +246,17 @@ function initScoreBar() {
                         responsive: true,
                         plugins: {
                             legend: { display: false },
-                            tooltip: {
-                                callbacks: {
-                                    label: function(context) {
-                                        return `Tabs Opened: ${context.raw}`;
-                                    }
-                                }
-                            }
+                            tooltip: { callbacks: { label: ctx => `Tabs Opened: ${ctx.raw}` } }
                         },
                         scales: {
-                            y: {
-                                beginAtZero: true,
-                                title: { display: true, text: 'Number of Tabs Opened'}
-                            },
-                            x: {
-                                title: { display: true, text: 'Assessment Title'}
-                            }
+                            y: { beginAtZero: true, title: { display: true, text: 'Number of Tabs Opened'} },
+                            x: { title: { display: true, text: 'Assessment Title'} }
                         }
                     }
                 });
             }
 
-
+            // ================== TASK TABLE ==================
             const studentTasks = data.studentTaskStatus || [];
             const statusMap = {
                 submitted: 'completed',
@@ -198,13 +266,6 @@ function initScoreBar() {
                 late: 'overdue'
             };
 
-            const filterSelect = document.getElementById('taskTypeFilter');
-            const statusFilter = document.getElementById('statusFilter');
-            const searchInput = document.getElementById('searchInput');
-            const searchButton = document.getElementById('searchButton');
-            const suggestionsBox = document.getElementById('suggestions');
-            const searchMessage = document.getElementById('searchMessage');
-
             let selectedType = 'all';
             let selectedTitle = 'all';
             let selectedStatus = 'all';
@@ -212,6 +273,7 @@ function initScoreBar() {
 
             function renderStudentTaskTable(tasks) {
                 const tbody = document.querySelector('#studentTaskTable tbody');
+                if (!tbody) return;
                 tbody.innerHTML = '';
 
                 const filtered = tasks.filter(task => {
@@ -219,24 +281,19 @@ function initScoreBar() {
                     const matchesStatus = selectedStatus === 'all' || taskStatus === selectedStatus;
                     const matchesType = selectedType === 'all' || task.type === selectedType;
                     const matchesTitle = selectedTitle === 'all' || task.title === selectedTitle;
-                    const matchesName = searchQuery === '' || task.studentName.toLowerCase().includes(searchQuery.toLowerCase());
+                    const matchesName = searchQuery === '' || (task.studentName && task.studentName.toLowerCase().includes(searchQuery.toLowerCase()));
                     return matchesStatus && matchesType && matchesTitle && matchesName;
                 });
 
                 if (filtered.length === 0) {
-                    const tr = document.createElement('tr');
-                    tr.innerHTML = '<td colspan="6">No matching records</td>';
-                    tbody.appendChild(tr);
+                    tbody.innerHTML = '<tr><td colspan="6">No matching records</td></tr>';
                     return;
                 }
 
                 filtered.forEach(task => {
                     const tr = document.createElement('tr');
                     tr.innerHTML = `
-                        <td><img src="../uploads/${task.profileImage || 'default.png'}" 
-                            alt="Profile" 
-                            class="profile-img">
-                        </td>
+                        <td><img src="../uploads/${task.profileImage || 'default.png'}" alt="Profile" class="profile-img"></td>
                         <td>${task.studentName}</td>
                         <td>${task.title}</td>
                         <td>${task.type}</td>
@@ -246,113 +303,115 @@ function initScoreBar() {
                     tbody.appendChild(tr);
                 });
             }
+            function updateStudentTable() { renderStudentTaskTable(studentTasks); }
 
-            function updateStudentTable() {
-                renderStudentTaskTable(studentTasks);
-            }
+            // ================== FILTERS ==================
+            const filterSelect = document.getElementById('taskTypeFilter');
+            const statusFilter = document.getElementById('statusFilter');
+            const searchInput = document.getElementById('searchInput');
+            const searchButton = document.getElementById('searchButton');
+            const suggestionsBox = document.getElementById('suggestions');
+            const searchMessage = document.getElementById('searchMessage');
 
             function initFilters() {
-                statusFilter.addEventListener('change', () => {
-                    selectedStatus = statusFilter.value;
-                    updateStudentTable();
-                });
+                if (statusFilter) {
+                    statusFilter.addEventListener('change', () => {
+                        selectedStatus = statusFilter.value;
+                        updateStudentTable();
+                    });
+                }
 
-                filterSelect.addEventListener('change', () => {
-                    const groupLabel = filterSelect.selectedOptions[0]?.parentNode?.label?.toLowerCase() || 'all';
-                    const labelMap = {
-                        quizzes: 'quiz',
-                        activities: 'activity',
-                        assignments: 'assignment'
-                    };
-
-                    if (filterSelect.value === 'all') {
-                        selectedType = 'all';
-                        selectedTitle = 'all';
-                    } else {
-                        const parsed = JSON.parse(filterSelect.value);
-                        selectedType = parsed.type;
-                        selectedTitle = parsed.title;
-                    }
-
-                    updateDonutChart(filterSelect.value);
-                    updateTabsOpenBarChart(filterSelect.value);
-                    updateScoreChart(filterSelect.value);
-                    updateStudentTable();
-                });
-
-                searchButton.addEventListener('click', () => {
-                    const name = searchInput.value.trim();
-                    searchQuery = name;
-                    if (name === '') {
-                        searchMessage.innerText = 'Please enter a student name.';
-                    } else {
-                        const hasResults = studentTasks.some(task => 
-                            task.studentName.toLowerCase().includes(name.toLowerCase())
-                        );
-
-                        if (!hasResults) {
-                            searchMessage.innerText = `No student found with name "${name}".`;
+                if (filterSelect) {
+                    filterSelect.addEventListener('change', () => {
+                        if (filterSelect.value === 'all') {
+                            selectedType = 'all';
+                            selectedTitle = 'all';
                         } else {
-                            searchMessage.innerText = '';
+                            const parsed = JSON.parse(filterSelect.value);
+                            selectedType = parsed.type;
+                            selectedTitle = parsed.title;
                         }
-                    }
-                    updateStudentTable();
-                    updateDonutChart(selectedType, searchQuery);
-                    updateTabsOpenBarChart(selectedType, searchQuery);
-                    updateScoreChart(selectedType, searchQuery);
-                });
+                        updateDonutChart(selectedType, searchQuery);
+                        updateTabsOpenBarChart(selectedType, searchQuery);
+                        updateScoreChart(selectedType, searchQuery);
+                        updateStudentTable();
+                    });
+                }
 
-                searchInput.addEventListener('input', () => {
-                    const query = searchInput.value.toLowerCase();
-                    suggestionsBox.innerHTML = '';
-                    if (query.length < 1) return;
-
-                    const uniqueNames = [...new Set(studentTasks.map(t => t.studentName))];
-                    const filteredNames = uniqueNames.filter(name => name.toLowerCase().includes(query));
-
-                    filteredNames.forEach(name => {
-                        const div = document.createElement('div');
-                        div.textContent = name;
-                        div.addEventListener('click', () => {
-                        searchInput.value = name;
-                        suggestionsBox.innerHTML = '';
-                        searchQuery = name;
+                if (searchButton && searchInput && searchMessage) {
+                    searchButton.addEventListener('click', () => {
+                        searchQuery = searchInput.value.trim();
+                        if (searchQuery === '') {
+                            searchMessage.innerText = 'Please enter a student name.';
+                        } else {
+                            const hasResults = studentTasks.some(t => t.studentName && t.studentName.toLowerCase().includes(searchQuery.toLowerCase()));
+                            searchMessage.innerText = hasResults ? '' : `No student found with name "${searchQuery}".`;
+                        }
                         updateStudentTable();
                         updateDonutChart(selectedType, searchQuery);
                         updateTabsOpenBarChart(selectedType, searchQuery);
                         updateScoreChart(selectedType, searchQuery);
+                        updateProgressCharts();
                     });
-                        suggestionsBox.appendChild(div);
+                }
+
+                if (searchInput) {
+                    searchInput.addEventListener('input', () => {
+                        const query = searchInput.value.toLowerCase();
+                        if (suggestionsBox) suggestionsBox.innerHTML = '';
+                        if (query.length < 1) {
+                            // reset
+                            searchQuery = '';
+                            if (searchMessage) searchMessage.innerText = '';
+                            if (suggestionsBox) suggestionsBox.innerHTML = '';
+                            updateStudentTable();
+                            updateDonutChart(selectedType, searchQuery);
+                            updateTabsOpenBarChart(selectedType, searchQuery);
+                            updateScoreChart(selectedType, searchQuery);
+                            updateProgressCharts();
+                            return;
+                        }
+
+                        const uniqueNames = [...new Set(studentTasks.map(t => t.studentName).filter(Boolean))];
+                        const filteredNames = uniqueNames.filter(name => name.toLowerCase().includes(query));
+
+                        filteredNames.forEach(name => {
+                            const div = document.createElement('div');
+                            div.textContent = name;
+                            div.addEventListener('click', () => {
+                                searchInput.value = name;
+                                if (suggestionsBox) suggestionsBox.innerHTML = '';
+                                searchQuery = name;
+                                updateStudentTable();
+                                updateDonutChart(selectedType, searchQuery);
+                                updateTabsOpenBarChart(selectedType, searchQuery);
+                                updateScoreChart(selectedType, searchQuery);
+                                updateProgressCharts();
+                            });
+                            if (suggestionsBox) suggestionsBox.appendChild(div);
+                        });
                     });
-                });
+                }
 
                 document.addEventListener('click', e => {
-                    if (!searchInput.contains(e.target) && !suggestionsBox.contains(e.target)) {
-                        suggestionsBox.innerHTML = '';
-                    }
-                });
-
-                searchInput.addEventListener('input', () => {
-                    if (searchInput.value.trim() === '') {
-                        searchQuery = '';
-                        searchMessage.innerText = '';
-                        suggestionsBox.innerHTML = '';
-                        updateStudentTable();
-                        updateDonutChart(selectedType, searchQuery);
-                        updateTabsOpenBarChart(selectedType, searchQuery);
-                        updateScoreChart(selectedType, searchQuery);
+                    if (searchInput && suggestionsBox) {
+                        if (!searchInput.contains(e.target) && !suggestionsBox.contains(e.target)) {
+                            suggestionsBox.innerHTML = '';
+                        }
                     }
                 });
             }
 
-            // Populate filter options and initialize charts
-            const defaultOption = document.createElement('option');
-            defaultOption.value = 'all';
-            defaultOption.textContent = 'All assessments';
-            filterSelect.appendChild(defaultOption);
+            // ================== INIT ==================
+            if (filterSelect) {
+                const defaultOption = document.createElement('option');
+                defaultOption.value = 'all';
+                defaultOption.textContent = 'All assessments';
+                filterSelect.appendChild(defaultOption);
+            }
 
             function addGroup(label, tasks, type) {
-                if (tasks.length === 0) return;
+                if (!filterSelect || !tasks || tasks.length === 0) return;
                 const group = document.createElement('optgroup');
                 group.label = label;
                 tasks.forEach(task => {
@@ -363,17 +422,17 @@ function initScoreBar() {
                 });
                 filterSelect.appendChild(group);
             }
+            addGroup('Quizzes', data.taskBreakdown.quiz || [], 'quiz');
+            addGroup('Activities', data.taskBreakdown.activity || [], 'activity');
+            addGroup('Assignments', data.taskBreakdown.assignment || [], 'assignment');
 
-            addGroup('Quizzes', data.taskBreakdown.quiz, 'quiz');
-            addGroup('Activities', data.taskBreakdown.activity, 'activity');
-            addGroup('Assignments', data.taskBreakdown.assignment, 'assignment');
-
+            // initial draws
+            updateScoreChart('all');
             updateDonutChart('all');
             updateTabsOpenBarChart('all');
             updateStudentTable();
             initFilters();
+            updateProgressCharts();
         })
-        .catch(err => {
-            console.error('Fetch error:', err);
-        });
+        .catch(err => console.error('Fetch error:', err));
 }
