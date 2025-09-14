@@ -42,21 +42,24 @@ while ($row = $result->fetch_assoc()) {
     if (empty($quizTitle)) {
         $quizTitle = $row['title'];
     }
+
     $qid = $row['questionID'];
     if (!isset($questions[$qid])) {
         $questions[$qid] = [
             'questionID' => $row['questionID'],
-            'question' => $row['question'],
-            'type' => $row['question_type'],
-            'correct' => $row['correct_answer'],
-            'choices' => []
+            // escape so HTML is displayed as text
+            'question'   => htmlspecialchars($row['question'], ENT_QUOTES, 'UTF-8'),
+            'type'       => $row['question_type'],
+            'correct'    => $row['correct_answer'],
+            'choices'    => []
         ];
     }
     if ($row['choiceID']) {
         $questions[$qid]['choices'][] = [
             'choiceID' => $row['choiceID'],
-            'label' => $row['option_label'],
-            'text' => $row['option_text']
+            'label'    => $row['option_label'],
+            // escape so HTML is displayed as text
+            'text'     => htmlspecialchars($row['option_text'], ENT_QUOTES, 'UTF-8')
         ];
     }
 }
@@ -73,6 +76,7 @@ if ($remaining <= 0) {
 }
 $duration = $remaining;
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -101,7 +105,6 @@ $duration = $remaining;
     </div>
 </div>
 
-<!-- Inject PHP data for JS -->
 <script>
     const quizID = <?= (int)$quizID ?>;
     const questions = <?= json_encode(array_values($questions)) ?>;
