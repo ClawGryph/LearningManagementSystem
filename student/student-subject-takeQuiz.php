@@ -90,7 +90,7 @@ $duration = $remaining;
 <div class="fullPageContainer">
     <div class="fullPageContent">
         <div class="fullPageHeader">
-            <div id="quizTitle"><?= htmlspecialchars($quizTitle) ?></div>
+            <div class="takeQuizTitle" id="takeQuizTitle"><?= htmlspecialchars($quizTitle) ?></div>
             <div id="timer"></div>
         </div>
         <form id="quizForm" class="takeQuizForm" action="../action/submitQuiz.php" method="POST">

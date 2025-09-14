@@ -12,7 +12,7 @@ document.addEventListener("DOMContentLoaded", () => {
     let timerInterval = null;
     let isSubmitting = false;
 
-    // 🔹 Tab Switch Counter
+    //Tab Switch Counter
     let tabSwitchCount = 0;
     let firstWarningShown = false;
 
@@ -28,7 +28,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     window.addEventListener("blur", handleBlur);
 
-    // 🔹 Centralized submission logic
+    //Centralized submission logic
     function submitForm(auto = false) {
         if (isSubmitting) return;
         isSubmitting = true;
@@ -36,15 +36,8 @@ document.addEventListener("DOMContentLoaded", () => {
         clearInterval(timerInterval);
         window.removeEventListener("blur", handleBlur);
 
-        // Ensure textarea value is synced
-        // document.querySelector("textarea[name='code_submission']").value = codeInput.value;
-
         const formData = new FormData(form);
         formData.append("tabSwitchCount", tabSwitchCount);
-
-        // Debug log
-        // console.log(auto ? "Auto-submitting due to timer expiry..." : "Manual submit");
-        // console.log("FormData dump:", [...formData.entries()]);
 
         fetch("../action/submitActivity.php", {
             method: "POST",
@@ -71,26 +64,6 @@ document.addEventListener("DOMContentLoaded", () => {
             timerInterval = setInterval(updateTimer, 1000);
             window.addEventListener("blur", handleBlur);
         });
-
-        // fetch("../action/submitActivity.php", {
-        //     method: "POST",
-        //     body: formData
-        // })
-        // .then(res => res.text()) // 👈 TEMP: get raw text
-        // .then(txt => {
-        //     console.log("Raw server response:", txt);
-        //     try {
-        //         const data = JSON.parse(txt);
-        //         console.log("Parsed JSON:", data);
-        //     } catch (e) {
-        //         console.error("JSON parse error:", e);
-        //         alert("Server did not return valid JSON. Check console.");
-        //     }
-        // })
-        // .catch(err => {
-        //     console.error("Fetch error:", err);
-        // });
-
     }
 
     // Timer countdown
@@ -105,7 +78,7 @@ document.addEventListener("DOMContentLoaded", () => {
             clearInterval(timerInterval);
             if (!isSubmitting) {
                 alert("⏰ Time is up! Submitting your code...");
-                submitForm(true); // ✅ Auto-submit directly
+                submitForm(true); // Auto-submit directly
             }
         }
     }

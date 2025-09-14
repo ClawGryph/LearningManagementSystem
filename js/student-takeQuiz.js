@@ -112,20 +112,28 @@ window.onpopstate = function () {
 };
 
 // ================== TAB SWITCH DETECTION ==================
-document.addEventListener("visibilitychange", () => {
+function handleTabOrBlur() {
     if (isSubmitting || submissionSent || isClosingOrUnloading) return;
 
-    if (document.visibilityState === "hidden") {
-        tabSwitchCount++;
-        localStorage.setItem(`quiz_${quizID}_tabSwitchCount`, tabSwitchCount);
+    tabSwitchCount++;
+    localStorage.setItem(`quiz_${quizID}_tabSwitchCount`, tabSwitchCount);
 
-        if (!warnedOnce) {
-            warnedOnce = true;
-            alert("⚠ Tab switching will be detected...");
-            localStorage.setItem(`quiz_${quizID}_warnedOnce`, "true");
-        }
+    if (!warnedOnce) {
+        warnedOnce = true;
+        alert("⚠ Tab switching or leaving the quiz window will be detected...");
+        localStorage.setItem(`quiz_${quizID}_warnedOnce`, "true");
+    }
+}
+
+// Detect when tab is hidden (switched)
+document.addEventListener("visibilitychange", () => {
+    if (document.visibilityState === "hidden") {
+        handleTabOrBlur();
     }
 });
+
+// Detect when window loses focus (blur = clicked outside / switched app / dual screen)
+window.addEventListener("blur", handleTabOrBlur);
 
 // Prevent false alerts when closing
 window.addEventListener("pagehide", () => {
