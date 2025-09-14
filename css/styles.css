@@ -1484,24 +1484,37 @@ form.signup-form{
     width: 100%;
     display: flex;
     gap: 10px;
+    flex-wrap: wrap;
 }
 .home-section .home-content .content-container .first-page .class-list-container .table-container{
-    width: 70%;
+    flex: 1 1 65%; 
+    min-width: 300px;
 }
 .home-section .home-content .content-container .first-page .class-list-container .home-contentBtn:last-child{
     margin-top: 5px;
-}
-.home-section .home-content .content-container .first-page .create-class-container{
-    width: 30%;
-}
-.home-section .home-content .content-container .first-page .create-activity-container{
-    width: 40%;
 }
 .home-section .home-content .content-container .first-page .create-class-container,
 .home-section .home-content .content-container .first-page .create-activity-container{
     position: sticky;
     top: 20px;
     align-self: flex-start;
+    flex: 1 1 30%;
+    min-width: 280px;
+}
+.home-section .home-content .content-container .first-page .create-activity-container {
+    flex: 1 1 40%;
+}
+@media (max-width: 1024px) {
+    .home-section .home-content .content-container .first-page .class-list-container {
+        flex-direction: row;
+    }
+
+    .home-section .home-content .content-container .first-page .create-class-container,
+    .home-section .home-content .content-container .first-page .create-activity-container {
+        width: 100%;
+        flex: 1 1 100%;
+        position: static;
+    }
 }
 
 /* QUIZ */
@@ -1994,6 +2007,7 @@ form.signup-form{
 /* STUDENT PROGRESS BAR */
 .home-section .home-content .content-container .first-page .progress-section{
     display: flex;
+    flex-wrap: nowrap;
     justify-content: center;
     gap: 40px;
     padding: 20px;
@@ -2005,6 +2019,7 @@ form.signup-form{
 .home-section .home-content .content-container .first-page .progress-section .donut-chart{
     text-align: center;
     width: 150px;
+    flex: 0 0 150px;
 }
 .home-section .home-content .content-container .first-page .progress-section .donut-chart p{
    margin-top: 10px;
@@ -2024,6 +2039,38 @@ form.signup-form{
 }
 .home-section .home-content .content-container .first-page .progress-section .donut-percentage.red{
     color: red;
+}
+@media (max-width: 900px) {
+    .home-section .home-content .content-container .first-page .progress-section{
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 20px;
+        padding: 16px;
+    }
+    .home-section .home-content .content-container .first-page .progress-section .donut-chart{
+        width: calc(50% - 20px);
+        flex: 0 0 calc(50% - 20px);
+        max-width: 260px;
+    }
+}
+@media (max-width: 480px) {
+    .home-section .home-content .content-container .first-page .progress-section{
+        flex-direction: row;
+        align-items: center;
+        gap: 12px;
+        padding: 12px;
+    }
+    .home-section .home-content .content-container .first-page .progress-section .donut-chart{
+        width: 100%;
+        flex: 0 0 100%;
+        max-width: 360px;
+    }
+    .home-section .home-content .content-container .first-page .progress-section .donut-chart p{
+        font-size: 14px;
+    }
+    .home-section .home-content .content-container .first-page .progress-section .donut-percentage{
+        font-size: 14px;
+    }
 }
 
 /* STUDENT TAKING QUIZ */
