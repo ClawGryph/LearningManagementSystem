@@ -1,5 +1,5 @@
 <?php
-    include './db.php';
+    include '../db.php';
 
     $query = $conn->prepare("SELECT saltValue FROM confidential");
     $query->execute();

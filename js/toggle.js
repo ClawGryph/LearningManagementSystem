@@ -170,7 +170,7 @@ const verifyBtn = document.querySelector(".progress3-btns .verify-btn");
         method: "POST",
         body: formData
     })
-    .then(res => res.json())
+    .then(res => res.text())
     .then(data => {
         if (data.status === "error") {
           loadingOverlay.style.display = "none";
@@ -217,8 +217,7 @@ const verifyBtn = document.querySelector(".progress3-btns .verify-btn");
                 clearError(progress3Inputs);
                 progress3.style.display = "none";
                 progress3Btn.style.display = "none";
-                alert(data.message); // success message
-                // optionally redirect to login page
+                alert(data.message);
                 window.location.href = "./index.php";
             }
         })
