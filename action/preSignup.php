@@ -10,6 +10,12 @@ require 'emailConfig.php';
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 
+$query = $conn->prepare("SELECT email, appPassword FROM confidential");
+$query->execute();
+$query->bind_result($supportEmail, $supportPassword);
+$query->fetch();
+$query->close();
+
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $email = strtolower(trim($_POST['email']));
@@ -51,8 +57,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $mail->isSMTP();
         $mail->Host       = 'smtp.gmail.com';
         $mail->SMTPAuth   = true;
-        $mail->Username   = 'rred87654321@gmail.com';
-        $mail->Password   = 'yjmatwbxxpahjwsw';
+        $mail->Username   = $supportEmail;
+        $mail->Password   = $supportPassword;
         $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
         $mail->Port       = 587;
 
@@ -65,7 +71,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         ];
 
         //Recipients
-        $mail->setFrom('rred87654321@gmail.com', 'LMS Support');
+        $mail->setFrom($supportEmail, 'LMS Support');
         $mail->addAddress($email);
 
         // Content

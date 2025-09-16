@@ -1,8 +1,15 @@
 <?php
+include './db.php';
 header("Content-Type: application/json");
 
+$query = $conn->prepare("SELECT keyPassword FROM confidential");
+$query->execute();
+$query->bind_result($APIKey);
+$query->fetch();
+$query->close();
+
 //API key
-$apiKey = "9c2e724a78mshdfce4f8721eb7f8p12c000jsn6fce8755d692";
+$apiKey = $APIKey;
 
 // Get POST data from frontend
 $input = json_decode(file_get_contents("php://input"), true);
