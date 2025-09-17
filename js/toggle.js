@@ -1,6 +1,17 @@
 document.addEventListener("DOMContentLoaded", function () {
   const toggleIcons = document.querySelectorAll(".toggle-password");
 
+   //Toggle show/hide password
+  toggleIcons.forEach(icon => {
+    icon.addEventListener("click", function () {
+      const targetInput = document.querySelector(this.dataset.toggle);
+      targetInput.type = targetInput.type === "password" ? "text" : "password";
+
+      this.classList.toggle("fa-eye");
+      this.classList.toggle("fa-eye-slash");
+    });
+  });
+
   // PROGRESS 1
   const progress1 = document.querySelector(".progress1");
   const progress1Inputs = progress1.querySelectorAll("input");
@@ -30,17 +41,6 @@ const verifyBtn = document.querySelector(".progress3-btns .verify-btn");
   const emailInput = document.getElementById("email");
   const passwordInput = document.getElementById("signup-password");
   const confirmPassInput = document.getElementById("confirmPass");
-
-  //Toggle show/hide password
-  toggleIcons.forEach(icon => {
-    icon.addEventListener("click", function () {
-      const targetInput = document.querySelector(this.getAttribute("toggle"));
-      targetInput.type = targetInput.type === "password" ? "text" : "password";
-
-      this.classList.toggle("fa-eye");
-      this.classList.toggle("fa-eye-slash");
-    });
-  });
 
   nextBtn.disabled = true; // default
   submitBtn.disabled = true; // default

@@ -38,7 +38,7 @@ unset($_SESSION['signin_error']);
                             <div class="input-field">
                                 <i class="fa-solid fa-lock"></i>
                                 <input type="password" id="password" name="password" placeholder="Password" required>
-                                <i class="fa-regular fa-eye-slash toggle-password" toggle="#password"></i>
+                                <i class="fa-regular fa-eye-slash toggle-password" data-toggle="#password"></i>
                             </div>
                             
                             <button type="submit" class="btn-drk-bg">Sign in</button>
@@ -81,12 +81,12 @@ unset($_SESSION['signin_error']);
                                         <div class="input-field">
                                             <i class="fa-solid fa-lock"></i>
                                             <input type="password" id="signup-password" name="signup-password" placeholder="Password" required>
-                                            <i class="fa-regular fa-eye-slash toggle-password" toggle="#signup-password"></i>
+                                            <i class="fa-regular fa-eye-slash toggle-password" data-toggle="#signup-password"></i>
                                         </div>
                                         <div class="input-field">
                                             <i class="fa-solid fa-lock"></i>
                                             <input type="password" id="confirmPass" name="confirmPass" placeholder="Re-enter Password" required>
-                                            <i class="fa-regular fa-eye-slash toggle-password" toggle="#confirmPass"></i>
+                                            <i class="fa-regular fa-eye-slash toggle-password" data-toggle="#confirmPass"></i>
                                         </div>
                                     </div>
                             </div>

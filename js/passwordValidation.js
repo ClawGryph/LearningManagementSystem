@@ -4,7 +4,7 @@ document.addEventListener("DOMContentLoaded", function () {
     //Toggle show/hide password
     toggleIcons.forEach(icon => {
         icon.addEventListener("click", function () {
-        const targetInput = document.querySelector(this.getAttribute("toggle"));
+        const targetInput = document.querySelector(this.dataset.toggle);
         targetInput.type = targetInput.type === "password" ? "text" : "password";
 
         this.classList.toggle("fa-eye");

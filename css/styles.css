@@ -1,4 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Epunda+Slab:ital,wght@0,300..900;1,300..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap');
 
 :root{
  --primary-color: #f8f9fa;
@@ -23,7 +24,8 @@ html{
     font-size: 62.5%;
 }
 body{
-    font-family: 'montserrat';
+    /* font-family: 'montserrat'; */
+    font-family: "Open Sans", sans-serif;
     font-size: 2rem;
     line-height: 1.5;
     color: var(--secondary-color);
@@ -1513,16 +1515,12 @@ form.signup-form{
 .home-section .home-content .content-container .first-page .class-list-container .home-contentBtn:last-child{
     margin-top: 5px;
 }
-.home-section .home-content .content-container .first-page .create-class-container,
-.home-section .home-content .content-container .first-page .create-activity-container{
+.home-section .home-content .content-container .first-page .create-class-container{
     position: sticky;
     top: 20px;
     align-self: flex-start;
     flex: 1 1 30%;
     min-width: 280px;
-}
-.home-section .home-content .content-container .first-page .create-activity-container {
-    flex: 1 1 40%;
 }
 @media (max-width: 1024px) {
     .home-section .home-content .content-container .first-page .class-list-container {

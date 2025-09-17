@@ -19,7 +19,6 @@ while($row = $query->fetch_assoc()){
                 <button type="submit" class="home-contentBtn btn-accent-bg" id="addActivityToClass"><i class="fa-solid fa-circle-plus"></i>Add activity to class</button>
             </div>
                 <div class="class-list-container">
-
                     <!-- ASSIGNMENT TABLE -->
                     <div class="table-container">
                         <table class="table-content" id="activityTable">
@@ -72,47 +71,47 @@ while($row = $query->fetch_assoc()){
                         </table>
                     </div>
 
-                <!-- CREATE ASSIGNMENT -->
-                <div class="create-activity-container">
-                    <form class="form-content" action="../action/addNewActivity.php" method="POST" enctype="multipart/form-data">
-                        <h2>Create Programming Activity</h2>
-                            <label for="">File</label>
-                       
-                        <label>Language</label>
-                        <select name="language" required>
-                            <option value="" disabled selected>-- SELECT LANGUAGE --</option>
-                            <option value="c">C</option>
-                        </select>
+                    <!-- CREATE ASSIGNMENT -->
+                    <div class="create-class-container">
+                        <form class="form-content" action="../action/addNewActivity.php" method="POST" enctype="multipart/form-data">
+                            <h2>Create Programming Activity</h2>
+                                <label for="">File</label>
+                        
+                            <label>Language</label>
+                            <select name="language" required>
+                                <option value="" disabled selected>-- SELECT LANGUAGE --</option>
+                                <option value="c">C</option>
+                            </select>
 
-                        <label>Title</label>
-                        <div>
-                            <input type="text" name="title" required>
-                        </div>
+                            <label>Title</label>
+                            <div>
+                                <input type="text" name="title" required>
+                            </div>
 
-                        <label>Instructions</label>
-                        <div>
-                            <textarea name="instructions" required></textarea>
-                        </div>
+                            <label>Instructions</label>
+                            <div>
+                                <textarea name="instructions" required></textarea>
+                            </div>
 
-                        <label>Expected Output</label>
-                        <div>
-                            <textarea name="expected_output" required></textarea>
-                        </div>
+                            <label>Expected Output</label>
+                            <div>
+                                <textarea name="expected_output" required></textarea>
+                            </div>
 
-                        <label>Overall Score</label>
-                        <div>
-                            <input type="number" name="max_score" required>
-                        </div>
+                            <label>Overall Score</label>
+                            <div>
+                                <input type="number" name="max_score" required>
+                            </div>
 
-                        <label>Deadline</label>
-                        <div>
-                            <input type="datetime-local" name="activityDeadline" required>
-                        </div>
-                       
-                        <button type="submit" class="home-contentBtn btn-accent-bg">Create</button>
-                    </form>
+                            <label>Deadline</label>
+                            <div>
+                                <input type="datetime-local" name="activityDeadline" required>
+                            </div>
+                        
+                            <button type="submit" class="home-contentBtn btn-accent-bg">Create</button>
+                        </form>
+                    </div>
                 </div>
-            </div>
         </div>
 
         <!-- SECOND PAGE -->
