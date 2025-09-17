@@ -25,14 +25,13 @@ const verifyBtn = document.querySelector(".progress3-btns .verify-btn");
   const headerProgress3 = document.querySelector(".form_3_progress");
 
   let selectedRole = null; // track role
-   const loadingOverlay = document.getElementById("loadingOverlay");
-   loadingOverlay.style.display = "none";
+  const loadingOverlay = document.getElementById("loadingOverlay");
 
   const emailInput = document.getElementById("email");
   const passwordInput = document.getElementById("signup-password");
   const confirmPassInput = document.getElementById("confirmPass");
 
-  // 👁 Toggle show/hide password
+  //Toggle show/hide password
   toggleIcons.forEach(icon => {
     icon.addEventListener("click", function () {
       const targetInput = document.querySelector(this.getAttribute("toggle"));
@@ -46,7 +45,7 @@ const verifyBtn = document.querySelector(".progress3-btns .verify-btn");
   nextBtn.disabled = true; // default
   submitBtn.disabled = true; // default
 
-  // ✅ Validators
+  // Validators
   const isValidEmail = email =>
     /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
 
@@ -56,7 +55,7 @@ const verifyBtn = document.querySelector(".progress3-btns .verify-btn");
   const doPasswordsMatch = () =>
     passwordInput.value === confirmPassInput.value && passwordInput.value.trim() !== "";
 
-  // ✅ Error handling
+  // Error handling
   function showError(input, message) {
     let errorEl = input.parentElement.querySelector(".error-message");
     let inputField = input.parentElement;
@@ -75,7 +74,7 @@ const verifyBtn = document.querySelector(".progress3-btns .verify-btn");
     if (errorEl) errorEl.textContent = "";
   }
 
-  // ✅ Validation logic for step 1
+  // Validation logic for step 1
   function validateFormStep1() {
     let allValid = true;
 
@@ -97,7 +96,7 @@ const verifyBtn = document.querySelector(".progress3-btns .verify-btn");
     return allValid;
   }
 
-  // ✅ Enable Next button only if all fields are filled
+  // Enable Next button only if all fields are filled
   function checkFilledFieldsStep1() {
     const allFilled = Array.from(progress1Inputs).every(input => input.value.trim() !== "");
     nextBtn.disabled = !allFilled;
@@ -107,7 +106,7 @@ const verifyBtn = document.querySelector(".progress3-btns .verify-btn");
     input.addEventListener("input", checkFilledFieldsStep1);
   });
 
-  // ✅ Step 2 check: role + inputs
+  // Step 2 check: role + inputs
   function checkStep2() {
     const allFilled = Array.from(progress2Inputs).every(input => input.value.trim() !== "");
     const privacyChecked = agreePrivacyCheckbox.checked;
@@ -142,7 +141,7 @@ const verifyBtn = document.querySelector(".progress3-btns .verify-btn");
 
  
 
-  // ✅ Only validate on Next button click
+  // Only validate on Next button click
   nextBtn.addEventListener("click", function (e) {
     e.preventDefault();
     if (validateFormStep1()) {
@@ -164,7 +163,7 @@ const verifyBtn = document.querySelector(".progress3-btns .verify-btn");
 
     const formData = new FormData(document.getElementById("signup"));
 
-    loadingOverlay.style.display = "flex";
+    loadingOverlay.classList.add('active');
 
     fetch("./action/preSignup.php", {
         method: "POST",
@@ -173,13 +172,13 @@ const verifyBtn = document.querySelector(".progress3-btns .verify-btn");
     .then(res => res.text())
     .then(data => {
         if (data.status === "error") {
-          loadingOverlay.style.display = "none";
+          loadingOverlay.classList.remove('active');
             alert(data.message);
         } else {
-          loadingOverlay.style.display = "flex";
+          loadingOverlay.classList.add('active');
 
             setTimeout(() => {
-                loadingOverlay.style.display = "none";
+                loadingOverlay.classList.remove('active');
 
                 progress2.style.display = "none";
                 progress2Btn.style.display = "none";
@@ -194,7 +193,7 @@ const verifyBtn = document.querySelector(".progress3-btns .verify-btn");
         }
     })
     .catch(err => {
-        loadingOverlay.style.display = "none";
+        loadingOverlay.classList.remove('active');
         console.error(err);
         alert("Something went wrong. Please try again.");
     });

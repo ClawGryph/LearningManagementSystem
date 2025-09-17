@@ -285,25 +285,30 @@ h4{
     width: 40%;
     min-width: 238px;
 }
-.form-body .signup-header{
+.form-body .signup-header,
+.forgot-password-form .signup-header{
     display: flex;
     justify-content: center;
 
 }
-.form-body .signup-header ul{
+.form-body .signup-header ul,
+.forgot-password-form .signup-header ul{
     list-style: none;
     padding: 0;
     margin: 0;
     display: flex;
 }
-.form-body .signup-header ul li{
+.form-body .signup-header ul li,
+.forgot-password-form .signup-header li{
     position: relative;
     margin: 0 20px;
 }
-.form-body .signup-header ul li:last-child{
+.form-body .signup-header ul li:last-child,
+.forgot-password-form .signup-header ul li:last-child{
     margin-right: 0;
 }
-.form-body .signup-header ul li::before{
+.form-body .signup-header ul li::before,
+.forgot-password-form .signup-header ul li::before{
     content: "";
     position: absolute;
     top: 50%;
@@ -313,14 +318,17 @@ h4{
     height: 2px;
     background: var(--border-color);
 }
-.form-body .signup-header ul li:last-child::before{
+.form-body .signup-header ul li:last-child::before,
+.forgot-password-form .signup-header ul li:last-child::before{
     display: none;
 }
-.form-body .signup-header ul li div{
+.form-body .signup-header ul li div,
+.forgot-password-form .signup-header ul li div{
     padding: 5px;
     border-radius: 50%;
 }
-.form-body .signup-header ul li p{
+.form-body .signup-header ul li p,
+.forgot-password-form .signup-header ul li p{
     width: 50px;
     height: 50px;
     background: var(--border-color);
@@ -330,39 +338,48 @@ h4{
     border-radius: 50%;
 }
 .form-body .signup-header ul li.active::before,
-.form-body .signup-header ul li.active p{
+.form-body .signup-header ul li.active p,
+.forgot-password-form .signup-header ul li.active::before,
+.forgot-password-form .signup-header ul li.active p{
     background: var(--accent2-color);
 }
-.form-body .progress-content{
+.form-body .progress-content,
+.forgot-password-form .progress-content{
     width: 350px;
     max-width: 100%;
     text-align: center;
 }
-.form-body .progress-content h2{
+.form-body .progress-content h2,
+.forgot-password-form .progress-content h2{
     font-size: 2.5rem;
     text-align: center;
     margin-bottom: 20px;
 }
-.form-body .progress-content .input-field{
+.form-body .progress-content .input-field,
+.forgot-password-form .progress-content .input-field{
     margin: 0 auto 20px;
 }
-.form-body .progress-btns{
+.form-body .progress-btns,
+.forgot-password-form .progress-btns{
     width: 350px;
     max-width: 100%;
     margin: 0 auto;
 }
-.form-body .progress-btns .common-btns{
+.form-body .progress-btns .common-btns,
+.forgot-password-form .progress-btns .common-btns{
     display: flex;
     justify-content: center;
     margin-top: 20px;
 }
-.form-body .progress-btns .common-btns button:disabled{
+.form-body .progress-btns .common-btns button:disabled,
+.forgot-password-form .progress-btns .common-btns button:disabled{
     cursor: not-allowed;
     opacity: 0.7;
 }
 .form-body .error-message,
 .form-body .signin-error-message,
-.forgot-password-form .error-message{
+.forgot-password-form .error-message,
+.forgot-password-form .signin-error-message{
     color: #f00000;
     font-size: 1.5rem;
     margin-bottom: 10px;
@@ -378,7 +395,8 @@ form.signup-form{
     transition: 0.5s ease-in-out;
     transition-delay: 0.5s;
 }
-.form-body .progress2-btns{
+.form-body .progress2-btns,
+.forgot-password-form .progress2-btns{
     margin: 0;
     padding-bottom: 45px;
 }
@@ -437,14 +455,16 @@ form.signup-form{
     align-items: center;
     border-radius: 14px 14px 0 0;
 }
-.form-body .input-field .error-message{
+.form-body .input-field .error-message,
+.forgot-password-form .input-field .error-message{
     position: absolute;
     bottom: -30px;
     left: 0;
     font-size: 1.2rem;
     color: #f00000;
 }
-.form-body .input-field.error{
+.form-body .input-field.error,
+.forgot-password-form .input-field.error{
     border-bottom: 2px solid #f00000;
 }
 .input-field .toggle-password {
