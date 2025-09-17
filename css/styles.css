@@ -1045,6 +1045,34 @@ form.signup-form{
     border-bottom: 1px solid var(--border-color);
     margin-bottom: 10px;
 }
+.home-section .home-content .first-page .page-header .clock{
+    width: 15%;
+    height: 100%;
+    align-self: center;
+    text-align: center;
+    border-radius: 10px;
+    color: var(--heading-color);
+}
+.home-section .home-content .first-page .page-header .clock span{
+    position: relative;
+    padding-bottom: 5px;
+}
+.home-section .home-content .first-page .page-header .clock span::after{
+    font-size: 10px;
+    position: absolute;
+    bottom: -5px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+#hr::after{
+    content: 'H';
+}
+#min::after{
+    content: 'MIN';
+}
+#sec::after{
+    content: 'SEC';
+}
 .home-section .home-content .first-page .page-header h2,
 .home-section .home-content .second-page .page-header h2{
     border: none;

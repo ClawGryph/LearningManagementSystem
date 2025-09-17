@@ -46,6 +46,9 @@ document.addEventListener("DOMContentLoaded", function() {
 
             // Initialize specific functions after loading the page
             // ADMIN PAGES
+            if(normalizedUrl === 'admin-notification.php' && typeof initClock === 'function'){
+                initClock();
+            }
             if(normalizedUrl === 'admin-create-class.php' && typeof initClass === 'function'){
                 initClass();
             }
