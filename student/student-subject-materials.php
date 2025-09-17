@@ -62,7 +62,7 @@ $result = $stmt->get_result();
                                     <?php endif; ?>
                                 </div>
 
-                                <small>📅 Uploaded: <?= htmlspecialchars($row['uploaded_at']) ?></small>
+                                <small>📅 Uploaded: <?= date("F j, Y g:i A", strtotime($row['uploaded_at'])) ?></small>
                             </div>
                         </div>
                     <?php endwhile; ?>

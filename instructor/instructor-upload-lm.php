@@ -44,7 +44,7 @@ session_start();
                                             echo "<tr data-lm-id='{$row['course_lmID']}'>
                                                     <td>{$row['name']}</td>
                                                     <td>{$row['description']}</td>
-                                                    <td>{$row['request_date']}</td>
+                                                    <td>" . date("F j, Y g:i A", strtotime($row['request_date'])) . "</td>
                                                     <td><div class='statusGroup {$row["status"]}'>{$row['status']}</div></td>
                                                     <td>{$row['section']}</td>
                                                     <td>

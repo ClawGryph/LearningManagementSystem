@@ -38,7 +38,7 @@ while ($row = $result->fetch_assoc()) {
                         <th>Description</th>
                         <th>Time Duration</th>
                         <th>Due Date</th>
-                        <th>Action</th>
+                        <th>Status</th>
                     </thead>
                     <tbody class="table-body">
                         <?php foreach ($quizzes as $q): ?>
@@ -46,12 +46,12 @@ while ($row = $result->fetch_assoc()) {
                                 <td><?= htmlspecialchars($q['title']) ?></td>
                                 <td><?= htmlspecialchars($q['description']) ?></td>
                                 <td><?= htmlspecialchars($q['assessment_time']) ?> mins</td>
-                                <td><?= htmlspecialchars($q['deadline']) ?></td>
+                                <td><?= date("F j, Y g:i A", strtotime($q['deadline'])) ?></td>
                                 <td>
                                     <?php if ($q['status'] === 'submitted' || $q['status'] === 'graded'): ?>
-                                        <span class="badge bg-success">Completed</span>
+                                        <span class="statusGroup <?= strtolower(str_replace(' ', '-', htmlspecialchars($q['status']))) ?>">Completed</span>
                                     <?php elseif ($q['status'] === 'late'): ?>
-                                        <span class="badge bg-danger">Late</span>
+                                        <span class="statusGroup <?= strtolower(str_replace(' ', '-', htmlspecialchars($q['status']))) ?>">Late</span>
                                     <?php else: ?>
                                         <a href="student-subject-takeQuiz.php?quizID=<?= $q['quizID'] ?>" class="btn btn-primary">Take Quiz</a>
                                     <?php endif; ?>

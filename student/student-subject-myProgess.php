@@ -15,7 +15,10 @@ $sql = "
             ELSE 'Unknown'
         END AS title,
         sa.status,
-        sa.score
+        sa.score,
+        q.max_score,
+        a.max_score,
+        pa.max_score
     FROM student_assessments sa
     INNER JOIN assessment_author aa ON sa.assessment_authorID = aa.assessment_authorID
     LEFT JOIN quizzes q ON aa.assessment_type = 'quiz' AND aa.assessment_refID = q.quizID
@@ -67,8 +70,8 @@ $result = $stmt->get_result();
                                 <tr>
                                     <td><?= htmlspecialchars($row['assessment_type']) ?></td>
                                     <td><?= htmlspecialchars($row['title']) ?></td>
-                                    <td><?= htmlspecialchars($row['status']) ?></td>
-                                    <td><?= $row['score'] !== null ? htmlspecialchars($row['score']) : '-' ?></td>
+                                    <td><span class="statusGroup <?= strtolower(str_replace(' ', '-', htmlspecialchars($row['status']))) ?>"><?= htmlspecialchars($row['status']) ?></span></td>
+                                    <td><?= (int)$row['score'] !== null ? (int)$row['score'] : '-' ?> / <?= $row['max_score'] !== null ? $row['max_score'] : '-'?></td>
                                 </tr>
                             <?php endwhile; ?>
                         <?php else: ?>

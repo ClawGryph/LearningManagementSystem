@@ -52,7 +52,7 @@ session_start();
                                             <td>{$row['title']}</td>
                                             <td><div class='assessment {$row['status']}'>{$row['status']}</div></td>
                                             <td>{$row['section']}</td>
-                                            <td>{$row['deadline']}</td>
+                                            <td> " . date("F j, Y g:i A", strtotime($row['deadline'])) . "</td>
                                             <td><a href='#' class='view-questions' data-id={$row['quizID']}>Questions</a></td>
                                             <td>
                                                 <button type='button' class='home-contentBtn editBtn btn-accent-bg'><i class='fa-solid fa-pen-to-square'></i></button>

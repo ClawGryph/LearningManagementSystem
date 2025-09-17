@@ -37,7 +37,7 @@ while ($row = $result->fetch_assoc()) {
                         <th>Title</th>
                         <th>Time Duration</th>
                         <th>Due Date</th>
-                        <th>Action</th>
+                        <th>Status</th>
                     </thead>
                     <tbody class="table-body">
                         <!-- Fetch Activities given by instructor -->
@@ -45,12 +45,12 @@ while ($row = $result->fetch_assoc()) {
                             <tr>
                                 <td><?= htmlspecialchars($a['title']) ?></td>
                                 <td><?= htmlspecialchars($a['assessment_time']) ?> mins</td>
-                                <td><?= htmlspecialchars($a['deadline']) ?></td>
+                                <td><?= date("F j, Y g:i A", strtotime($a['deadline'])) ?></td>
                                 <td>
                                     <?php if ($a['status'] === 'submitted' || $a['status'] === 'graded'): ?>
-                                        <span class="badge bg-success">Completed</span>
+                                        <span class="statusGroup <?= strtolower(str_replace(' ', '-', htmlspecialchars($a['status']))) ?>">Completed</span>
                                     <?php elseif ($a['status'] === 'late'): ?>
-                                        <span class="badge bg-danger">Late</span>
+                                        <span class="statusGroup <?= strtolower(str_replace(' ', '-', htmlspecialchars($a['status']))) ?>">Late</span>
                                     <?php else: ?>
                                         <a href="student-subject-takeActivity.php?activityID=<?= $a['activityID'] ?>" class="btn btn-primary">Take Activity</a>
                                     <?php endif; ?>

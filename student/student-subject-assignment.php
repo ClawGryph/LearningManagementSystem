@@ -57,7 +57,7 @@ while ($row = $result->fetch_assoc()) {
                                         <tr>
                                             <td><?= htmlspecialchars($ass['title']) ?></td>
                                             <td><?= htmlspecialchars($ass['description']) ?></td>
-                                            <td><?= htmlspecialchars($ass['deadline']) ?></td>
+                                            <td><?= date("F j, Y g:i A", strtotime($ass['deadline'])) ?></td>
                                             <td>
                                                 <a href="../uploads/assignments/<?= htmlspecialchars($ass['file_path']) ?>" download class="home-contentBtn btn-save btn-accent-bg" title="Save"><i class="fa-solid fa-download"></i></a>
                                             </td>
@@ -86,7 +86,7 @@ while ($row = $result->fetch_assoc()) {
                             <option value="" disabled selected>-- Choose an Assignment --</option>
                             <?php foreach ($assignments as $ass): ?>
                                 <option value="<?= htmlspecialchars($ass['assignmentID']) ?>">
-                                    <?= htmlspecialchars($ass['title']) ?> (Due: <?= htmlspecialchars($ass['deadline']) ?>)
+                                    <?= htmlspecialchars($ass['title']) ?> (Due: <?= date("F j, Y g:i A", strtotime($ass['deadline'])) ?>)
                                 </option>
                             <?php endforeach; ?>
                         </select>

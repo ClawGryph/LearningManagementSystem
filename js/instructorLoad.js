@@ -4,10 +4,10 @@ function initInstructorLoad(){
         btn.addEventListener('click', function handler() {
             var row = btn.closest('tr');
             var instructorCourseID = row.getAttribute('data-instructor_course-id');
-            var courseCodeCell = row.children[1];
-            var instructorNameCell = row.children[2];
-            var classCell = row.children[3];
-            var actionsCell = row.children[5];
+            var courseCodeCell = row.children[2];
+            var instructorNameCell = row.children[3];
+            var classCell = row.children[4];
+            var actionsCell = row.children[6];
 
             if (btn.classList.contains("editBtn")) {
                 // Remove the Delete button
