@@ -26,7 +26,16 @@ while($row = $classStmt->fetch_assoc()){
 <div class="home-content">
     <div class="content-container">
         <div class="first-page">
-            <h2>Instructor Subjects</h2>
+            <div class="page-header">
+                <h2>Instructor Subjects</h2>
+                <div class="clock">
+                    <span id="hr">00</span>
+                    <span>:</span>
+                    <span id="min">00</span>
+                    <span>:</span>
+                    <span id="sec">00</span>
+                </div>
+            </div>
             <div class="table-container">
                 <table class="table-content" id="instructor-load-table">
                     <thead>

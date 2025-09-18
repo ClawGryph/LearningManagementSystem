@@ -21,7 +21,16 @@ $class = $classStmt->get_result();
     <div class="content-container">
         <!-- FIRST PAGE -->
         <div class="first-page">
-            <h2>Add Instructor to the course</h2>
+            <div class="page-header">
+                <h2>Add Instructor to the course</h2>
+                <div class="clock">
+                    <span id="hr">00</span>
+                    <span>:</span>
+                    <span id="min">00</span>
+                    <span>:</span>
+                    <span id="sec">00</span>
+                </div>
+            </div>
             <form method="POST" class="form-content form-widthpercent60" action="../action/assignCourse.php">
                 <h3>Select Instructor</h3>
                 <!-- List of instructors will be populated here -->

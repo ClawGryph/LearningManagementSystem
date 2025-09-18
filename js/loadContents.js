@@ -51,15 +51,30 @@ document.addEventListener("DOMContentLoaded", function() {
             }
             if(normalizedUrl === 'admin-create-class.php' && typeof initClass === 'function'){
                 initClass();
+                setTimeout(() => {
+                    if (typeof initClock === 'function') initClock();
+                }, 0);
             }
             if(normalizedUrl === 'admin-create-courses.php' && typeof initCourse === 'function') {
                 initCourse();
+                setTimeout(() => {
+                    if (typeof initClock === 'function') initClock();
+                }, 0);
+            }
+            if(normalizedUrl === 'admin-instructor-courses.php' && typeof initClock === 'function'){
+                initClock();
             }
             if(normalizedUrl === 'admin-lm-lists.php' && typeof initLMLists === 'function') {
                 initLMLists();
+                setTimeout(() => {
+                    if (typeof initClock === 'function') initClock();
+                }, 0);
             }
             if(normalizedUrl === 'admin-instructor-load.php' && typeof initInstructorLoad === 'function') {
                 initInstructorLoad();
+                setTimeout(() => {
+                    if (typeof initClock === 'function') initClock();
+                }, 0);
             }
 
             // INSTRUCTOR PAGES
