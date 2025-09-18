@@ -61,7 +61,16 @@ $joinResult = $joinQuery->get_result();
     <div class="content-container">
         <!-- FIRST PAGE -->
         <div class="first-page">
-            <h2>Notification</h2>
+            <div class="page-header">
+                <h2>Notification</h2>
+                <div class="clock">
+                    <span id="hr">00</span>
+                    <span>:</span>
+                    <span id="min">00</span>
+                    <span>:</span>
+                    <span id="sec">00</span>
+                </div>
+            </div>
                 <form action="../action/markStudentNotificationsRead.php" method="POST">
                     <div class="notification-controls">
                         <button type="submit" class="home-contentBtn btn-drk-bg"><i class="fa-regular fa-circle-check"></i>Read</button>

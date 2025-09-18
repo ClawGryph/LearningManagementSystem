@@ -138,18 +138,35 @@ document.addEventListener("DOMContentLoaded", function() {
             if(normalizedUrl === 'student-notification.php' && typeof initCheckAll === 'function') {
                 setTimeout(() => {
                     initCheckAll();
+                    if (typeof initClock === 'function') initClock();
                 }, 0);
             }
             if(normalizedUrl === 'student-courses.php' && typeof initStudentCourses === 'function') {
                 setTimeout(() => {
                     initStudentCourses();
+                    if (typeof initClock === 'function') initClock();
                 }, 0);
             }
             if(normalizedUrl === 'student-subject-myProgess.php' && typeof initProgressBars === 'function') {
                 initProgressBars();
+                setTimeout(() => {
+                    if (typeof initClock === 'function') initClock();
+                }, 0);
+            }
+            if(normalizedUrl === 'student-subject-activity.php' && typeof initClock === 'function'){
+                initClock();
             }
             if(normalizedUrl === 'student-subject-assignment.php' && typeof initShowAssignmentFile === 'function') {
                 initShowAssignmentFile();
+                setTimeout(() => {
+                    if (typeof initClock === 'function') initClock();
+                }, 0);
+            }
+            if(normalizedUrl === 'student-subject-quiz.php' && typeof initClock === 'function'){
+                initClock();
+            }
+            if(normalizedUrl === 'student-subject-materials.php' && typeof initClock === 'function'){
+                initClock();
             }
         });
     }

@@ -29,7 +29,16 @@ $result = $stmt->get_result();
 <div class="home-content">
     <div class="content-container">
         <div class="first-page">
-            <h2>Learning Materials</h2>
+            <div class="page-header">
+                <h2>Learning Materials</h2>
+                <div class="clock">
+                    <span id="hr">00</span>
+                    <span>:</span>
+                    <span id="min">00</span>
+                    <span>:</span>
+                    <span id="sec">00</span>
+                </div>
+            </div>
             <div class="materials-list">
                 <?php if ($result->num_rows > 0): ?>
                     <?php while ($row = $result->fetch_assoc()): ?>
