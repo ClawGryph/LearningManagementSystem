@@ -42,7 +42,16 @@ if ($instructorID) {
     <div class="content-container">
         <!-- FIRST PAGE -->
         <div class="first-page">
-            <h2>Classes</h2>
+            <div class="page-header">
+                <h2>Classes</h2>
+                <div class="clock">
+                    <span id="hr">00</span>
+                    <span>:</span>
+                    <span id="min">00</span>
+                    <span>:</span>
+                    <span id="sec">00</span>
+                </div>
+            </div>
             <div class="course-card-container">
                 <?php foreach ($courses as $course): ?>
                         <form action="subject-landingpage.php" method="POST" class="course-card-form">

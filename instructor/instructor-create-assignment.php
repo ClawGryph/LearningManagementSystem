@@ -8,6 +8,13 @@ session_start();
         <div class="first-page">
             <div class="page-header">
                 <h2>Assignment</h2>
+                <div class="clock">
+                    <span id="hr">00</span>
+                    <span>:</span>
+                    <span id="min">00</span>
+                    <span>:</span>
+                    <span id="sec">00</span>
+                </div>
                 <button type="submit" class="home-contentBtn btn-accent-bg" id="addAssignmentToClass"><i class="fa-solid fa-circle-plus"></i>Add assignment to class</button>
             </div>
                 <div class="class-list-container">

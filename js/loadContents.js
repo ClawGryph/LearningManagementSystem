@@ -78,35 +78,60 @@ document.addEventListener("DOMContentLoaded", function() {
             }
 
             // INSTRUCTOR PAGES
+            if(normalizedUrl === 'instructor-notification.php' && typeof initClock === 'function'){
+                initClock();
+            }
+            if(normalizedUrl === 'instructor-classes.php' && typeof initClock === 'function'){
+                initClock();
+            }
             if(normalizedUrl === 'instructor-create-quiz.php' && typeof initQuiz === 'function'){
                 initQuiz();
                 setTimeout(() => {
                     if (typeof initQuestionToggle === 'function') initQuestionToggle();
+                    if (typeof initClock === 'function') initClock();
                 }, 0);
             }
             if(normalizedUrl === 'instructor-create-assignment.php' && typeof initAssignment === 'function'){
                 initAssignment();
                 setTimeout(() => {
                     if (typeof initShowAssignmentFile === 'function') initShowAssignmentFile();
+                    if (typeof initClock === 'function') initClock();
                 }, 0);
             }
             if(normalizedUrl === 'instructor-create-activity.php' && typeof initActivity === 'function') {
                 initActivity();
+                setTimeout(() => {
+                    if (typeof initClock === 'function') initClock();
+                }, 0);
             }
             if(normalizedUrl === 'instructor-upload-lm.php' && typeof initMaterials === 'function'){
                 initMaterials();
                 setTimeout(() => {
                     if (typeof initShowAssignmentFile === 'function') initShowAssignmentFile();
+                    if (typeof initClock === 'function') initClock();
                 }, 0);
             }
             if(normalizedUrl === 'subject-approval.php' && typeof initEnroleesQueue === 'function'){
                 initEnroleesQueue();
+                setTimeout(() => {
+                    if (typeof initClock === 'function') initClock();
+                }, 0);
             }
             if(normalizedUrl === 'subject-task-progress.php' && typeof initScoreBar === 'function'){
                 initScoreBar();
                 setTimeout(() => {
                     if(typeof initOpenModal === 'function') initOpenModal();
+                    if (typeof initClock === 'function') initClock();
                 }, 0);
+            }
+            if(normalizedUrl === 'subject-submitted-activity.php' && typeof initClock === 'function'){
+                initClock();
+            }
+            if(normalizedUrl === 'subject-submitted-assignment.php' && typeof initClock === 'function'){
+                initClock();
+            }
+            if(normalizedUrl === 'subject-submitted-quiz.php' && typeof initClock === 'function'){
+                initClock();
             }
 
             // STUDENT PAGES
