@@ -67,10 +67,18 @@ try {
         $count = (int)$row['count'];
         $status = $row['status'];
 
-        $progressBreakdown[$type]['total'] += $count;
-        if (in_array($status, ['submitted','graded'])) $progressBreakdown[$type]['completed'] += $count;
-        elseif (in_array($status, ['assigned','in_progress'])) $progressBreakdown[$type]['incomplete'] += $count;
-        elseif ($status === 'late') $progressBreakdown[$type]['overdue'] += $count;
+        if (in_array($status, ['submitted','graded'])) {
+            $progressBreakdown[$type]['completed'] += $count;
+        } elseif (in_array($status, ['assigned','in_progress'])) {
+            $progressBreakdown[$type]['incomplete'] += $count;
+        } elseif ($status === 'late') {
+            // ✅ Still a submission
+            $progressBreakdown[$type]['completed'] += $count;
+
+            // 🔖 Add a "late" flag for UI
+            $progressBreakdown[$type]['late'] = 
+                ($progressBreakdown[$type]['late'] ?? 0) + $count;
+        }
     }
 
     // Student scores
@@ -220,7 +228,7 @@ try {
     while ($row = $result->fetch_assoc()) {
         $studentTaskStatus[] = [
             'studentName' => $row['studentName'],
-            'profile_image' => $row['profileImage'],
+            'profileImage' => $row['profileImage'],
             'status' => $row['status'],
             'score' => is_null($row['score']) ? '-' : round($row['score'], 2),
             'max_score' => $row['max_score'],

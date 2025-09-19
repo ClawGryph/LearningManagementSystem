@@ -6,7 +6,7 @@ function initAssignment(){
         const secondPage = document.querySelector(".second-page");
 
         // Show add quiz to class modal, hide main table
-        document.getElementById("addAssignmentToClass").addEventListener("click", function () {
+        document.getElementById("addAssignment").addEventListener("click", function () {
             firstPage.classList.add("hidden");
             secondPage.classList.add("active");
         });

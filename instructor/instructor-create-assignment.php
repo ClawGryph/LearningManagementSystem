@@ -15,67 +15,67 @@ session_start();
                     <span>:</span>
                     <span id="sec">00</span>
                 </div>
-                <button type="submit" class="home-contentBtn btn-accent-bg" id="addAssignmentToClass"><i class="fa-solid fa-circle-plus"></i>Add assignment to class</button>
+                <button type="submit" class="home-contentBtn btn-accent-bg" id="addAssignment"><i class="fa-solid fa-circle-plus"></i>Add assignment to class</button>
             </div>
-                <div class="class-list-container">
-                    <!-- ASSIGNMENT TABLE -->
-                    <div class="table-container">
-                        <table class="table-content" id="assignmentTable">
-                            <thead>
-                                <th>Title</th>
-                                <th>Status</th>
-                                <th>Section</th>
-                                <th>Deadline</th>
-                                <th>Actions</th>
-                            </thead>
-                            <tbody class="table-body">
-                                <?php
-                                    include '../db.php';
+            <div class="class-list-container">
+                <!-- ASSIGNMENT TABLE -->
+                <div class="table-container">
+                    <table class="table-content" id="assignmentTable">
+                        <thead>
+                            <th>Title</th>
+                            <th>Status</th>
+                            <th>Section</th>
+                            <th>Deadline</th>
+                            <th>Actions</th>
+                        </thead>
+                        <tbody class="table-body">
+                            <?php
+                                include '../db.php';
 
-                                    $instructorID = $_SESSION['user_id'];
+                                $instructorID = $_SESSION['user_id'];
 
-                                    $stmt = $conn->prepare("
-                                                            SELECT a.assignmentID, a.title, a.deadline, c.section, 
-                                                                CASE WHEN aa.assessment_authorID IS NOT NULL 
-                                                                    AND aa.assessment_type = 'assignment' 
-                                                                    THEN 'assigned' ELSE 'not_assigned' 
-                                                                END AS status 
-                                                            FROM assignment a 
-                                                                LEFT JOIN assessment_author aa ON aa.assessment_refID = a.assignmentID 
-                                                                    AND aa.assessment_type = 'assignment' 
-                                                                LEFT JOIN instructor_courses ic ON ic.instructor_courseID = aa.instructor_courseID 
-                                                                LEFT JOIN class c ON c.classID = ic.classID;
-                                                            ");
-                                    $stmt->execute();
-                                    $result = $stmt->get_result();
+                                $stmt = $conn->prepare("
+                                    SELECT a.assignmentID, a.title, a.deadline, c.section, 
+                                    CASE WHEN aa.assessment_authorID IS NOT NULL 
+                                        AND aa.assessment_type = 'assignment' 
+                                            THEN 'assigned' ELSE 'not_assigned' 
+                                    END AS status 
+                                    FROM assignment a 
+                                    LEFT JOIN assessment_author aa ON aa.assessment_refID = a.assignmentID 
+                                        AND aa.assessment_type = 'assignment' 
+                                    LEFT JOIN instructor_courses ic ON ic.instructor_courseID = aa.instructor_courseID 
+                                    LEFT JOIN class c ON c.classID = ic.classID;
+                                ");
+                                $stmt->execute();
+                                $result = $stmt->get_result();
 
-                                    if ($result->num_rows > 0) {
-                                        while ($row = $result->fetch_assoc()) {
-                                            echo "<tr data-assignment-id='{$row['assignmentID']}'>
-                                                    <td>{$row['title']}</td>
-                                                    <td><div class='assessment {$row['status']}'>{$row['status']}</div></td>
-                                                    <td>{$row['section']}</td>
-                                                    <td>". date("F j, Y g:i A", strtotime($row['deadline'])) ."</td>
-                                                    <td>
-                                                        <button type='button' class='home-contentBtn editBtn btn-accent-bg'><i class='fa-solid fa-pen-to-square'></i></button>
-                                                        <button type='button' class='home-contentBtn deleteBtn btn-drk-bg'><i class='fa-solid fa-trash'></i></button>
-                                                    </td>
-                                                </tr>";
-                                        }
-                                    } else {
-                                        echo "<tr><td colspan='4'>No assignment file found.</td></tr>";
+                                if ($result->num_rows > 0) {
+                                    while ($row = $result->fetch_assoc()) {
+                                        echo "<tr data-assignment-id='{$row['assignmentID']}'>
+                                                <td>{$row['title']}</td>
+                                                <td><div class='assessment {$row['status']}'>{$row['status']}</div></td>
+                                                <td>{$row['section']}</td>
+                                                <td>". date("F j, Y g:i A", strtotime($row['deadline'])) ."</td>
+                                                <td>
+                                                    <button type='button' class='home-contentBtn editBtn btn-accent-bg'><i class='fa-solid fa-pen-to-square'></i></button>
+                                                    <button type='button' class='home-contentBtn deleteBtn btn-drk-bg'><i class='fa-solid fa-trash'></i></button>
+                                                </td>
+                                            </tr>";
                                     }
-                                ?>
+                                } else {
+                                    echo "<tr><td colspan='4'>No assignment file found.</td></tr>";
+                                }
+                            ?>
 
-                            </tbody>
-                        </table>
-                    </div>
+                        </tbody>
+                    </table>
+                </div>
 
                 <!-- CREATE ASSIGNMENT -->
                 <div class="create-class-container">
                     <form class="form-content" action="../action/addNewAssignment.php" method="POST" enctype="multipart/form-data">
                         <h2>Create Assignment</h2>
-                            <label for="">File</label>
+                            <span>File</span>
 
                         <div class="assignmentFile">
                             <!-- Display the selected file name -->
@@ -90,7 +90,7 @@ session_start();
                             </button>
                         </div>
                        
-                        <label for="">Assignment</label>
+                        <span>Assignment</span>
                         <div>
                             <input type="text" name="assignmentTitle" placeholder="Name" required>
                         </div>
@@ -107,16 +107,18 @@ session_start();
                         <button type="submit" class="home-contentBtn btn-accent-bg">Create</button>
                     </form>
                 </div>
+            </div>
         </div>
 
         <!-- SECOND PAGE -->
         <div class="second-page" id="assignmentModal">
             <a href="#" data-content="instructor-create-assignment.php"><i class="fa-solid fa-circle-arrow-left"></i></a>
+
             <form class="quizzes" action="../action/addAssignmentToClass.php" method="POST">
                 <div class="page-header">
                     <div class="inputNoToggle">
                         <!-- DROPDOWN LIST TO ALL QUIZZES THAT ARE NOT YET IN DEADLINE -->
-                        <label for="assignmentSelect">Select a assignment:</label>
+                        <label for="assignmentSelect">Select an assignment:</label>
                         <select name="assignmentID" id="assignmentSelect" required>
                             <option value="" disabled selected>-- Choose an assignment --</option>
                             <?php

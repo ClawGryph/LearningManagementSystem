@@ -94,8 +94,8 @@ document.addEventListener("DOMContentLoaded", function() {
             if(normalizedUrl === 'instructor-create-assignment.php' && typeof initAssignment === 'function'){
                 initAssignment();
                 setTimeout(() => {
-                    if (typeof initShowAssignmentFile === 'function') initShowAssignmentFile();
                     if (typeof initClock === 'function') initClock();
+                    if (typeof initShowAssignmentFile === 'function') initShowAssignmentFile();
                 }, 0);
             }
             if(normalizedUrl === 'instructor-create-activity.php' && typeof initActivity === 'function') {

@@ -98,7 +98,7 @@
                         <option value="all">All</option>
                         <option value="completed">Completed</option>
                         <option value="incomplete">Incomplete</option>
-                        <option value="overdue">Overdue</option>
+                        <option value="late">Overdue</option>
                     </select>
                 </div>
 
@@ -132,7 +132,7 @@
                         <ol class="enrolees-list">
                             <?php foreach ($enrolees as $en): ?>
                                 <li>
-                                        <?php if (!empty($submission['profileImage'])): ?>
+                                        <?php if (!empty($en['profileImage'])): ?>
                                             <img src="../uploads/<?php echo htmlspecialchars($en['profileImage']); ?>" 
                                                     alt="Profile" 
                                                     class="profile-img">

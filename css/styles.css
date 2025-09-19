@@ -986,14 +986,17 @@ form.signup-form{
 .home-section .home-content .first-page.hidden{
     display: none;
 }
-#addQuizModal.active,
+.home-section .home-content .second-page.active{
+    display: block;
+}
+
+/* #addQuizModal.active,
 #addQuizToClassModal.active,
 #questions.active,
-#assignmentModal.active,
 #activityModal.active,
 .home-section .home-content .hiddenPage.active{
     display: block;
-}
+} */
 .home-section .home-content .first-page h2,
 .home-section .home-content .second-page h2{
     font-size: 2.5rem;
@@ -1251,13 +1254,16 @@ form.signup-form{
 .home-section .home-content .first-page .table-container .table-content .table-body .view-questions:hover{
     text-decoration: underline;
 }
-.home-section .home-content .first-page .table-container .table-body tr{
+.home-section .home-content .first-page .table-container .table-body tr,
+.home-section .home-content .second-page .table-container .table-body tr{
     border-bottom: 1px solid var(--border-color);
 }
-.home-section .home-content .first-page .table-container .table-body tr:last-child{
+.home-section .home-content .first-page .table-container .table-body tr:last-child,
+.home-section .home-content .second-page .table-container .table-body tr:last-child{
     border-bottom: none;
 }
-.home-section .home-content .first-page .table-container .table-body tr:nth-child(even){
+.home-section .home-content .first-page .table-container .table-body tr:nth-child(even),
+.home-section .home-content .second-page .table-container .table-body tr:nth-child(even){
     background-color: rgba(76, 77, 82, 0.1);
 }
 
@@ -1795,16 +1801,19 @@ form.signup-form{
 }
 .home-section .home-content .content-container .first-page .table-container .table-content .statusGroup.pending,
 .home-section .home-content .content-container .first-page .table-container .table-content .statusGroup.assigned,
-.home-section .home-content .content-container .first-page .table-container .table-content .assessment.not_assigned{
+.home-section .home-content .content-container .first-page .table-container .table-content .assessment.not_assigned,
+.home-section .home-content .content-container .first-page .table-container .table-content .assessment.incomplete{
     background: #8e9aaf;
 }
 .home-section .home-content .content-container .first-page .table-container .table-content .statusGroup.approved,
 .home-section .home-content .content-container .first-page .table-container .table-content .statusGroup.submitted,
-.home-section .home-content .content-container .first-page .table-container .table-content .assessment.assigned{
+.home-section .home-content .content-container .first-page .table-container .table-content .assessment.assigned,
+.home-section .home-content .content-container .first-page .table-container .table-content .assessment.completed{
     background-color: #6a994e;
 }
 .home-section .home-content .content-container .first-page .table-container .table-content .statusGroup.rejected,
-.home-section .home-content .content-container .first-page .table-container .table-content .statusGroup.late{
+.home-section .home-content .content-container .first-page .table-container .table-content .statusGroup.late,
+.home-section .home-content .content-container .first-page .table-container .table-content .assessment.late{
     background-color: #ba181b;
 }
 .home-section .home-content .content-container .first-page .form-content .divider-label{

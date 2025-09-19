@@ -53,45 +53,10 @@ function initScoreBar() {
                     }
                 });
             }
+            console.log("PB data:", pb);
 
             // ================== PROGRESS DONUTS (with % + completed/total inside, colored) ==================
             const progressDonutCharts = {};
-
-            // Custom plugin for center text
-            const centerTextPlugin = {
-                id: 'centerText',
-                beforeDraw(chart) {
-                    const { width, height, ctx } = chart;
-                    ctx.save();
-
-                    const dataset = chart.data.datasets[0].data;
-                    const completed = dataset[0] || 0;
-                    const total = completed + (dataset[1] || 0);
-                    const percent = total > 0 ? Math.round((completed / total) * 100) : 0;
-
-                    // Decide color based on percentage
-                    let color = '#e53935'; // red <30%
-                    if (percent > 50) {
-                        color = '#4caf50'; // green
-                    } else if (percent >= 30) {
-                        color = '#ff9800'; // orange
-                    }
-
-                    // Main percentage text
-                    ctx.font = 'bold 18px Arial';
-                    ctx.fillStyle = color;
-                    ctx.textAlign = 'center';
-                    ctx.textBaseline = 'middle';
-                    ctx.fillText(percent + '%', width / 2, height / 2 - 8);
-
-                    // Completed / Total text (below %)
-                    ctx.font = '14px Arial';
-                    ctx.fillStyle = '#666';
-                    ctx.fillText(`${completed}/${total}`, width / 2, height / 2 + 12);
-
-                    ctx.restore();
-                }
-            };
 
             function createDonutChart(canvasId, completed = 0, total = 0) {
                 const canvas = document.getElementById(canvasId);
@@ -105,12 +70,35 @@ function initScoreBar() {
 
                 // compute percentage & arc color
                 const percent = total > 0 ? Math.round((completed / total) * 100) : 0;
-                let arcColor = '#e53935'; // red
+                let arcColor = '#e53935'; // red <30%
                 if (percent > 50) {
                     arcColor = '#4caf50'; // green
                 } else if (percent >= 30) {
                     arcColor = '#ff9800'; // orange
                 }
+
+                // Custom plugin for center text (uses same arcColor & percent)
+                const centerTextPlugin = {
+                    id: 'centerText',
+                    beforeDraw(chart) {
+                        const { width, height, ctx } = chart;
+                        ctx.save();
+
+                        // Main percentage text
+                        ctx.font = 'bold 18px Arial';
+                        ctx.fillStyle = arcColor; // ✅ use arcColor from above
+                        ctx.textAlign = 'center';
+                        ctx.textBaseline = 'middle';
+                        ctx.fillText(percent + '%', width / 2, height / 2 - 8);
+
+                        // Completed / Total text (below %)
+                        ctx.font = '14px Arial';
+                        ctx.fillStyle = '#666';
+                        ctx.fillText(`${completed}/${total}`, width / 2, height / 2 + 12);
+
+                        ctx.restore();
+                    }
+                };
 
                 progressDonutCharts[canvasId] = new Chart(ctx, {
                     type: 'doughnut',
@@ -118,7 +106,7 @@ function initScoreBar() {
                         labels: ['Completed', 'Remaining'],
                         datasets: [{
                             data: [completed, Math.max(0, total - completed)],
-                            backgroundColor: [arcColor, '#e0e0e0'], // ✅ dynamic color
+                            backgroundColor: [arcColor, '#e0e0e0'], // ✅ same arcColor here
                             borderWidth: 0
                         }]
                     },
@@ -130,14 +118,27 @@ function initScoreBar() {
                             tooltip: { enabled: false }
                         }
                     },
-                    plugins: [centerTextPlugin] // 👈 include plugin
+                    plugins: [centerTextPlugin] // 👈 plugin gets same arcColor
                 });
             }
 
             function updateProgressCharts() {
-                createDonutChart("quizChart", pb.quiz?.completed || 0, pb.quiz?.total || 0);
-                createDonutChart("assignmentChart", pb.assignment?.completed || 0, pb.assignment?.total || 0);
-                createDonutChart("activityChart", pb.activity?.completed || 0, pb.activity?.total || 0);
+                // QUIZ
+                const quizCompleted = (pb.quiz?.completed || 0);
+                const quizTotal = (pb.quiz?.completed || 0) + (pb.quiz?.incomplete || 0) + (pb.quiz?.overdue || 0);
+
+                // ASSIGNMENT
+                const assignmentCompleted = (pb.assignment?.completed || 0);
+                const assignmentTotal = (pb.assignment?.completed || 0) + (pb.assignment?.incomplete || 0) + (pb.assignment?.overdue || 0);
+
+                // ACTIVITY
+                const activityCompleted = (pb.activity?.completed || 0);
+                const activityTotal = (pb.activity?.completed || 0) + (pb.activity?.incomplete || 0) + (pb.activity?.overdue || 0);
+
+                // ✅ Create charts
+                createDonutChart("quizChart", quizCompleted, quizTotal);
+                createDonutChart("assignmentChart", assignmentCompleted, assignmentTotal);
+                createDonutChart("activityChart", activityCompleted, activityTotal);
             }
 
             // ================== TASK TYPE DONUT ==================
@@ -258,12 +259,13 @@ function initScoreBar() {
 
             // ================== TASK TABLE ==================
             const studentTasks = data.studentTaskStatus || [];
+
             const statusMap = {
                 submitted: 'completed',
                 graded: 'completed',
                 assigned: 'incomplete',
                 in_progress: 'incomplete',
-                late: 'overdue'
+                late: 'late'
             };
 
             let selectedType = 'all';
@@ -277,7 +279,12 @@ function initScoreBar() {
                 tbody.innerHTML = '';
 
                 const filtered = tasks.filter(task => {
-                    const taskStatus = statusMap[task.status] || 'incomplete';
+                    let taskStatus = statusMap[task.status] || 'incomplete';
+                    
+                    if (selectedStatus === 'completed' && taskStatus === 'late') {
+                        taskStatus = 'completed';
+                    }
+
                     const matchesStatus = selectedStatus === 'all' || taskStatus === selectedStatus;
                     const matchesType = selectedType === 'all' || task.type === selectedType;
                     const matchesTitle = selectedTitle === 'all' || task.title === selectedTitle;
@@ -292,14 +299,28 @@ function initScoreBar() {
 
                 filtered.forEach(task => {
                     const tr = document.createElement('tr');
+
+                    // special handling for late
+                    let displayStatus;
+                    if (task.status === 'late') {
+                        displayStatus = 'Late';
+                    } else if (task.status === 'submitted' || task.status === 'graded') {
+                        displayStatus = 'Completed';
+                    } else if (task.status === 'assigned' || task.status === 'in_progress') {
+                        displayStatus = 'Incomplete';
+                    } else {
+                        displayStatus = task.status;
+                    }
+
                     tr.innerHTML = `
                         <td><img src="../uploads/${task.profileImage || 'default.png'}" alt="Profile" class="profile-img"></td>
                         <td>${task.studentName}</td>
                         <td>${task.title}</td>
                         <td>${task.type}</td>
-                        <td>${statusMap[task.status]}</td>
+                        <td><div class="assessment ${displayStatus.toLowerCase()}">${displayStatus}</div></td>
                         <td>${task.score} / ${task.max_score ?? '-'}</td>
                     `;
+
                     tbody.appendChild(tr);
                 });
             }

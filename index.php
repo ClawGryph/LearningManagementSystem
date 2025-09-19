@@ -182,6 +182,5 @@ unset($_SESSION['signin_error']);
     </main>
     <script src="./js/flipPages.js"></script>
     <script src="./js/toggle.js"></script>
-    <script src="./js/passwordValidation.js"></script>
 </body>
 </html>
