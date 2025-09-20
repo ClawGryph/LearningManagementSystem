@@ -1,4 +1,7 @@
 function initScoreBar() {
+    let originalData = {};
+    let filteredData = {};
+    
     fetch('../action/get-task-statistics.php')
         .then(response => response.json())
         .then(data => {

@@ -36,11 +36,15 @@ session_start();
 
                                     $instructorID = $_SESSION['user_id'];
 
-                                    $stmt = $conn->prepare("SELECT lm.course_lmID, lm.name, lm.description, la.request_date, lm.status, cl.section
+                                    $stmt = $conn->prepare("SELECT lm.course_lmID, lm.name, lm.description, la.request_date, lm.status, cl.section,
+                                                            CASE 
+                                                                WHEN ic.classID IS NULL THEN 'not yet assigned'
+                                                                ELSE 'pending'
+                                                            END AS display_status
                                                             FROM course_learningmaterials lm
-                                                            JOIN learningmaterials_author la ON lm.course_lmID = la.course_lmID
-                                                            JOIN instructor_courses ic ON la.instructor_courseID = ic.instructor_courseID
-                                                            JOIN class cl ON ic.classID = cl.classID
+                                                            LEFT JOIN learningmaterials_author la ON lm.course_lmID = la.course_lmID
+                                                            LEFT JOIN instructor_courses ic ON la.instructor_courseID = ic.instructor_courseID
+                                                            LEFT JOIN class cl ON ic.classID = cl.classID
                                                             WHERE instructor_ID = ?;");
                                     $stmt->bind_param("i", $instructorID);
                                     $stmt->execute();
@@ -48,11 +52,16 @@ session_start();
 
                                     if ($result->num_rows > 0) {
                                         while ($row = $result->fetch_assoc()) {
+                                            $status = $row['status'];
+
+                                            if (empty($row['section'])) {
+                                                $status = "not yet assigned";
+                                            }
                                             echo "<tr data-lm-id='{$row['course_lmID']}'>
                                                     <td>{$row['name']}</td>
                                                     <td>{$row['description']}</td>
                                                     <td>" . date("F j, Y g:i A", strtotime($row['request_date'])) . "</td>
-                                                    <td><div class='statusGroup {$row["status"]}'>{$row['status']}</div></td>
+                                                    <td><div class='statusGroup {$status}'>{$status}</div></td>
                                                     <td>{$row['section']}</td>
                                                     <td>
                                                         <button type='button' class='home-contentBtn editBtn btn-accent-bg'><i class='fa-solid fa-pen-to-square'></i></button>
