@@ -17,7 +17,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $role = strtolower(trim($data['role']));
     $firstName = $data['firstname'];
     $lastName = $data['lastName'];
-    $hashedEmail = $data['email'];
+    $email = strtolower(trim($data['email']));
+    $hashedEmail = hashEmail($email);;
     $password = $data['password'];
 
     $hashedPassword = password_hash($password, PASSWORD_DEFAULT);

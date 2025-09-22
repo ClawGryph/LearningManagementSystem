@@ -1,15 +1,20 @@
 <?php
 session_start();
 include '../db.php';
+require 'emailConfig.php';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $email = strtolower(trim($_POST['eMail']));
+    $hashedEmail = hashEmail($email);
     $password = $_POST['password'];
+    echo "<script>console.log('Email entered: " . addslashes($email) . "');</script>";
+    echo "<script>console.log('Hashed email: " . addslashes($hashedEmail) . "');</script>";
 
     $stmt = $conn->prepare("SELECT * FROM users WHERE email = ?");
-    $stmt->bind_param("s", $email);
+    $stmt->bind_param("s", $hashedEmail);
     $stmt->execute();
     $result = $stmt->get_result();
+
 
     if ($user = $result->fetch_assoc()) {
         if (password_verify($password, $user['password'])) {

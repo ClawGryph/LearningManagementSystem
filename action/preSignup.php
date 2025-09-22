@@ -46,7 +46,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         'role' => $_POST['role'],
         'firstname' => $_POST['firstname'],
         'lastName' => $_POST['lastName'],
-        'email' => $hashedEmail,
+        'email' => strtolower(trim($_POST['email'])),
         'password' => $_POST['signup-password']
     ];
 
