@@ -215,7 +215,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 if (data.status === "success") {
                     alert("Password updated successfully! You can now log in.");
                     // Redirect
-                    window.location.href = "../index.php";
+                    window.location.href = "./index.php";
                 } else {
                     showError(passwordInput, data.message);
                 }

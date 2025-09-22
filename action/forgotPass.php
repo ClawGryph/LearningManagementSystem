@@ -1,6 +1,7 @@
 <?php
 include '../db.php';
 session_start();
+require 'emailConfig.php';
 header('Content-Type: application/json');
 
 // Ensure user is verified (e.g., via email session)
@@ -15,6 +16,7 @@ if (!isset($_POST['password'])) {
 }
 
 $email = $_SESSION['reset_email'];
+$hashedEmail = hashEmail($email);
 $newPassword = $_POST['password'];
 
 // Hash the password securely
@@ -22,7 +24,7 @@ $hashedPassword = password_hash($newPassword, PASSWORD_BCRYPT);
 
 // Update the database
 $stmt = $conn->prepare("UPDATE users SET password = ? WHERE email = ?");
-$stmt->bind_param("ss", $hashedPassword, $email);
+$stmt->bind_param("ss", $hashedPassword, $hashedEmail);
 
 if ($stmt->execute()) {
     echo json_encode(["status" => "success"]);

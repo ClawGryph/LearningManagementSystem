@@ -5,6 +5,7 @@ include '../db.php';
 require '../action/PHPMailer-master/src/PHPMailer.php';
 require '../action/PHPMailer-master/src/SMTP.php';
 require '../action/PHPMailer-master/src/Exception.php';
+require 'emailConfig.php';
 
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
@@ -17,10 +18,11 @@ if (!isset($_POST['email'])) {
 }
 
 $email = strtolower(trim($_POST['email']));
+$hashedEmail = hashEmail($email);
 
 // Check if email exists in database
 $stmt = $conn->prepare("SELECT userID FROM users WHERE email = ?");
-$stmt->bind_param("s", $email);
+$stmt->bind_param("s", $hashedEmail);
 $stmt->execute();
 $stmt->store_result();
 
