@@ -1385,6 +1385,12 @@ form.signup-form{
     font-size: 1.2rem;
     color: var(--secondary-color, #333);
 }
+/* RADIO BUTTON CLASS */
+.home-section .home-content .first-page .form-content .classSelection{
+    display: flex;
+    gap: 20px;
+    padding-left: 10px;
+}
 .home-section .home-content .second-page .form-content input[type="text"],
 .home-section .home-content .first-page .form-content input[type="text"],
 .home-section .home-content .first-page .form-content input[type="number"],

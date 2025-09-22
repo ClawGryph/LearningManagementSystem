@@ -54,7 +54,7 @@ $class = $classStmt->get_result();
                 <h3>Select Course</h3>
                 <!-- List of courses will be populated here -->
                 <?php while ($course = $courses->fetch_assoc()): ?>
-                    <div>
+                    <div class="classSelection">
                         <input type="radio" name="course_id" value="<?= htmlspecialchars($course['courseID']) ?>" id="course_<?= $course['courseID'] ?>" required>
                         <label for="course_<?= $course['courseID'] ?>">
                             <?= htmlspecialchars($course['courseCode']) ?> - <?= htmlspecialchars($course['courseName']) ?>
