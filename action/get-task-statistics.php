@@ -203,6 +203,7 @@ try {
             u.profileImage,
             sa.status,
             sa.score,
+            sa.tabs_open,
             aa.assessment_type,
             aa.assessment_refID,
             COALESCE(q.title, a.title, asg.title, 'Unknown') AS title,
@@ -233,7 +234,8 @@ try {
             'score' => is_null($row['score']) ? '-' : round($row['score'], 2),
             'max_score' => $row['max_score'],
             'type' => $row['assessment_type'],
-            'title' => $row['title']
+            'title' => $row['title'],
+            'tabs_open' => (int) $row['tabs_open'] 
         ];
     }
 
