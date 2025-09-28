@@ -179,7 +179,7 @@ document.addEventListener("DOMContentLoaded", function() {
     if (!isOnSubjectLandingPage && !isOnStudentSubjectLandingPage) {
         switch(currentUserRole) {
             case 'admin':
-                loadPage('admin-notification.php');
+                loadPage('admin-create-class.php');
                 break;
             case 'instructor':
                 loadPage('instructor-classes.php');

@@ -16,16 +16,7 @@ WHERE lma.is_read = 0 AND clm.status = 'pending';
     <div class="content-container">
         <!-- FIRST PAGE -->
         <div class="first-page">
-            <div class="page-header">
                 <h2>Welcome, Admin</h2>
-                <div class="clock">
-                    <span id="hr">00</span>
-                    <span>:</span>
-                    <span id="min">00</span>
-                    <span>:</span>
-                    <span id="sec">00</span>
-                </div>
-            </div>
                 <form action="../action/markNotificationsRead.php" method="POST">
                     <div class="notification-controls">
                         <button type="submit" class="home-contentBtn btn-drk-bg"><i class="fa-regular fa-circle-check"></i>Read</button>

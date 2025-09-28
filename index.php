@@ -21,11 +21,11 @@ unset($_SESSION['signin_error']);
                 <div class="signin-signup-body">
                     <div class="signin-body">
                         <div class="card-header">
+                            <img src="./images/CTU-logo.png" class="logo" alt="CTU Logo">
                             <div>
                                 <h2>Cebu Technological University</h2>
                                 <h3>Learning Management System</h3>
                             </div>
-                            <img src="./images/CTU-logo.png" class="logo" alt="CTU Logo">
                         </div>
                         <!-- SIGN IN !-->
                         <form action="./action/signin.php" method="POST" class="signin-form form-body">

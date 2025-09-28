@@ -39,7 +39,7 @@ $notifCount = $row['notif_count'];
     <link rel="stylesheet" href="../css/styles.css">
 </head>
 <body>
-    <nav class="sidebar">
+    <nav class="sidebar close">
         <div class="logo-details">
             <img src="../images/logo.png" alt="Open book logo" class="logo_img">
             <span class="logo_name">CogniCore</span>
@@ -82,23 +82,6 @@ $notifCount = $row['notif_count'];
                 </ul>
             </li>
             <li>
-                <a href="#" data-content="admin-notification.php" class="notif">
-                    <i class="fa-solid fa-bell"></i>
-
-                    <!-- Notification Badge -->
-                    <?php if ($notifCount > 0): ?>
-                        <span class="notif-badge"><?= $notifCount ?></span>
-                    <?php else: ?>
-                        <span class="notif-badge">0</span>
-                    <?php endif; ?>
-
-                    <span class="link_name">Notification</span>
-                </a>
-                <ul class="sub-menu blank">
-                    <li><a href="#" data-content="admin-notification.php" class="link_name">Notification</a></li> 
-                </ul>
-            </li>
-            <li>
                 <div class="profile-details">
                     <div class="profile-content">
 
@@ -121,6 +104,34 @@ $notifCount = $row['notif_count'];
                     </div>
                     <a href="../index.php"><i class="fa-solid fa-right-from-bracket logout"></i></a>
                 </div>
+            </li>
+        </ul>
+    </nav>
+    <nav class="navigation">
+        <ul class="navigation__links">
+            <li class="open_sidebar">
+                <span class="fa-bars material-symbols-outlined">
+                    left_panel_close
+                </span>
+            </li>
+            <li class="clock">
+                <span id="hr">00</span>
+                <span>:</span>
+                <span id="min">00</span>
+                <span>:</span>
+                <span id="sec">00</span>
+            </li>
+            <li class="navigation__notif">
+                <a href="#" data-content="admin-notification.php" class="notif">
+                    <i class="fa-solid fa-bell"></i>
+
+                    <!-- Notification Badge -->
+                    <?php if ($notifCount > 0): ?>
+                        <span class="notif-badge"><?= $notifCount ?></span>
+                    <?php else: ?>
+                        <span class="notif-badge">0</span>
+                    <?php endif; ?>
+                </a>
             </li>
         </ul>
     </nav>
