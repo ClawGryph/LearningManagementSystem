@@ -24,6 +24,16 @@ $notif = $conn->query("SELECT COUNT(*) AS notif_count FROM learningmaterials_aut
                         WHERE lma.is_read = 0 AND clm.status = 'pending'");
 $row = $notif->fetch_assoc();
 $notifCount = $row['notif_count'];
+
+// Fetch all pending learning materials
+$notifQuery = $conn->query("SELECT CONCAT(i.firstName, ' ', i.lastName) AS Instructor_Name, CONCAT(c.courseCode, ' - ', c.courseName) AS Course_Name, lma.lmID, lma.request_date 
+FROM learningmaterials_author lma 
+JOIN instructor_courses ic ON lma.instructor_courseID = ic.instructor_courseID 
+JOIN users i ON ic.instructorID = i.userID 
+JOIN courses c ON ic.courseID = c.courseID 
+JOIN course_learningmaterials clm ON lma.course_lmID = clm.course_lmID 
+WHERE lma.is_read = 0 AND clm.status = 'pending';
+");
 ?>
 
 <!DOCTYPE html>
@@ -39,11 +49,11 @@ $notifCount = $row['notif_count'];
     <link rel="stylesheet" href="../css/styles.css">
 </head>
 <body>
-    <nav class="sidebar close">
+    <nav class="sidebar hidden">
         <div class="logo-details">
             <img src="../images/logo.png" alt="Open book logo" class="logo_img">
             <span class="logo_name">CogniCore</span>
-            <span class="fa-bars material-symbols-outlined">
+            <span class="fa-bars material-symbols-outlined sidebar-panel">
                 left_panel_close
             </span>
         </div>
@@ -110,7 +120,7 @@ $notifCount = $row['notif_count'];
     <nav class="navigation">
         <ul class="navigation__links">
             <li class="open_sidebar">
-                <span class="fa-bars material-symbols-outlined">
+                <span class="fa-bars material-symbols-outlined navbar-panel">
                     left_panel_close
                 </span>
             </li>
@@ -121,9 +131,9 @@ $notifCount = $row['notif_count'];
                 <span>:</span>
                 <span id="sec">00</span>
             </li>
-            <li class="navigation__notif">
-                <a href="#" data-content="admin-notification.php" class="notif">
-                    <i class="fa-solid fa-bell"></i>
+            <li class="navigation__notif hidden">
+                <a href="#" class="notif">
+                    <i class="fa-solid fa-bell notif-bell"></i>
 
                     <!-- Notification Badge -->
                     <?php if ($notifCount > 0): ?>
@@ -132,6 +142,42 @@ $notifCount = $row['notif_count'];
                         <span class="notif-badge">0</span>
                     <?php endif; ?>
                 </a>
+
+
+                <!-- NOTIFICATION DETAILS -->
+                <div class="notif_details hidden">
+                    <div class="notif-header">
+                        <h4>Notifications</h4>
+                        <form action="../action/markNotificationsRead.php" method="POST" id="markReadForm">
+                            <button type="submit" class="mark-read-btn btn-drk-bg">
+                            <i class="fa-regular fa-circle-check"></i> Read
+                            </button>
+                        </form>
+                    </div>
+
+                    <div class="notif-list">
+                        <?php if ($notifQuery->num_rows > 0): ?>
+                            <?php while ($notif = $notifQuery->fetch_assoc()): ?>
+                            <div class="notif-item">
+                                <div class="notif-icon"><i class="fa-solid fa-book"></i></div>
+                                <div class="notif-content">
+                                    <p>
+                                        <strong><?= htmlspecialchars($notif['Instructor_Name']) ?></strong>
+                                        added a course material to
+                                        <strong><?= htmlspecialchars($notif['Course_Name']) ?></strong>
+                                    </p>
+                                    <span class="notif-date">
+                                        <i class="fa-solid fa-calendar-days"></i>
+                                        <?= date("F j, Y g:i A", strtotime($notif['request_date'])) ?>
+                                    </span>
+                                </div>
+                            </div>
+                            <?php endwhile; ?>
+                        <?php else: ?>
+                            <p class="no-notif">No new notifications.</p>
+                        <?php endif; ?>
+                    </div>
+                </div>
             </li>
         </ul>
     </nav>
@@ -145,7 +191,7 @@ $notifCount = $row['notif_count'];
     <script src="../js/clock.js"></script>
     <script src="../js/imageUpload.js"></script>
     <script src="../js/linkView.js"></script>
-    <script src="../js/hideSidebar.js"></script>
+    <script src="../js/notifToggle.js"></script>
     <script src="../js/checkAll.js"></script>
     <script src="../js/class.js"></script>
     <script src="../js/course.js"></script>

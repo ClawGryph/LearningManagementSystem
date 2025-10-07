@@ -25,6 +25,7 @@ WHERE lma.is_read = 0 AND clm.status = 'pending';
                             <label for="checkAll">Check All</label>
                         </div>
                     </div>
+                    
                     <?php if ($notifQuery->num_rows > 0): ?>
                     <?php while ($notif = $notifQuery->fetch_assoc()): ?>
                         <a href="#" data-content="admin-lm-lists.php" class="notification-link">

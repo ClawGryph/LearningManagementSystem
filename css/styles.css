@@ -681,18 +681,18 @@ form.signup-form{
 #sec::after{
     content: 'SEC';
 }
-.navigation .navigation__links li .notif{
+.navigation .navigation__links .navigation__notif .notif{
     position: relative;
     margin-right: 20px;
 }
-.navigation .navigation__links li .notif .fa-bell{
+.navigation .navigation__links .navigation__notif .notif .fa-bell{
     font-size: 2rem;
     color: var(--background-color);
 }
-.navigation .navigation__links li .notif .fa-bell:hover{
+.navigation .navigation__links .navigation__notif .notif .fa-bell:hover{
     color: var(--primary-color);
 }
-.navigation .navigation__links .notif .notif-badge {
+.navigation .navigation__links .navigation__notif .notif .notif-badge {
     position: absolute;
     top: -5px;
     left: -5px;
@@ -702,6 +702,84 @@ form.signup-form{
     padding: 0px 3px;
     border-radius: 50%;
     font-weight: bold;
+}
+.navigation .navigation__links .navigation__notif .notif_details{
+    position: absolute;
+    top: 50px;
+    right: 0;
+    width: 300px;
+    min-height: 400px;
+    background: var(--border-color);
+    box-shadow: var(--box-shadow);
+    border-radius: 8px;
+    overflow-y: auto;
+    z-index: 10;
+}
+.navigation .navigation__links .navigation__notif .notif_details.hidden{
+    display: none;
+}
+.navigation .navigation__links .navigation__notif::before{
+    content: "";
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    background: var(--border-color);
+    top: 40px;
+    right: 19px;
+    transform: rotate(45deg);
+    z-index: 11;
+}
+.navigation .navigation__links .navigation__notif.hidden::before{
+    display: none;
+}
+.navigation .navigation__links .navigation__notif .notif_details .notif-header{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 16px;
+    border-bottom: 1px solid #eee;
+}
+.navigation .navigation__links .navigation__notif .notif_details .notif-header h4{
+    font-size: 1.8rem;
+    margin: 0;
+    color: var(--background-color);
+}
+.navigation .navigation__links .navigation__notif .notif_details .notif-list{
+    padding: 10px 0;
+}
+.navigation .navigation__links .navigation__notif .notif_details .notif-list .notif-item{
+    display: flex;
+    align-items: flex-start;
+    padding: 10px 16px;
+    border-bottom: 1px solid #f2f2f2;
+    transition: background 0.2s ease;
+    cursor: pointer;
+}
+.navigation .navigation__links .navigation__notif .notif_details .notif-list .notif-item:hover{
+    background: #f8f9fa;
+}
+.navigation .navigation__links .navigation__notif .notif_details .notif-list .notif-icon{
+    margin-right: 10px;
+    color: #007bff;
+    font-size: 18px;
+}
+.navigation .navigation__links .navigation__notif .notif_details .notif-list .notif-content p{
+    flex: 1;
+    margin: 0;
+    font-size: 14px;
+    color: var(--background-color);
+}
+.navigation .navigation__links .navigation__notif .notif_details .notif-list .notif-content .notif-date{
+    display: block;
+    font-size: 12px;
+    color: #777;
+    margin-top: 3px;
+}
+.navigation .navigation__links .navigation__notif .notif_details .notif-list .no-notif{
+    text-align: center;
+    padding: 20px;
+    color: #E8E8E8;
+    font-size: 1.4rem;
 }
 
 /* SIDEBAR */
@@ -1041,11 +1119,11 @@ form.signup-form{
 }
 
 @media (max-width: 992px){
-    .sidebar{
+    .sidebar.hidden{
         display: none;
     }
-    .sidebar.close ~ .home-section,
-    .sidebar.close ~ .navigation{
+    .home-section,
+    .navigation{
         left: 0;
         width: 100%;
     }
@@ -1115,7 +1193,8 @@ form.signup-form{
     border-bottom: 1px solid var(--border-color);
 }
 .home-section .home-content .first-page .home-contentBtn,
-.home-section .home-content .second-page .home-contentBtn{
+.home-section .home-content .second-page .home-contentBtn,
+.navigation .navigation__links .navigation__notif .notif_details .notif-header .mark-read-btn{
     width: auto;
     height: 40px;
     text-decoration: none;
@@ -1133,6 +1212,11 @@ form.signup-form{
     outline: none;
     font-size: 12px;
     gap: 8px;
+}
+.navigation .navigation__links .navigation__notif .notif_details .notif-header .mark-read-btn{
+    font-size: 1rem;
+    padding: 2px 16px;
+    letter-spacing: 2px;
 }
 .home-section .home-content .first-page .home-contentBtn i,
 .home-section .home-content .second-page .home-contentBtn i{
