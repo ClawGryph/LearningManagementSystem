@@ -709,7 +709,7 @@ form.signup-form{
     right: 0;
     width: 300px;
     min-height: 400px;
-    background: var(--border-color);
+    background: var(--heading-color);
     box-shadow: var(--box-shadow);
     border-radius: 8px;
     overflow-y: auto;
@@ -723,7 +723,7 @@ form.signup-form{
     position: absolute;
     width: 20px;
     height: 20px;
-    background: var(--border-color);
+    background: var(--heading-color);
     top: 40px;
     right: 19px;
     transform: rotate(45deg);
@@ -1242,37 +1242,18 @@ form.signup-form{
     border-bottom: 1px solid var(--border-color);
     margin-bottom: 10px;
 }
-.home-section .home-content .first-page .page-header .clock{
-    width: 15%;
-    height: 100%;
-    align-self: center;
-    text-align: center;
-    border-radius: 10px;
-    color: var(--heading-color);
-    border: 1px solid var(--heading-color);
+@media (max-width: 480px){
+    .home-section .home-content .first-page .page-header{
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+    }
+    .home-section .home-content .first-page .page-header .button-group .home-contentBtn{
+        padding: 1rem;
+        font-size: 1rem;
+    }
 }
-.home-section .home-content .first-page .page-header .clock span{
-    position: relative;
-    padding-bottom: 5px;
-}
-.home-section .home-content .first-page .page-header .clock span::after{
-    font-size: 10px;
-    position: absolute;
-    bottom: -5px;
-    left: 50%;
-    transform: translateX(-50%);
-    background: var(--primary-color);
-    padding: 0 5px;
-}
-#hr::after{
-    content: 'H';
-}
-#min::after{
-    content: 'MIN';
-}
-#sec::after{
-    content: 'SEC';
-}
+
 .home-section .home-content .first-page .page-header h2,
 .home-section .home-content .second-page .page-header h2{
     border: none;
@@ -1795,7 +1776,6 @@ form.signup-form{
     flex-direction: column;
     align-items: flex-start;
     gap: 20px;
-    margin: 15px;
 }
 .home-section .home-content .content-container .second-page .quizzes .table-container .table-content th:first-child,
 .home-section .home-content .content-container .second-page .quizzes .table-container .table-content td:first-child{
@@ -1857,8 +1837,29 @@ form.signup-form{
     width: 100%;
 }
 .home-section .home-content .content-container .second-page .quizzes .home-contentBtn{
-    width: 20%;
+    width: 50%;
 }
+
+@media (max-width: 768px){
+    .home-section .home-content .content-container .second-page .quizzes{
+        width: 100%;
+    }
+    .home-section .home-content .content-container .second-page .quizzes .page-header{
+        width: 100%;
+    }
+    .home-section .home-content .content-container .second-page .quizzes .page-header .inputGroup,
+    .home-section .home-content .content-container .second-page .quizzes .page-header .inputNoToggle{
+        width: 70%;
+    }
+}
+@media (max-width: 530px){
+    .home-section .home-content .content-container .second-page .quizzes .page-header .inputGroup,
+    .home-section .home-content .content-container .second-page .quizzes .page-header .inputNoToggle{
+        width: 100%;
+    } 
+}
+
+
 .home-section .home-content .content-container .second-page .inputGroup,
 #loadingOverlay .inputGroup{
     width: 40%;
@@ -1942,6 +1943,12 @@ form.signup-form{
     border-radius: 16px;
     border-left: 7px solid var(--accent-color);
 }
+.home-section .home-content .content-container .second-page .questionContent .question-block .inputNoToggle{
+    width: 100%;;
+}
+.home-section .home-content .content-container .second-page .questionContent .question-block .inputNoToggle .quizTypeSelect{
+    width: 70%;
+}
 .home-section .home-content .content-container .second-page .questionContent .inputGroup{
     width: 100%;
 }
@@ -1964,6 +1971,15 @@ form.signup-form{
     font-size: 20px;
     font-weight: 600;
     color: var(--secondary-color);
+}
+@media (max-width: 530px){
+    .home-section .home-content .content-container .second-page .questionContent .question-block{
+        width: 100%;
+    }
+    .home-section .home-content .content-container .second-page .questionContent .question-block .inputNoToggle .quizTypeSelect{
+        width: 100%;
+    }
+    
 }
 
 /* ASSIGNMENT */
@@ -2470,6 +2486,16 @@ form.signup-form{
   height: 100%;
   background: linear-gradient(90deg, #3182ce, #63b3ed);
   transition: width 0.3s ease;
+}
+
+/* EDIT QUESTIONS BLOCK */
+#questionEditContainer .quizInputsContainer .inputGroup{
+    width: 80%;
+}
+@media (max-width: 650px) {
+    #questionEditContainer .quizInputsContainer .inputGroup{
+        width: 100%;
+    }
 }
 
 /* Buttons */

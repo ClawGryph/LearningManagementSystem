@@ -8,7 +8,7 @@ session_start();
         <div class="first-page">
             <div class="page-header">
                 <h2>Quizzes</h2>
-                <div>
+                <div class="button-group">
                     <button type="submit" id="addQuizPage" class="home-contentBtn btn-accent-bg"><i class="fa-solid fa-circle-plus"></i>Create Quiz</button>
                     <button type="submit" id="addQuizToClassPage" class="home-contentBtn btn-accent-bg"><i class="fa-solid fa-circle-plus"></i>Add quiz to class</button>
                 </div>
