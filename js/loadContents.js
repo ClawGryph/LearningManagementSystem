@@ -185,7 +185,7 @@ document.addEventListener("DOMContentLoaded", function() {
                 loadPage('instructor-classes.php');
                 break;
             case 'student':
-                loadPage('student-notification.php');
+                loadPage('student-courses.php');
                 break;
             default:
                 alert('Role not recognized or not set.');
