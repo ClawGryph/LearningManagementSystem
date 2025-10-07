@@ -29,13 +29,6 @@
         <div class="first-page">
             <div class="page-header">
                 <h2 id="courseTitle"></h2>
-                <div class="clock">
-                    <span id="hr">00</span>
-                    <span>:</span>
-                    <span id="min">00</span>
-                    <span>:</span>
-                    <span id="sec">00</span>
-                </div>
                 <button type="submit" class="home-contentBtn btn-accent-bg" id="showEnrolees"><i class="fa-solid fa-list-ol"></i>Students Enrolled</button>
             </div>
             <div>

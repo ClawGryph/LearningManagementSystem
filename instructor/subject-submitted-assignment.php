@@ -24,13 +24,6 @@ $stmt->close();
         <div class="first-page">
             <div class="page-header">
                 <h2><?php echo htmlspecialchars($courseName ?? 'Unknown Course'); ?></h2>
-                <div class="clock">
-                    <span id="hr">00</span>
-                    <span>:</span>
-                    <span id="min">00</span>
-                    <span>:</span>
-                    <span id="sec">00</span>
-                </div>
                 <h3>Submitted Assignment</h3>
             </div>
                 <form class="table-container" action="">

@@ -22,16 +22,8 @@
     <div class="content-container">
         <!-- FIRST PAGE -->
         <div class="first-page">
-            <div class="page-header">
-                <h2>Enrolees</h2>
-                <div class="clock">
-                    <span id="hr">00</span>
-                    <span>:</span>
-                    <span id="min">00</span>
-                    <span>:</span>
-                    <span id="sec">00</span>
-                </div>
-            </div>
+            <h2>Enrolees</h2>
+            
             <div class="table-container">
                 <?php if ($query->num_rows > 0): ?>
                 <table class="table-content">
