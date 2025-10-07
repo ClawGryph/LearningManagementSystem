@@ -758,6 +758,9 @@ form.signup-form{
 .navigation .navigation__links .navigation__notif .notif_details .notif-list .notif-item:hover{
     background: #f8f9fa;
 }
+.navigation .navigation__links .navigation__notif .notif_details .notif-list .notif-item:hover .notif-content p{
+    color: var(--heading-color);
+}
 .navigation .navigation__links .navigation__notif .notif_details .notif-list .notif-icon{
     margin-right: 10px;
     color: #007bff;
@@ -2171,7 +2174,11 @@ form.signup-form{
     padding: 0;
     margin: 0 5px 0 0;
 }
-
+@media (max-width: 445px){
+    #searchButton{
+        width: 50%;
+    }
+}
 
 /* TASK CARDS */
 /* .home-section .home-content .content-container .first-page .card-tasks{
@@ -2283,6 +2290,16 @@ form.signup-form{
     max-height: 200px;
 }
 
+@media (max-width: 584px) {
+    .home-section .home-content .content-container .first-page .charts-container {
+        grid-template-columns: 1fr; /* single column on small screens */
+        grid-template-areas: 
+            "score"
+            "task"
+            "tabs";
+    }
+}
+
 /* STUDENT TABLE */
 .home-section .home-content .content-container .first-page .task-status-filter{
     background: #fff;
@@ -2354,9 +2371,16 @@ form.signup-form{
         padding: 12px;
     }
     .home-section .home-content .content-container .first-page .progress-section .donut-chart{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
         width: 100%;
         flex: 0 0 100%;
         max-width: 360px;
+    }
+    .home-section .home-content .content-container .first-page .progress-section .donut-chart canvas{
+        max-width: 150px;
+        max-height: 150px;
     }
     .home-section .home-content .content-container .first-page .progress-section .donut-chart p{
         font-size: 14px;
