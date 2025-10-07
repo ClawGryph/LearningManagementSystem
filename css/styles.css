@@ -1380,6 +1380,7 @@ form.signup-form{
 /* TABLE */
 .home-section .home-content .first-page .table-container,
 .home-section .home-content .second-page .table-container{
+    width: 100%;
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     overflow-x: auto;
@@ -1388,8 +1389,8 @@ form.signup-form{
 .home-section .home-content .first-page .table-container .table-content,
 .home-section .home-content .second-page .table-container .table-content{
     width: 100%;
+    min-width: 600px;
     border-collapse: collapse;
-    table-layout: fixed;
 }
 .home-section .home-content .first-page .table-container .table-content th,
 .home-section .home-content .first-page .table-container .table-content td,
@@ -1397,9 +1398,10 @@ form.signup-form{
 .home-section .home-content .second-page .table-container .table-content td{
     padding: 1rem;
     text-align: center;
-    word-wrap: break-word;
+    /* word-wrap: break-word;
     word-break: break-word;
-    overflow-wrap: break-word;
+    overflow-wrap: break-word; */
+    white-space: nowrap;
 }
 .home-section .home-content .first-page .table-container .table-content .table-body tr td .profile-img,
 .home-section .home-content .first-page .popup-box .enrolees-list .profile-img{
@@ -1549,6 +1551,13 @@ form.signup-form{
 .form-widthpercent60{
     width: 60%;
 }
+
+@media (max-width: 575px){
+    .form-widthpercent60{
+        width: 100%;
+    }
+}
+
 .home-section .home-content .first-page .form-content,
 .home-section .home-content .second-page .form-content{
     margin: 0 auto;
