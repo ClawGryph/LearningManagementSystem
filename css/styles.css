@@ -1467,11 +1467,10 @@ form.signup-form{
     opacity: 1;
     transform: translateY(0);
 }
-#loadingOverlay.active .popup-box 
-.home-section .home-content .first-page .popup-box .page-header i{
+.home-section .home-content .first-page .popup-box .popup-box-content .page-header i{
     transition: transform 0.3s ease;
 }
-.home-section .home-content .first-page .popup-box .page-header i:hover{
+.home-section .home-content .first-page .popup-box .popup-box-content .page-header i:hover{
     cursor: pointer;
     transform: rotate(180deg);
 }
@@ -1480,6 +1479,12 @@ form.signup-form{
     counter-reset: enrolee-counter;
     margin: 0;
     padding: 0;
+}
+
+@media (max-width: 490px){
+    .home-section .home-content .first-page .popup-box .popup-box-content .page-header{
+        flex-direction: row;
+    }
 }
 
 /* POP-UP ENROLEE */

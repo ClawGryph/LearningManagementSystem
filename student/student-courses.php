@@ -33,16 +33,7 @@ if($studentID) {
 <div class="home-content">
     <div class="content-container">
         <div class="first-page">
-            <div class="page-header">
-                <h2>Subjects</h2>
-                <div class="clock">
-                    <span id="hr">00</span>
-                    <span>:</span>
-                    <span id="min">00</span>
-                    <span>:</span>
-                    <span id="sec">00</span>
-                </div>
-            </div>
+            <h2>Subjects</h2>
             <div class="course-card-container">
                 <div class="course-card-form">
                     <button class="course-card joinBtn" id="joinButton"><i class="fa-solid fa-plus"></i> Join class</button>
