@@ -38,16 +38,8 @@ $result = $stmt->get_result();
 <div class="home-content">
     <div class="content-container">
         <div class="first-page">
-            <div class="page-header">
-                <h2>Progress</h2>
-                <div class="clock">
-                    <span id="hr">00</span>
-                    <span>:</span>
-                    <span id="min">00</span>
-                    <span>:</span>
-                    <span id="sec">00</span>
-                </div>
-            </div>
+            <h2>Progress</h2>
+
             <div class="progress-section">
                 <div class="donut-chart">
                     <canvas id="quizChart"></canvas>
