@@ -2,7 +2,7 @@ document.addEventListener("DOMContentLoaded", function() {
     // Title for the page
     const titleMap = {
         //ADMIN PAGES
-        'admin-notification.php' : 'Admin | Notification',
+        'admin-dashboard.php' : 'Admin | Dashboard',
         'admin-create-class.php' : 'Admin | Class',
         'admin-create-courses.php' : 'Admin | Create Course',
         'admin-instructor-courses.php' : 'Admin | Add Instructor to Course',
@@ -46,127 +46,70 @@ document.addEventListener("DOMContentLoaded", function() {
 
             // Initialize specific functions after loading the page
             // ADMIN PAGES
-            if(normalizedUrl === 'admin-notification.php' && typeof initClock === 'function'){
-                initClock();
+            if(normalizedUrl === 'admin-dashboard.php' && typeof initEnrolledStudents === 'function'){
+                initEnrolledStudents();
             }
             if(normalizedUrl === 'admin-create-class.php' && typeof initClass === 'function'){
                 initClass();
-                setTimeout(() => {
-                    if (typeof initClock === 'function') initClock();
-                }, 0);
             }
             if(normalizedUrl === 'admin-create-courses.php' && typeof initCourse === 'function') {
                 initCourse();
-                setTimeout(() => {
-                    if (typeof initClock === 'function') initClock();
-                }, 0);
-            }
-            if(normalizedUrl === 'admin-instructor-courses.php' && typeof initClock === 'function'){
-                initClock();
             }
             if(normalizedUrl === 'admin-lm-lists.php' && typeof initLMLists === 'function') {
                 initLMLists();
-                setTimeout(() => {
-                    if (typeof initClock === 'function') initClock();
-                }, 0);
             }
             if(normalizedUrl === 'admin-instructor-load.php' && typeof initInstructorLoad === 'function') {
                 initInstructorLoad();
-                setTimeout(() => {
-                    if (typeof initClock === 'function') initClock();
-                }, 0);
             }
 
             // INSTRUCTOR PAGES
-            if(normalizedUrl === 'instructor-notification.php' && typeof initClock === 'function'){
-                initClock();
-            }
-            if(normalizedUrl === 'instructor-classes.php' && typeof initClock === 'function'){
-                initClock();
-            }
             if(normalizedUrl === 'instructor-create-quiz.php' && typeof initQuiz === 'function'){
                 initQuiz();
                 setTimeout(() => {
                     if (typeof initQuestionToggle === 'function') initQuestionToggle();
-                    if (typeof initClock === 'function') initClock();
                 }, 0);
             }
             if(normalizedUrl === 'instructor-create-assignment.php' && typeof initAssignment === 'function'){
                 initAssignment();
                 setTimeout(() => {
-                    if (typeof initClock === 'function') initClock();
                     if (typeof initShowAssignmentFile === 'function') initShowAssignmentFile();
                 }, 0);
             }
             if(normalizedUrl === 'instructor-create-activity.php' && typeof initActivity === 'function') {
                 initActivity();
-                setTimeout(() => {
-                    if (typeof initClock === 'function') initClock();
-                }, 0);
             }
             if(normalizedUrl === 'instructor-upload-lm.php' && typeof initMaterials === 'function'){
                 initMaterials();
                 setTimeout(() => {
                     if (typeof initShowAssignmentFile === 'function') initShowAssignmentFile();
-                    if (typeof initClock === 'function') initClock();
                 }, 0);
             }
             if(normalizedUrl === 'subject-approval.php' && typeof initEnroleesQueue === 'function'){
                 initEnroleesQueue();
-                setTimeout(() => {
-                    if (typeof initClock === 'function') initClock();
-                }, 0);
             }
             if(normalizedUrl === 'subject-task-progress.php' && typeof initScoreBar === 'function'){
                 initScoreBar();
                 setTimeout(() => {
                     if(typeof initOpenModal === 'function') initOpenModal();
-                    if (typeof initClock === 'function') initClock();
                 }, 0);
-            }
-            if(normalizedUrl === 'subject-submitted-activity.php' && typeof initClock === 'function'){
-                initClock();
-            }
-            if(normalizedUrl === 'subject-submitted-assignment.php' && typeof initClock === 'function'){
-                initClock();
-            }
-            if(normalizedUrl === 'subject-submitted-quiz.php' && typeof initClock === 'function'){
-                initClock();
             }
 
             // STUDENT PAGES
             if(normalizedUrl === 'student-notification.php' && typeof initCheckAll === 'function') {
                 setTimeout(() => {
                     initCheckAll();
-                    if (typeof initClock === 'function') initClock();
                 }, 0);
             }
             if(normalizedUrl === 'student-courses.php' && typeof initStudentCourses === 'function') {
                 setTimeout(() => {
                     initStudentCourses();
-                    if (typeof initClock === 'function') initClock();
                 }, 0);
             }
             if(normalizedUrl === 'student-subject-myProgess.php' && typeof initProgressBars === 'function') {
                 initProgressBars();
-                setTimeout(() => {
-                    if (typeof initClock === 'function') initClock();
-                }, 0);
-            }
-            if(normalizedUrl === 'student-subject-activity.php' && typeof initClock === 'function'){
-                initClock();
             }
             if(normalizedUrl === 'student-subject-assignment.php' && typeof initShowAssignmentFile === 'function') {
                 initShowAssignmentFile();
-                setTimeout(() => {
-                    if (typeof initClock === 'function') initClock();
-                }, 0);
-            }
-            if(normalizedUrl === 'student-subject-quiz.php' && typeof initClock === 'function'){
-                initClock();
-            }
-            if(normalizedUrl === 'student-subject-materials.php' && typeof initClock === 'function'){
-                initClock();
             }
         });
     }
@@ -179,7 +122,7 @@ document.addEventListener("DOMContentLoaded", function() {
     if (!isOnSubjectLandingPage && !isOnStudentSubjectLandingPage) {
         switch(currentUserRole) {
             case 'admin':
-                loadPage('admin-create-class.php');
+                loadPage('admin-dashboard.php');
                 break;
             case 'instructor':
                 loadPage('instructor-classes.php');

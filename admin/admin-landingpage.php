@@ -42,6 +42,7 @@ WHERE lma.is_read = 0 AND clm.status = 'pending';
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin | Dashboard</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/dist/tabler-icons.min.css" />
     <link href="https://fonts.googleapis.com/css2?family=Asimovian&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0&icon_names=left_panel_close" />
@@ -58,6 +59,15 @@ WHERE lma.is_read = 0 AND clm.status = 'pending';
             </span>
         </div>
         <ul class="nav-links">
+            <li>
+                <a href="#" data-content="admin-dashboard.php">
+                    <i class="fa-solid fa-table-cells-large"></i>
+                    <span class="link_name">Dashboard</span>
+                </a>
+                <ul class="sub-menu blank">
+                    <li><a href="#" data-content="admin-dashboard.php" class="link_name">Dashboard</a></li>
+                </ul>
+            </li>
             <li>
                 <a href="#" data-content="admin-create-class.php">
                     <i class="fa-solid fa-book-open"></i>
@@ -193,6 +203,8 @@ WHERE lma.is_read = 0 AND clm.status = 'pending';
     <script src="../js/linkView.js"></script>
     <script src="../js/notifToggle.js"></script>
     <script src="../js/checkAll.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="../js/enrolledStudents.js"></script>
     <script src="../js/class.js"></script>
     <script src="../js/course.js"></script>
     <script src="../js/instructorLoad.js"></script>
