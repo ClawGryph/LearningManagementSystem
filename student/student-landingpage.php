@@ -204,10 +204,10 @@ $joinResult = $joinQuery->get_result();
                     </div>
 
                     <div class="notif-list">
-                        <!-- 🧩 Assessment Notifications -->
+                        <!-- Assessment Notifications -->
                         <?php if ($result->num_rows > 0): ?>
                             <?php while ($notif = $result->fetch_assoc()): ?>
-                                <div class="notif-item">
+                                <div class="notif-item" data-notif-id="assessment:<?= $notif['record_id'] ?>">
                                     <div class="notif-icon"><i class="fa-solid fa-file-lines"></i></div>
                                     <div class="notif-content">
                                         <p>
@@ -224,10 +224,10 @@ $joinResult = $joinQuery->get_result();
                             <?php endwhile; ?>
                         <?php endif; ?>
 
-                        <!-- 📘 Learning Materials Notifications -->
+                        <!-- Learning Materials Notifications -->
                         <?php if ($materialsResult->num_rows > 0): ?>
                             <?php while ($materials = $materialsResult->fetch_assoc()): ?>
-                                <div class="notif-item">
+                                <div class="notif-item" data-notif-id="material:<?= $materials['lmID'] ?>">
                                     <div class="notif-icon"><i class="fa-solid fa-book"></i></div>
                                     <div class="notif-content">
                                         <p>
@@ -244,10 +244,10 @@ $joinResult = $joinQuery->get_result();
                             <?php endwhile; ?>
                         <?php endif; ?>
 
-                        <!-- 👨‍🏫 Join Class Notifications -->
+                        <!-- Join Class Notifications -->
                         <?php if ($joinResult->num_rows > 0): ?>
                             <?php while ($join = $joinResult->fetch_assoc()): ?>
-                                <div class="notif-item">
+                                <div class="notif-item" data-notif-id="join:<?= $join['instructor_student_loadID'] ?>">
                                     <div class="notif-icon">
                                         <?php if ($join['status'] === 'approved'): ?>
                                             <i class="fa-solid fa-check-circle"></i>
@@ -271,7 +271,7 @@ $joinResult = $joinQuery->get_result();
                             <?php endwhile; ?>
                         <?php endif; ?>
 
-                        <!-- ❗ No Notifications -->
+                        <!-- No Notifications -->
                         <?php if (
                             $result->num_rows === 0 &&
                             $materialsResult->num_rows === 0 &&
@@ -291,11 +291,13 @@ $joinResult = $joinQuery->get_result();
         const currentUserRole = "<?= $_SESSION['role'] ?? '' ?>";
     </script>
     <script src="../js/loadContents.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="../js/clock.js"></script>
     <script src="../js/imageUpload.js"></script>
     <script src="../js/linkView.js"></script>
     <script src="../js/notifToggle.js"></script>
     <script src="../js/checkAll.js"></script>
     <script src="../js/studentCourses.js"></script>
+    <script src="../js/studentNotif.js"></script>
 </body>
 </html>
