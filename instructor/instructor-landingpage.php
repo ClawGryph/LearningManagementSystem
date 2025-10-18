@@ -200,7 +200,7 @@ $joinQuery = $conn->query("
                     <div class="notif-list">
                         <?php if ($notifQuery->num_rows > 0): ?>
                             <?php while ($notif = $notifQuery->fetch_assoc()): ?>
-                                <div class="notif-item">
+                                <div class="notif-item" data-notif-id="lm_<?= $notif['lmID'] ?>">
                                     <div class="notif-icon"><i class="fa-solid fa-book"></i></div>
                                     <div class="notif-content">
                                         <p>
@@ -220,7 +220,7 @@ $joinQuery = $conn->query("
 
                         <?php if ($joinQuery->num_rows > 0): ?>
                             <?php while ($join = $joinQuery->fetch_assoc()): ?>
-                                <div class="notif-item">
+                                <div class="notif-item" data-notif-id="join_<?= $join['instructor_student_loadID'] ?>">
                                     <div class="notif-icon"><i class="fa-solid fa-user-plus"></i></div>
                                     <div class="notif-content">
                                         <p>
@@ -253,6 +253,7 @@ $joinQuery = $conn->query("
         const currentUserRole = "<?= $_SESSION['role'] ?? '' ?>";
     </script>
     <script src="../js/loadContents.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="../js/clock.js"></script>
     <script src="../js/imageUpload.js"></script>
     <script src="../js/linkView.js"></script>
@@ -263,5 +264,6 @@ $joinQuery = $conn->query("
     <script src="../js/showAssignmentFile.js"></script>
     <script src="../js/activity.js"></script>
     <script src="../js/materials.js"></script>
+    <script src="../js/instructorNotif.js"></script>
 </body>
 </html>

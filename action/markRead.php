@@ -1,5 +1,8 @@
 <?php
 include '../db.php';
+header('Content-Type: application/json');
+
+$response = ['success' => false];
 
 if (!empty($_POST['notifications'])) {
     foreach ($_POST['notifications'] as $notif) {
@@ -11,9 +14,10 @@ if (!empty($_POST['notifications'])) {
             $conn->query("UPDATE instructor_student_load SET is_read = 1 WHERE instructor_student_loadID = $requestID");
         }
     }
+
+    $response['success'] = true;
 }
 
-// After updating, redirect back to the notifications page
-header("Location: ../instructor/instructor-landingpage.php");
-exit;
+// Return JSON response (no redirect)
+echo json_encode($response);
 ?>
