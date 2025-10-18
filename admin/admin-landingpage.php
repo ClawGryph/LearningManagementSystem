@@ -209,5 +209,6 @@ WHERE lma.is_read = 0 AND clm.status = 'pending';
     <script src="../js/course.js"></script>
     <script src="../js/instructorLoad.js"></script>
     <script src="../js/lm-lists.js"></script>
+    <script src="../js/adminNotif.js"></script>
 </body>
 </html>
