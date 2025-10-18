@@ -25,6 +25,7 @@ if (isset($_POST['instructor_courseID'])) {
             echo "<h2>Enrolled Students:</h2>";
             echo "<i class='fa-solid fa-xmark' id='closeBtn'></i>";
         echo "</div>";
+        echo "<input type='hidden' name='instructor_courseID' value='{$courseId}'>";
         echo "<ol class='enrolees-list'>";
         while ($row = $result->fetch_assoc()) {
             echo "

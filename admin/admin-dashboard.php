@@ -83,7 +83,10 @@ $stmt = $conn->prepare("
                     </div>
                 </div>
 
-                <h3>Courses w/ List of students...</h3>
+                <div class="second_header">
+                    <h3>Courses w/ List of students...</h3>
+                    <div class="underline"></div>
+                </div>
                 <div class="course-card-container">
                     <?php foreach ($courses as $course): ?>
                         <div class="course-card-form">
